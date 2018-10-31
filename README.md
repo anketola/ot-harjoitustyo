@@ -7,7 +7,7 @@
 [komentorivi.txt](https://github.com/anketola/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
 
 
-Markdown harjoitteluja:
+**Markdown** harjoitteluja:
 
 Tässä on tavallista tekstiä.
 
