@@ -1,0 +1,114 @@
+commit 56d3458666744346e102fde9b770bff450ffe505
+Author: Antti Ketola <antti@anttiketola.com>
+Date:   Wed Oct 31 14:51:37 2018 +0200
+
+    tiedoston file1 poisto ja file2 uudelleennimeäminen
+
+ tiedostoja/file2             | 0
+ tiedostoja/{file1 => file22} | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 1070fb46173c97e9a0ff8e4f11a1d50166fc244a
+Author: Antti Ketola <antti@anttiketola.com>
+Date:   Wed Oct 31 14:46:39 2018 +0200
+
+    uusi hakemisto ja 3 tiedostoa
+
+ tiedostoja/file1 | 0
+ tiedostoja/file2 | 0
+ tiedostoja/file3 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit a94ce1f7023165ab313601aa28c1f0c493ae2bba
+Author: Antti Ketola <antti@anttiketola.com>
+Date:   Wed Oct 31 14:42:25 2018 +0200
+
+    muutettu eka.txt ja kolmas.txt
+
+ eka.txt    | 3 ++-
+ kolmas.txt | 3 ++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
+
+commit 6dfc957dd479c56e950b31aaac800b9c88aee424
+Author: Antti Ketola <antti@anttiketola.com>
+Date:   Wed Oct 31 14:40:43 2018 +0200
+
+    uudelleennimeäminen
+
+ tiedosto.txt => eka.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 02d4d956e991a8e2b63f5ed5ced1cacb6b61d8cf
+Author: Antti Ketola <antti@anttiketola.com>
+Date:   Wed Oct 31 14:38:49 2018 +0200
+
+    poisto
+
+ toinen.txt | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit b64c0af7c9189518ae155a3fda9c9d7bde1950af
+Author: Antti Ketola <antti@anttiketola.com>
+Date:   Wed Oct 31 14:37:07 2018 +0200
+
+    lisää muutoksia..
+
+ tiedosto.txt | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+commit 2744cc99e5f413fca857b27f6d75838b04dcf417
+Author: Antti Ketola <antti@anttiketola.com>
+Date:   Wed Oct 31 14:36:09 2018 +0200
+
+    muutoksia
+
+ tiedosto.txt | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+commit 5a8e11f5cdabbc2e209607d9c9041dae13a8afa4
+Author: Antti Ketola <antti@anttiketola.com>
+Date:   Wed Oct 31 14:28:16 2018 +0200
+
+    uusi hakemisto ja tiedosto
+
+ stuff/uusitiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit b5e9f78551a5f398793904e7c3385098f8851bd8
+Author: Antti Ketola <antti@anttiketola.com>
+Date:   Wed Oct 31 14:27:14 2018 +0200
+
+    muokattu kahta tiedostoa
+
+ kolmas.txt | 1 +
+ toinen.txt | 1 +
+ 2 files changed, 2 insertions(+)
+
+commit 4cdd48797834fd80e44fa1a1c78c5450249d1dfa
+Author: Antti Ketola <antti@anttiketola.com>
+Date:   Wed Oct 31 14:26:28 2018 +0200
+
+    lisätty tiedosto kolmas.txt
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 879db09a870a239034f5dad2b25f27dd83ac99be
+Author: Antti Ketola <antti@anttiketola.com>
+Date:   Wed Oct 31 14:23:37 2018 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt | 1 +
+ toinen.txt   | 0
+ 2 files changed, 1 insertion(+)
+
+commit 702d4a818ea0e31404f40ed15a275a531892b2af
+Author: Antti Ketola <antti@anttiketola.com>
+Date:   Wed Oct 31 14:21:19 2018 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
