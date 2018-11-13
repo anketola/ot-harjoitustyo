@@ -78,7 +78,7 @@ public class MaksukorttiTest {
     @Test
     public void maukasLounasOstettavissaKunRiittavaMinimisaldo () {
         // huom - testi palauttaa virheen, tehtävänannon mukainen luokka
-        // edellyttää yli minimihintaa kortilla
+        // edellyttää yli minimihintaa kortilla, luokkaa ei pyydetty korjaamaan tehtävänannossa
         kortti.lataaRahaa(2);
         kortti.syoMaukkaasti();
         kortti.syoMaukkaasti();
