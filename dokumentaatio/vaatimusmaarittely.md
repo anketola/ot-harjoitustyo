@@ -56,7 +56,7 @@ Näitä toteutetaan siinä määrin kuin ylimääräistä aikaa jää.
 
 * Sovellus eriyttää erilaisia pelimoodeja, esimerkiksi
   * Tasomoodi, jossa taso 1, taso 2 jne.
-  * Acrade-moodi, jossa peli kiihtyy jatkuvasti
+  * Arcade-moodi, jossa peli kiihtyy jatkuvasti ja sisältää sattumanvaraisia tapahtumia
 
 * Sovelluslogiikan monimutkaistaminen
   * Erikoisneliöitä, esimerkiksi
