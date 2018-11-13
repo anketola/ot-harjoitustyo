@@ -24,7 +24,7 @@ Sovelluksessa on vain yksi käyttäjätyyppi - normaali pelaaja. Muunlaisille k�
 
 ## Perusversion toiminnallisuudet
 
-* Käyttöjä voi käynnistää ja pelata peliä
+* Käyttäjä voi käynnistää ja pelata peliä
   * Sovellus lukee käyttäjän syötettä näppäimistöltä
   * Käyttäjä voi liikuttaa tippuvaa palikkaa sivusuunnassa
   * Käyttäjä voi "selata" läpi tippuvan palikan neliöiden järjestystä
@@ -39,9 +39,9 @@ Sovelluksessa on vain yksi käyttäjätyyppi - normaali pelaaja. Muunlaisille k�
   * Ensimmäisessä vaiheessa vaikeustaso perustuu nopeuteen
   
 * Pisteiden seuranta
- * Käyttäjä voi lisätä omat ennätyspisteet, jos ne oikeuttavat listalle
- * Ennätyspisteet tallennetaan tiedostoon
- * Käyttäjä voi katsoa peliä koskevat ennätyspisteet
+  * Käyttäjä voi lisätä omat ennätyspisteet, jos ne oikeuttavat listalle
+  * Ennätyspisteet tallennetaan tiedostoon
+  * Käyttäjä voi katsoa peliä koskevat ennätyspisteet
 
 * Sovellus rakennetaan mahdollisimman avoimeksi jatkokehitystä varten
 
