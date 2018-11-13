@@ -45,6 +45,9 @@ Sovelluksessa on vain yksi käyttäjätyyppi - normaali pelaaja. Muunlaisille k�
 
 * Sovellus rakennetaan mahdollisimman avoimeksi jatkokehitystä varten
 
+* Toimintaympäristön rajoitteista
+  * Perusversiossa pisteiden tallentaminen tapahtuu tietokoneen paikalliseen tiedostoon
+
 ## Jatkokehitysideoita
 
 Näitä toteutetaan siinä määrin kuin ylimääräistä aikaa jää.
@@ -76,6 +79,6 @@ Näitä toteutetaan siinä määrin kuin ylimääräistä aikaa jää.
 
 * Moninpeli (jää mitä varmemmin toteuttamatta)
 
-* Pisteiden tallentaminen verkkoon
+* Pisteiden mahdollinen tallentaminen verkkoon / verkossa sijaitseva erillinen high-score lista paikallisen pistelistan rinnalla
 
 
