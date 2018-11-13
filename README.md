@@ -14,6 +14,6 @@
 
 ### Dokumentaatio
 
-Alustava määrittelydokumentti
+[Alustava määrittelydokumentti](https://github.com/anketola/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
 
 [Työaikakirjanpito](https://github.com/anketola/ot-harjoitustyo/blob/master/dokumentaatio/tuntikirjanpito.md)
