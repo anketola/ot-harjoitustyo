@@ -6,13 +6,14 @@
 
 [komentorivi.txt](https://github.com/anketola/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
 
+### Viikko 2
 
-**Markdown** harjoitteluja:
+#### Laskarit
 
-Tässä on tavallista tekstiä.
+[Toisen viikon laskarikansio](https://github.com/anketola/ot-harjoitustyo/tree/master/laskarit/viikko2)
 
-*Tämä teksti on kursivoitu*
+#### Dokumentaatio
 
-**..ja tämä teksti lihavoitu**
+Alustava määrittelydokumentti
 
-Paikallinen muutos.
+[Työaikakirjanpito](https://github.com/anketola/ot-harjoitustyo/blob/master/dokumentaatio/tuntikirjanpito.md)
