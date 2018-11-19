@@ -1,5 +1,7 @@
 package columnspeli.domain;
 
+import columnspeli.ui.ColumnsUi;
+
 public class PlayerBlock {
     
     private int x;
@@ -28,6 +30,10 @@ public class PlayerBlock {
     }
     
     public void moveX(int changeX) {
+        if ((this.x + changeX) < 0 || ((this.x + changeX) >= ColumnsUi.GAME_FIELD_WIDTH)) {
+            return;
+        }
+        
         this.x = x + changeX;
     }
     
