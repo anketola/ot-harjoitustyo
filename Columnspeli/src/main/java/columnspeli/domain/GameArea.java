@@ -5,9 +5,9 @@ public class GameArea {
     private Block[][] areaBlocks;
     private PlayerBlock playerBlock;
     
-    public GameArea(int x, int y, PlayerBlock playerBlock) {
+    public GameArea(int x, int y) {
         this.areaBlocks = new Block[x][y];
-        this.playerBlock = playerBlock;
+        this.playerBlock = new PlayerBlock(60, 0, new Block("yellow"), new Block("red"), new Block("blue")); // temp
         int y2 = 0;
         while (y2 < areaBlocks.length) {
             int x2 = 0;

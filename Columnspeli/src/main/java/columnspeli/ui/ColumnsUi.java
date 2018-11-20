@@ -31,7 +31,7 @@ public class ColumnsUi extends Application {
         primaryStage.setResizable(false);
         PlayerBlock playerObject = new PlayerBlock(60, 0, new Block("yellow"), new Block("red"), new Block("blue"));
         
-        GameArea gameArea = new GameArea(15, 30, playerObject);
+        GameArea gameArea = new GameArea(15, 30);
         
         // Random blocks for testing purposes
         
@@ -166,7 +166,7 @@ public class ColumnsUi extends Application {
                     y++;
                 }
                 
-                playerObject.moveDown();
+                gameArea.getPlayerBlock().moveDown();
                 
             this.past = now;
             }
