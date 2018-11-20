@@ -1,19 +1,11 @@
-# Ohjelmistotekniikka, harjoitustyö
+# Columns-peli
 
-## Viikko 1
+Tämä sovellus on reaaliaikainen Columns-peli. Sovellus on Ohelmistotekniikan menetelmät -kurssin harjoitustyö. Kyseessä on variaatio Tetriksestä. Palikoiden pyörittämisen ja pelilaudan täyttämisen sijaan huomio on värien yhdistämiseesä. Tavoitteena on yhdistää vähintää kolme samanväristä neliötä. Yhdistäminen voi tapahtua horisontaalisesti, viistosti tai pystysuoraan. 
 
-[gitlog.txt](https://github.com/anketola/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
-
-[komentorivi.txt](https://github.com/anketola/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
-
-## Viikko 2
-
-### Laskarit
-
-[Toisen viikon laskarikansio](https://github.com/anketola/ot-harjoitustyo/tree/master/laskarit/viikko2)
+Sovelluksessa on toteutettu nyt alustava runko. Palikat tippuvat pelialueella. Pelaaja voi käyttää nuolinäppäimiä palikoiden ohjaamiseen. Neliöiden järjestystä vaihdetaan painamalla ylös-nappia. Putoamista voi nopeuttaa painamalla alas-nuolta. Kollisionhavaintaaa yms. ei ole vielä ehdityt toeuttaa.
 
 ### Dokumentaatio
 
-[Alustava määrittelydokumentti](https://github.com/anketola/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
+[Vaatimusmäärittely](https://github.com/anketola/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
 
 [Työaikakirjanpito](https://github.com/anketola/ot-harjoitustyo/blob/master/dokumentaatio/tuntikirjanpito.md)
