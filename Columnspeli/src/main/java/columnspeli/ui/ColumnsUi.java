@@ -14,6 +14,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.animation.AnimationTimer;
 import javafx.scene.input.KeyCode;
 
+// Note, work in progress
+// Controls: left, right, up and down arrows
+// No collision detection etc. yet
+
 public class ColumnsUi extends Application {
     
     public static int GAME_FIELD_WIDTH = 300;
@@ -28,6 +32,9 @@ public class ColumnsUi extends Application {
         PlayerBlock playerObject = new PlayerBlock(60, 0, new Block("yellow"), new Block("red"), new Block("blue"));
         
         GameArea gameArea = new GameArea(15, 30, playerObject);
+        
+        // Random blocks for testing purposes
+        
         gameArea.setBlock(0, 29, new Block("red"));
         gameArea.setBlock(0, 28, new Block("yellow"));
         gameArea.setBlock(5, 20, new Block("yellow"));
@@ -70,8 +77,8 @@ public class ColumnsUi extends Application {
                 if (now - past < 100000000) {
                     return;
                 }
-                int x = gameArea.getPlayerBlock().getX(); // for debugging
-                int y = gameArea.getPlayerBlock().getY(); // for debugging
+                int x = gameArea.getPlayerBlock().getX();
+                int y = gameArea.getPlayerBlock().getY();
                 
                 // Temporary: Scrolling the field
                 if (y > GAME_FIELD_HEIGHT) { 
