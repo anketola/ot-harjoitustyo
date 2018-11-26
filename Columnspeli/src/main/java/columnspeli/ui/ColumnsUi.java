@@ -86,17 +86,13 @@ public class ColumnsUi extends Application {
                 boolean cDown = gameArea.isCollisionDown();
                 
                 
-                // Temporary: Scrolling the field
-                if (y > GAME_FIELD_HEIGHT) { 
-                    gameArea.getPlayerBlock().setY(0);
-                    gameArea.getPlayerBlock().setGridY(0);
-                }
+                
                 System.out.println("GridX: " + xGrid + " GridY: " + yGrid); // for debugging
                 System.out.println("Collision left:" + cLeft);
                 System.out.println("Collision right:" + cRight);
                 System.out.println("Collision down:" + cDown);
-                
-                System.out.println(gameArea.getPlayerBlock().getBottomBlock().getColor());
+                System.out.println(gameArea.eglibleRespawn());
+                System.out.println("Game over: " + gameArea.gameOver());
                 
                 drawer.setFill(Color.BLACK);
                 drawer.fillRect(0, 0, GAME_FIELD_WIDTH, GAME_FIELD_HEIGHT);

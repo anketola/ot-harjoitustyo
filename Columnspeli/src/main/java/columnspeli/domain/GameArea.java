@@ -1,5 +1,7 @@
 package columnspeli.domain;
 
+import java.util.ArrayList;
+
 public class GameArea {
     
     private Block[][] areaBlocks;
@@ -78,9 +80,28 @@ public class GameArea {
         playerBlock.newBlocks();
         playerBlock.setY(0);
         playerBlock.setGridY(0);
-        
-        
+     }
+    
+    public boolean gameOver() {
+        ArrayList respawns = eglibleRespawn();
+        if (respawns.isEmpty()) {
+            return true;
+        }
+        return false;
     }
+    
+    public ArrayList<Integer> eglibleRespawn() {
+        ArrayList<Integer> possibleRespawnX = new ArrayList<>();
+        int i = 0;
+        while (i < getAreaEdgeX()) {
+            if (!hasBlock(i, 0) && !hasBlock(i, 1) && !hasBlock(i, 2)) {
+                possibleRespawnX.add(i);
+            }
+            i++;    
+        }
+        return possibleRespawnX;
+    }
+    
     
     public boolean hasBlock(int x, int y) {
         if (y < getAreaEdgeY()) {
