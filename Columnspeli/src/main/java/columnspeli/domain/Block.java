@@ -9,7 +9,7 @@ public class Block {
     }
             
     
-    public Block (String identity) {
+    public Block(String identity) {
         blockColor = identity;
     }
     

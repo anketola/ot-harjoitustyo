@@ -18,14 +18,14 @@ public class PlayerBlock {
         this.bottomBlock = bottomBlock;
     }
     
-    public void shuffleBlocks () {
+    public void shuffleBlocks() {
         Block shuffleHelper = topBlock;
         topBlock = middleBlock;
         middleBlock = bottomBlock;
         bottomBlock = shuffleHelper;
     }
     
-    public void moveDown () {
+    public void moveDown() {
         this.y = y + 1;
     }
     

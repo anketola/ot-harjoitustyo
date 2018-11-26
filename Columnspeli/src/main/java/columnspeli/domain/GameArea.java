@@ -15,7 +15,7 @@ public class GameArea {
                 areaBlocks[y2][x2] = new Block("empty");
                 x2++;
             }
-        y2++;    
+            y2++;    
         }
     }
     
@@ -27,7 +27,7 @@ public class GameArea {
         if (this.areaBlocks[x][y].getColor().equals("empty")) {
             return false;
         }
-    return true;        
+        return true;        
     }
     
     public Block getBlock(int x, int y) {
