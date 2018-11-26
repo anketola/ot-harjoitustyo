@@ -60,7 +60,7 @@ public class PlayerBlock {
         this.y = y;
     }
     
-    public void setX(int X) {
+    public void setX(int x) {
         this.x = x;
     }
     
@@ -101,12 +101,12 @@ public class PlayerBlock {
     }
     
     public void newBlocks() {
-       topBlock = new Block();
-       topBlock.randomizeBlock();
-       middleBlock = new Block();
-       middleBlock.randomizeBlock();
-       bottomBlock = new Block();
-       bottomBlock.randomizeBlock();
+        topBlock = new Block();
+        topBlock.randomizeBlock();
+        middleBlock = new Block();
+        middleBlock.randomizeBlock();
+        bottomBlock = new Block();
+        bottomBlock.randomizeBlock();
     }
     
 }

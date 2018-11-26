@@ -39,7 +39,7 @@ public class GameArea {
             int tempY = playerBlock.getGridY();
             
             releaseBlocks();
-            scanAndEraseBlocks(tempX, tempY);
+            scanAndErase(tempX, tempY);
         }
                 
     }
@@ -77,7 +77,7 @@ public class GameArea {
         return false;
     }
     
-    public void scanAndEraseBlocks(int releaseX, int releaseY) {
+    public void scanAndErase(int releaseX, int releaseY) {
         // TO DO later: scan for acceptable color streaks + erase them
         // now a temporary (and bad copy-paste) checker that checks only the nearby
         // blocks of the released blocks
@@ -86,47 +86,47 @@ public class GameArea {
         
         String scanColor;
         for (int i = 0; i < 2; i++) {
-        scanColor = getBlock(releaseX, releaseY + 2 - i).getColor();
-        if (getBlock(releaseX - 1, releaseY + 2  - i).getColor().equals(scanColor)) {
-            if (getBlock(releaseX - 2, releaseY + 2 - i).getColor().equals(scanColor)) {
+            scanColor = getBlock(releaseX, releaseY + 2 - i).getColor();
+            if (getBlock(releaseX - 1, releaseY + 2  - i).getColor().equals(scanColor)) {
+                if (getBlock(releaseX - 2, releaseY + 2 - i).getColor().equals(scanColor)) {
                 
-                getBlock(releaseX, releaseY + 2 - i).demolishBlock();
-                getBlock(releaseX - 1, releaseY + 2 - i).demolishBlock();
-                getBlock(releaseX - 2, releaseY + 2 - i).demolishBlock();
-                dropAbove(releaseX, releaseY + 2 - i);
-                dropAbove(releaseX - 1, releaseY + 2 - i);
-                dropAbove(releaseX - 2, releaseY + 2 - i);
+                    getBlock(releaseX, releaseY + 2 - i).demolishBlock();
+                    getBlock(releaseX - 1, releaseY + 2 - i).demolishBlock();
+                    getBlock(releaseX - 2, releaseY + 2 - i).demolishBlock();
+                    dropAbove(releaseX, releaseY + 2 - i);
+                    dropAbove(releaseX - 1, releaseY + 2 - i);
+                    dropAbove(releaseX - 2, releaseY + 2 - i);
                 
+                }
             }
-        }
         
-        scanColor = getBlock(releaseX, releaseY + 2 - i).getColor();
-        if (getBlock(releaseX - 1, releaseY + 2 - i).getColor().equals(scanColor)) {
+            scanColor = getBlock(releaseX, releaseY + 2 - i).getColor();
+            if (getBlock(releaseX - 1, releaseY + 2 - i).getColor().equals(scanColor)) {
+                if (getBlock(releaseX + 1, releaseY + 2 - i).getColor().equals(scanColor)) {
+                
+                    getBlock(releaseX, releaseY + 2 - i).demolishBlock();
+                    getBlock(releaseX - 1, releaseY + 2 - i).demolishBlock();
+                    getBlock(releaseX + 1, releaseY + 2 - i).demolishBlock();
+                    dropAbove(releaseX, releaseY + 2 - i);
+                    dropAbove(releaseX - 1, releaseY + 2 - i);
+                    dropAbove(releaseX + 1, releaseY + 2 - i);
+                
+                }
+            }
+        
+            scanColor = getBlock(releaseX, releaseY + 2 - i).getColor();
             if (getBlock(releaseX + 1, releaseY + 2 - i).getColor().equals(scanColor)) {
+                if (getBlock(releaseX + 2, releaseY + 2 - i).getColor().equals(scanColor)) {
                 
-                getBlock(releaseX, releaseY + 2 - i).demolishBlock();
-                getBlock(releaseX - 1, releaseY + 2 - i).demolishBlock();
-                getBlock(releaseX + 1, releaseY + 2 - i).demolishBlock();
-                dropAbove(releaseX, releaseY + 2 - i);
-                dropAbove(releaseX - 1, releaseY + 2 - i);
-                dropAbove(releaseX + 1, releaseY + 2 - i);
+                    getBlock(releaseX, releaseY + 2 - i).demolishBlock();
+                    getBlock(releaseX + 1, releaseY + 2 - i).demolishBlock();
+                    getBlock(releaseX + 2, releaseY + 2 - i).demolishBlock();
+                    dropAbove(releaseX, releaseY + 2 - i);
+                    dropAbove(releaseX + 1, releaseY + 2 - i);
+                    dropAbove(releaseX + 2, releaseY + 2 - i);
                 
+                }
             }
-        }
-        
-        scanColor = getBlock(releaseX, releaseY + 2 - i).getColor();
-        if (getBlock(releaseX + 1, releaseY + 2 - i).getColor().equals(scanColor)) {
-            if (getBlock(releaseX + 2, releaseY + 2 - i).getColor().equals(scanColor)) {
-                
-                getBlock(releaseX, releaseY + 2 - i).demolishBlock();
-                getBlock(releaseX + 1, releaseY + 2 - i).demolishBlock();
-                getBlock(releaseX + 2, releaseY + 2 - i).demolishBlock();
-                dropAbove(releaseX, releaseY + 2 - i);
-                dropAbove(releaseX + 1, releaseY + 2 - i);
-                dropAbove(releaseX + 2, releaseY + 2 - i);
-                
-            }
-        }
         }
         
         // vertical
@@ -136,43 +136,43 @@ public class GameArea {
             if (getBlock(releaseX, releaseY + 1 - i).getColor().equals(scanColor)) {
                 if (getBlock(releaseX, releaseY - i).getColor().equals(scanColor)) {
                 
-                getBlock(releaseX, releaseY + 2 - i).demolishBlock();
-                getBlock(releaseX, releaseY + 1 - i).demolishBlock();
-                getBlock(releaseX, releaseY - i).demolishBlock();
-                dropAbove(releaseX, releaseY + 2 - i);
-                dropAbove(releaseX, releaseY + 1 - i);
-                dropAbove(releaseX, releaseY - i);
+                    getBlock(releaseX, releaseY + 2 - i).demolishBlock();
+                    getBlock(releaseX, releaseY + 1 - i).demolishBlock();
+                    getBlock(releaseX, releaseY - i).demolishBlock();
+                    dropAbove(releaseX, releaseY + 2 - i);
+                    dropAbove(releaseX, releaseY + 1 - i);
+                    dropAbove(releaseX, releaseY - i);
                 
+                }
             }
-        }
             
-        scanColor = getBlock(releaseX, releaseY + 2 - i).getColor();
+            scanColor = getBlock(releaseX, releaseY + 2 - i).getColor();
             if (getBlock(releaseX, releaseY + 1 - i).getColor().equals(scanColor)) {
                 if (getBlock(releaseX, releaseY + 3 - i).getColor().equals(scanColor)) {
                 
-                getBlock(releaseX, releaseY + 2 - i).demolishBlock();
-                getBlock(releaseX, releaseY + 1 - i).demolishBlock();
-                getBlock(releaseX, releaseY + 3 - i).demolishBlock();
-                dropAbove(releaseX, releaseY + 2 - i);
-                dropAbove(releaseX, releaseY + 1 - i);
-                dropAbove(releaseX, releaseY + 3 - i);
+                    getBlock(releaseX, releaseY + 2 - i).demolishBlock();
+                    getBlock(releaseX, releaseY + 1 - i).demolishBlock();
+                    getBlock(releaseX, releaseY + 3 - i).demolishBlock();
+                    dropAbove(releaseX, releaseY + 2 - i);
+                    dropAbove(releaseX, releaseY + 1 - i);
+                    dropAbove(releaseX, releaseY + 3 - i);
                 
-            }
-        }   
+                }
+            }   
         
             scanColor = getBlock(releaseX, releaseY + 2 - i).getColor();
             if (getBlock(releaseX, releaseY + 3 - i).getColor().equals(scanColor)) {
                 if (getBlock(releaseX, releaseY + 4 - i).getColor().equals(scanColor)) {
                 
-                getBlock(releaseX, releaseY + 2 - i).demolishBlock();
-                getBlock(releaseX, releaseY + 3 - i).demolishBlock();
-                getBlock(releaseX, releaseY + 4 - i).demolishBlock();
-                dropAbove(releaseX, releaseY + 2 - i);
-                dropAbove(releaseX, releaseY + 3 - i);
-                dropAbove(releaseX, releaseY + 4 - i);
+                    getBlock(releaseX, releaseY + 2 - i).demolishBlock();
+                    getBlock(releaseX, releaseY + 3 - i).demolishBlock();
+                    getBlock(releaseX, releaseY + 4 - i).demolishBlock();
+                    dropAbove(releaseX, releaseY + 2 - i);
+                    dropAbove(releaseX, releaseY + 3 - i);
+                    dropAbove(releaseX, releaseY + 4 - i);
                 
-            }
-        }  
+                }
+            }  
            
         }
         
@@ -183,28 +183,29 @@ public class GameArea {
             if (getBlock(releaseX - 1, releaseY + 1 - i).getColor().equals(scanColor)) {
                 if (getBlock(releaseX + 1, releaseY + 3 - i).getColor().equals(scanColor)) {
                 
-                getBlock(releaseX, releaseY + 2 - i).demolishBlock();
-                getBlock(releaseX - 1, releaseY + 1 - i).demolishBlock();
-                getBlock(releaseX + 1, releaseY + 3- i).demolishBlock();
-                dropAbove(releaseX, releaseY + 2 - i);
-                dropAbove(releaseX - 1, releaseY + 1 - i);
-                dropAbove(releaseX + 1, releaseY + 3 - i);
+                    getBlock(releaseX, releaseY + 2 - i).demolishBlock();
+                    getBlock(releaseX - 1, releaseY + 1 - i).demolishBlock();
+                    getBlock(releaseX + 1, releaseY + 3 - i).demolishBlock();
+                    dropAbove(releaseX, releaseY + 2 - i);
+                    dropAbove(releaseX - 1, releaseY + 1 - i);
+                    dropAbove(releaseX + 1, releaseY + 3 - i);
                 
+                }
             }
-        }
+            
             scanColor = getBlock(releaseX, releaseY + 2 - i).getColor();
             if (getBlock(releaseX - 1, releaseY + 1 - i).getColor().equals(scanColor)) {
                 if (getBlock(releaseX + 1, releaseY + 3 - i).getColor().equals(scanColor)) {
                 
-                getBlock(releaseX, releaseY + 2 - i).demolishBlock();
-                getBlock(releaseX + 1, releaseY + 1 - i).demolishBlock();
-                getBlock(releaseX - 1, releaseY + 3 - i).demolishBlock();
-                dropAbove(releaseX, releaseY + 2 - i);
-                dropAbove(releaseX + 1, releaseY + 1 - i);
-                dropAbove(releaseX - 1, releaseY + 3 - i);
+                    getBlock(releaseX, releaseY + 2 - i).demolishBlock();
+                    getBlock(releaseX + 1, releaseY + 1 - i).demolishBlock();
+                    getBlock(releaseX - 1, releaseY + 3 - i).demolishBlock();
+                    dropAbove(releaseX, releaseY + 2 - i);
+                    dropAbove(releaseX + 1, releaseY + 1 - i);
+                    dropAbove(releaseX - 1, releaseY + 3 - i);
                 
+                }
             }
-        }
            
         }
         
@@ -213,8 +214,8 @@ public class GameArea {
     public void dropAbove(int dropX, int dropY) {
         // TO DO - temporary
         while (dropY > 1) {
-        getBlock(dropX, dropY).setColor(getBlock(dropX, dropY - 1).getColor());
-        dropY--;
+            getBlock(dropX, dropY).setColor(getBlock(dropX, dropY - 1).getColor());
+            dropY--;
         }
         
     }
@@ -228,7 +229,7 @@ public class GameArea {
         playerBlock.setGridY(0);
     }
     
-   public boolean gameOver() {
+    public boolean gameOver() {
         ArrayList respawns = eglibleRespawn();
         if (respawns.isEmpty()) {
             return true;
