@@ -29,7 +29,6 @@ public class ColumnsUi extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Columns-peli");
         primaryStage.setResizable(false);
-        PlayerBlock playerObject = new PlayerBlock(60, 0, new Block("yellow"), new Block("red"), new Block("blue"));
         
         GameArea gameArea = new GameArea(15, 30);
         
@@ -52,17 +51,17 @@ public class ColumnsUi extends Application {
         testScene.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.LEFT) {
                 System.out.println("Keyboard feed: left");
-                gameArea.getPlayerBlock().moveX(-BLOCK_SIZE);
+                gameArea.movePlayer("left");
             }
 
             if (event.getCode() == KeyCode.RIGHT) {
                 System.out.println("Keyboard feed: right");
-                gameArea.getPlayerBlock().moveX(BLOCK_SIZE);
+                gameArea.movePlayer("right");
             }
             
             if (event.getCode() == KeyCode.DOWN) {
                 System.out.println("Keyboard feed: down");
-                gameArea.getPlayerBlock().speedPush();
+                gameArea.movePlayer("down");
             }
             if (event.getCode() == KeyCode.UP) {
                 System.out.println("Keyboard feed: up");
@@ -72,6 +71,7 @@ public class ColumnsUi extends Application {
         
         new AnimationTimer() {
             long past = 0;
+            int dropSpeed = 0;
             @Override
             public void handle(long now) {
                 if (now - past < 100000000) {
@@ -79,13 +79,24 @@ public class ColumnsUi extends Application {
                 }
                 int x = gameArea.getPlayerBlock().getX();
                 int y = gameArea.getPlayerBlock().getY();
+                int xGrid = gameArea.getPlayerBlock().getGridX();
+                int yGrid = gameArea.getPlayerBlock().getGridY();
+                boolean cLeft = gameArea.isCollisionLeft();
+                boolean cRight = gameArea.isCollisionRight();
+                boolean cDown = gameArea.isCollisionDown();
+                
                 
                 // Temporary: Scrolling the field
                 if (y > GAME_FIELD_HEIGHT) { 
-                    playerObject.setY(0);
+                    gameArea.getPlayerBlock().setY(0);
+                    gameArea.getPlayerBlock().setGridY(0);
                 }
-                System.out.println("X: " + x + " Y: " + y); // for debugging
-                System.out.println(playerObject.getBottomBlock().getColor());
+                System.out.println("GridX: " + xGrid + " GridY: " + yGrid); // for debugging
+                System.out.println("Collision left:" + cLeft);
+                System.out.println("Collision right:" + cRight);
+                System.out.println("Collision down:" + cDown);
+                
+                System.out.println(gameArea.getPlayerBlock().getBottomBlock().getColor());
                 
                 drawer.setFill(Color.BLACK);
                 drawer.fillRect(0, 0, GAME_FIELD_WIDTH, GAME_FIELD_HEIGHT);
@@ -156,7 +167,7 @@ public class ColumnsUi extends Application {
                             } else if (vari.equals("red")) {
                                 drawer.setFill(Color.RED);
                             } else if (vari.equals("blue")) {
-                              drawer.setFill(Color.BLUE);
+                                drawer.setFill(Color.BLUE);
                             }
                             
                         drawer.fillRect(1 + x * BLOCK_SIZE, 1 + y * BLOCK_SIZE, BLOCK_SIZE - 2, BLOCK_SIZE - 2);
@@ -165,9 +176,11 @@ public class ColumnsUi extends Application {
                     }
                     y++;
                 }
-                
-                gameArea.getPlayerBlock().moveDown();
-                
+                dropSpeed++;
+                if (dropSpeed == 10) {
+                    dropSpeed = 0;
+                    gameArea.movePlayer("down");
+                }
             this.past = now;
             }
         }.start();
