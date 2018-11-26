@@ -12,14 +12,17 @@ public class PlayerBlock {
     private Block middleBlock;
     private Block bottomBlock;
     
-    public PlayerBlock(int x, int y, Block topBlock, Block middleBlock, Block bottomBlock) {
+    public PlayerBlock(int x, int y) {
         this.x = x * ColumnsUi.BLOCK_SIZE;
         this.y = y * ColumnsUi.BLOCK_SIZE;
         this.gridY = y;
         this.gridX = x;
-        this.topBlock = topBlock;
-        this.middleBlock = middleBlock;
-        this.bottomBlock = bottomBlock;
+        this.topBlock = new Block();
+        this.topBlock.randomizeBlock();
+        this.middleBlock = new Block();
+        this.middleBlock.randomizeBlock();
+        this.bottomBlock = new Block();
+        this.bottomBlock.randomizeBlock();
     }
     
     public void shuffleBlocks() {
@@ -87,6 +90,13 @@ public class PlayerBlock {
         return bottomBlock;
     }
     
-    
+    public void newBlocks() {
+       topBlock = new Block();
+       topBlock.randomizeBlock();
+       middleBlock = new Block();
+       middleBlock.randomizeBlock();
+       bottomBlock = new Block();
+       bottomBlock.randomizeBlock();
+    }
     
 }

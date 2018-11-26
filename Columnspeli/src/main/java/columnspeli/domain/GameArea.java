@@ -7,7 +7,7 @@ public class GameArea {
     
     public GameArea(int x, int y) {
         this.areaBlocks = new Block[x][y];
-        this.playerBlock = new PlayerBlock(5, 0, new Block("yellow"), new Block("red"), new Block("blue")); // temp
+        this.playerBlock = new PlayerBlock(5, 0); // temp
         int y2 = 0;
         while (y2 < areaBlocks.length) {
             int x2 = 0;
@@ -75,6 +75,7 @@ public class GameArea {
         setBlock(playerBlock.getGridX(), playerBlock.getGridY(), playerBlock.getTopBlock());
         setBlock(playerBlock.getGridX(), playerBlock.getGridY() + 1, playerBlock.getMiddleBlock());
         setBlock(playerBlock.getGridX(), playerBlock.getGridY() + 2, playerBlock.getBottomBlock());
+        playerBlock.newBlocks();
         playerBlock.setY(0);
         playerBlock.setGridY(0);
         
