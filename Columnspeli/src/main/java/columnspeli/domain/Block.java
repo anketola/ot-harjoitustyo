@@ -26,6 +26,14 @@ public class Block {
         }
     }
     
+    public void demolishBlock() {
+        blockColor = "empty";
+    }
+    
+    public void setColor(String newColor) {
+        blockColor = newColor;
+    }
+    
     public String getColor() {
         return blockColor;
     }

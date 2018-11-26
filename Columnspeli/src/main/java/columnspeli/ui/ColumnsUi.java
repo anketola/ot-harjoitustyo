@@ -87,12 +87,12 @@ public class ColumnsUi extends Application {
                 
                 
                 
-                System.out.println("GridX: " + xGrid + " GridY: " + yGrid); // for debugging
-                System.out.println("Collision left:" + cLeft);
-                System.out.println("Collision right:" + cRight);
-                System.out.println("Collision down:" + cDown);
-                System.out.println(gameArea.eglibleRespawn());
-                System.out.println("Game over: " + gameArea.gameOver());
+                // System.out.println("GridX: " + xGrid + " GridY: " + yGrid); // for debugging
+                // System.out.println("Collision left:" + cLeft);
+                //System.out.println("Collision right:" + cRight);
+                //System.out.println("Collision down:" + cDown);
+                //System.out.println(gameArea.eglibleRespawn());
+                //System.out.println("Game over: " + gameArea.gameOver());
                 
                 drawer.setFill(Color.BLACK);
                 drawer.fillRect(0, 0, GAME_FIELD_WIDTH, GAME_FIELD_HEIGHT);

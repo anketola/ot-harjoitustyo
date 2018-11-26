@@ -1,6 +1,8 @@
 package columnspeli.domain;
 
 import columnspeli.ui.ColumnsUi;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class PlayerBlock {
     
@@ -58,6 +60,10 @@ public class PlayerBlock {
         this.y = y;
     }
     
+    public void setX(int X) {
+        this.x = x;
+    }
+    
     public int getX() {
         return this.x;
     }
@@ -76,6 +82,10 @@ public class PlayerBlock {
     
     public void setGridY(int newGridY) {
         this.gridY = newGridY;
+    }
+    
+    public void setGridX(int newGridX) {
+        this.gridX = newGridX;
     }
     
     public Block getTopBlock() {
