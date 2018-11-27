@@ -6,9 +6,11 @@ public class GameArea {
     
     private Block[][] areaBlocks;
     private PlayerBlock playerBlock;
+    private GameStatistics gameStatistics;
     
     public GameArea(int x, int y) {
         this.areaBlocks = new Block[x][y];
+        this.gameStatistics = new GameStatistics();
         this.playerBlock = new PlayerBlock(5, 0); // temp
         int y2 = 0;
         while (y2 < areaBlocks.length) {
@@ -96,6 +98,8 @@ public class GameArea {
                     dropAbove(releaseX, releaseY + 2 - i);
                     dropAbove(releaseX - 1, releaseY + 2 - i);
                     dropAbove(releaseX - 2, releaseY + 2 - i);
+                    gameStatistics.addScore(1);
+                    return;
                 
                 }
             }
@@ -110,7 +114,8 @@ public class GameArea {
                     dropAbove(releaseX, releaseY + 2 - i);
                     dropAbove(releaseX - 1, releaseY + 2 - i);
                     dropAbove(releaseX + 1, releaseY + 2 - i);
-                
+                    gameStatistics.addScore(1);
+                    return;
                 }
             }
         
@@ -124,7 +129,8 @@ public class GameArea {
                     dropAbove(releaseX, releaseY + 2 - i);
                     dropAbove(releaseX + 1, releaseY + 2 - i);
                     dropAbove(releaseX + 2, releaseY + 2 - i);
-                
+                    gameStatistics.addScore(1);
+                    return;
                 }
             }
         }
@@ -142,7 +148,8 @@ public class GameArea {
                     dropAbove(releaseX, releaseY + 2 - i);
                     dropAbove(releaseX, releaseY + 1 - i);
                     dropAbove(releaseX, releaseY - i);
-                
+                    gameStatistics.addScore(1);
+                    return;
                 }
             }
             
@@ -156,7 +163,8 @@ public class GameArea {
                     dropAbove(releaseX, releaseY + 2 - i);
                     dropAbove(releaseX, releaseY + 1 - i);
                     dropAbove(releaseX, releaseY + 3 - i);
-                
+                    gameStatistics.addScore(1);
+                    return;
                 }
             }   
         
@@ -170,7 +178,8 @@ public class GameArea {
                     dropAbove(releaseX, releaseY + 2 - i);
                     dropAbove(releaseX, releaseY + 3 - i);
                     dropAbove(releaseX, releaseY + 4 - i);
-                
+                    gameStatistics.addScore(1);
+                    return;
                 }
             }  
            
@@ -189,7 +198,8 @@ public class GameArea {
                     dropAbove(releaseX, releaseY + 2 - i);
                     dropAbove(releaseX - 1, releaseY + 1 - i);
                     dropAbove(releaseX + 1, releaseY + 3 - i);
-                
+                    gameStatistics.addScore(1);
+                    return;
                 }
             }
             
@@ -203,7 +213,8 @@ public class GameArea {
                     dropAbove(releaseX, releaseY + 2 - i);
                     dropAbove(releaseX + 1, releaseY + 1 - i);
                     dropAbove(releaseX - 1, releaseY + 3 - i);
-                
+                    gameStatistics.addScore(1);
+                    return;
                 }
             }
            
@@ -278,6 +289,10 @@ public class GameArea {
  
     public PlayerBlock getPlayerBlock() {
         return playerBlock;
+    }
+    
+    public GameStatistics getStatistics() {
+        return gameStatistics;
     }
     
 }
