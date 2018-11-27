@@ -1,7 +1,6 @@
 package columnspeli.ui;
 
 
-import columnspeli.domain.PlayerBlock;
 import columnspeli.domain.Block;
 import columnspeli.domain.GameArea;
 
@@ -16,9 +15,10 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.input.KeyCode;
 import javafx.scene.control.Label;
 
-// Note, work in progress
-// Controls: left, right, up and down arrows
-// No collision detection etc. yet
+// Messy code at times, will be fixed. Enum will be implemented later etc
+// The game is now "playable" to some degree, will be fixing stuff later
+// the falling speed is controlled by "dropspeed" variable with 0 - 10 as values
+// no practical implementation for it yet
 
 public class ColumnsUi extends Application {
     
@@ -48,9 +48,16 @@ public class ColumnsUi extends Application {
         GraphicsContext drawer = testCanvas.getGraphicsContext2D();
         Label scoreTitle = new Label("Pisteet: ");
         Label scoreText = new Label(Integer.toString(gameArea.getStatistics().getScore()));
+        Label timeTitle = new Label("Aikaa kulunut: ");
+        Label timeText = new Label("TO DO");
+        
         
         gridPane.add(scoreTitle, 0, 0);
         gridPane.add(scoreText, 0, 1);
+        gridPane.add(timeTitle, 0, 2);
+        gridPane.add(timeText, 0, 3);
+        
+        
         
         gridPane.setHgap(20);
         gridPane.setVgap(20);

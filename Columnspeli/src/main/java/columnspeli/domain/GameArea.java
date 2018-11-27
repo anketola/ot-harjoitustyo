@@ -87,7 +87,7 @@ public class GameArea {
         // horizontal
         
         String scanColor;
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 3; i++) {
             scanColor = getBlock(releaseX, releaseY + 2 - i).getColor();
             if (getBlock(releaseX - 1, releaseY + 2  - i).getColor().equals(scanColor)) {
                 if (getBlock(releaseX - 2, releaseY + 2 - i).getColor().equals(scanColor)) {
@@ -137,7 +137,7 @@ public class GameArea {
         
         // vertical
         
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 3; i++) {
             scanColor = getBlock(releaseX, releaseY + 2 - i).getColor();
             if (getBlock(releaseX, releaseY + 1 - i).getColor().equals(scanColor)) {
                 if (getBlock(releaseX, releaseY - i).getColor().equals(scanColor)) {
@@ -187,7 +187,7 @@ public class GameArea {
         
         // diagonal
         
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 3; i++) {
             scanColor = getBlock(releaseX, releaseY + 2 - i).getColor();
             if (getBlock(releaseX - 1, releaseY + 1 - i).getColor().equals(scanColor)) {
                 if (getBlock(releaseX + 1, releaseY + 3 - i).getColor().equals(scanColor)) {

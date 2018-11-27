@@ -3,7 +3,7 @@ package columnspeli.domain;
 public class GameStatistics {
 
     private int score;
-
+   
     public GameStatistics() {
         this.score = 0;
     }
@@ -15,4 +15,10 @@ public class GameStatistics {
     public int getScore() {
         return this.score;
     }
+    
+    public int getElapsedTime() {
+        // TO DO
+        return 0;
+    }
+    
 }
