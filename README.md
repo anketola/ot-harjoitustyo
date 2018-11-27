@@ -10,7 +10,10 @@ Sovelluksessa on toteutettu nyt alustava runko. Palikat tippuvat pelialueella. P
 
 [Vaatimusmäärittely](https://github.com/anketola/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
 
+[Arkkitehtuurikuvaus](https://github.com/anketola/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
+
 [Työaikakirjanpito](https://github.com/anketola/ot-harjoitustyo/blob/master/dokumentaatio/tuntikirjanpito.md)
+
 
 ### Komentorivitoimintoja
 
