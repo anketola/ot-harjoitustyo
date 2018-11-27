@@ -9,11 +9,15 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.canvas.*;
 import javafx.scene.paint.Color;
+import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.animation.AnimationTimer;
 import javafx.scene.input.KeyCode;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import javafx.geometry.Pos;
+import javafx.geometry.Insets;
 
 // Messy code at times, will be fixed. Enum will be implemented later etc
 // The game is now "playable" to some degree, will be fixing stuff later
@@ -31,7 +35,7 @@ public class ColumnsUi extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Columns-peli");
         primaryStage.setResizable(false);
-        
+
         GameArea gameArea = new GameArea(15, 30);
         
         // Random blocks for testing purposes
@@ -41,9 +45,19 @@ public class ColumnsUi extends Application {
         gameArea.setBlock(5, 20, new Block("yellow"));
         gameArea.setBlock(14, 29, new Block("blue"));
         
-        BorderPane testBorderPane = new BorderPane(); 
-        GridPane gridPane = new GridPane();
+        BorderPane gameBorderPane = new BorderPane(); 
+        GridPane rightGridPane = new GridPane();
+        BorderPane menuBorderPane = new BorderPane();
+        VBox menuVBox = new VBox();
+        Button buttonLaunch = new Button("Käynnistä peli");
+        Button buttonQuit = new Button("Lopeta peli");
+        Button buttonPause = new Button("Jäädytä peli / jatka peliä");
+        buttonLaunch.setMaxWidth(Double.MAX_VALUE);
+        buttonQuit.setMaxWidth(Double.MAX_VALUE);
+        menuVBox.setPadding(new Insets(50, 50, 50, 50));
+        menuVBox.getChildren().addAll(buttonLaunch, buttonQuit);
         
+       
         Canvas testCanvas = new Canvas(GAME_FIELD_WIDTH, GAME_FIELD_HEIGHT);
         GraphicsContext drawer = testCanvas.getGraphicsContext2D();
         Label scoreTitle = new Label("Pisteet: ");
@@ -52,21 +66,39 @@ public class ColumnsUi extends Application {
         Label timeText = new Label("TO DO");
         
         
-        gridPane.add(scoreTitle, 0, 0);
-        gridPane.add(scoreText, 0, 1);
-        gridPane.add(timeTitle, 0, 2);
-        gridPane.add(timeText, 0, 3);
+        rightGridPane.add(scoreTitle, 0, 0);
+        rightGridPane.add(scoreText, 0, 1);
+        rightGridPane.add(timeTitle, 0, 2);
+        rightGridPane.add(timeText, 0, 3);
+        rightGridPane.add(buttonPause, 0, 4);
         
+        rightGridPane.setHgap(20);
+        rightGridPane.setVgap(20);
+        rightGridPane.setPrefWidth(200);
+        gameBorderPane.setCenter(testCanvas);
+        gameBorderPane.setRight(rightGridPane);
         
+        menuBorderPane.setPrefWidth(600);
+        menuBorderPane.setPrefHeight(400);
+        menuBorderPane.setCenter(menuVBox);
         
-        gridPane.setHgap(20);
-        gridPane.setVgap(20);
-        testBorderPane.setCenter(testCanvas);
-        testBorderPane.setRight(gridPane);
-      
-        Scene testScene = new Scene(testBorderPane);
+        Scene gameScene = new Scene(gameBorderPane);
+        Scene menuScene = new Scene(menuBorderPane);
         
-        testScene.setOnKeyPressed(event -> {
+        buttonLaunch.setOnAction((event) -> {
+            primaryStage.setScene(gameScene);
+            gameArea.activateGame();
+        });
+        
+        buttonQuit.setOnAction((event) -> {
+            System.exit(0);
+        });
+        
+        buttonPause.setOnAction((event) -> {
+            gameArea.pausePressed();
+        });
+        
+        gameScene.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.LEFT) {
                 gameArea.movePlayer("left");
             }
@@ -92,6 +124,7 @@ public class ColumnsUi extends Application {
                     return;
                 }
                 
+                if ((gameArea.gameActive()) && (!gameArea.paused())) {
                 int x = gameArea.getPlayerBlock().getX();
                 int y = gameArea.getPlayerBlock().getY();
                 scoreText.setText(Integer.toString(gameArea.getStatistics().getScore()));
@@ -182,11 +215,12 @@ public class ColumnsUi extends Application {
                     dropSpeed = 0;
                     gameArea.movePlayer("down");
                 }
+                }
             this.past = now;
             }
         }.start();
         
-        primaryStage.setScene(testScene);
+        primaryStage.setScene(menuScene);
         
         primaryStage.show();
     }

@@ -7,11 +7,16 @@ public class GameArea {
     private Block[][] areaBlocks;
     private PlayerBlock playerBlock;
     private GameStatistics gameStatistics;
+    boolean gameActive;
+    boolean gamePaused;
     
     public GameArea(int x, int y) {
         this.areaBlocks = new Block[x][y];
         this.gameStatistics = new GameStatistics();
+        this.gamePaused = false;
         this.playerBlock = new PlayerBlock(5, 0); // temp
+        this.gameActive = false;
+        
         int y2 = 0;
         while (y2 < areaBlocks.length) {
             int x2 = 0;
@@ -293,6 +298,26 @@ public class GameArea {
     
     public GameStatistics getStatistics() {
         return gameStatistics;
+    }
+    
+    public void activateGame() {
+        this.gameActive = true;
+    }
+    
+    public void closeGame() {
+        this.gameActive = false;
+    }
+    
+    public boolean gameActive() {
+        return this.gameActive;
+    }
+    
+    public void pausePressed() {
+        this.gamePaused = !gamePaused;
+    }
+    
+    public boolean paused() {
+        return this.gamePaused;
     }
     
 }
