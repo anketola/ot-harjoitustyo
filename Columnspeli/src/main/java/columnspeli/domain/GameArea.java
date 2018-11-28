@@ -47,6 +47,9 @@ public class GameArea {
             
             releaseBlocks();
             scanAndErase(tempX, tempY);
+            if (!gameOver()) {
+                playerBlock.respawn(eglibleRespawn());
+            }
         }
                 
     }
@@ -240,10 +243,7 @@ public class GameArea {
         setBlock(playerBlock.getGridX(), playerBlock.getGridY(), playerBlock.getTopBlock());
         setBlock(playerBlock.getGridX(), playerBlock.getGridY() + 1, playerBlock.getMiddleBlock());
         setBlock(playerBlock.getGridX(), playerBlock.getGridY() + 2, playerBlock.getBottomBlock());
-        playerBlock.newBlocks();
-        playerBlock.setY(0);
-        playerBlock.setGridY(0);
-    }
+     }
     
     public boolean gameOver() {
         ArrayList respawns = eglibleRespawn();
@@ -257,7 +257,7 @@ public class GameArea {
         ArrayList<Integer> possibleRespawnX = new ArrayList<>();
         int i = 0;
         while (i < getAreaEdgeX()) {
-            if (!hasBlock(i, 0) && !hasBlock(i, 1) && !hasBlock(i, 2)) {
+            if ((!hasBlock(i, 0)) && (!hasBlock(i, 1)) && (!hasBlock(i, 2))) {
                 possibleRespawnX.add(i);
             }
             i++;    

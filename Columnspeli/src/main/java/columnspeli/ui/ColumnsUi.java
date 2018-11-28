@@ -26,8 +26,8 @@ import javafx.geometry.Insets;
 
 public class ColumnsUi extends Application {
     
-    public static int GAME_FIELD_WIDTH = 300;
-    public static int GAME_FIELD_HEIGHT = 600;
+    public static int GAME_FIELD_WIDTH = 200;
+    public static int GAME_FIELD_HEIGHT = 400;
     public static int BLOCK_SIZE = 20; 
   
     
@@ -36,14 +36,14 @@ public class ColumnsUi extends Application {
         primaryStage.setTitle("Columns-peli");
         primaryStage.setResizable(false);
 
-        GameArea gameArea = new GameArea(15, 30);
+        GameArea gameArea = new GameArea(10, 20);
         
         // Random blocks for testing purposes
         
-        gameArea.setBlock(0, 29, new Block("red"));
-        gameArea.setBlock(0, 28, new Block("yellow"));
-        gameArea.setBlock(5, 20, new Block("yellow"));
-        gameArea.setBlock(14, 29, new Block("blue"));
+        gameArea.setBlock(0, 19, new Block("red"));
+        gameArea.setBlock(0, 18, new Block("yellow"));
+        gameArea.setBlock(5, 10, new Block("yellow"));
+        gameArea.setBlock(9, 19, new Block("blue"));
         
         BorderPane gameBorderPane = new BorderPane(); 
         GridPane rightGridPane = new GridPane();
@@ -129,8 +129,8 @@ public class ColumnsUi extends Application {
                 int y = gameArea.getPlayerBlock().getY();
                 scoreText.setText(Integer.toString(gameArea.getStatistics().getScore()));
                 
-                System.out.println("Spawn open: " + gameArea.eglibleRespawn());
-                System.out.println("Game over: " + gameArea.gameOver());
+                //System.out.println("Spawn open: " + gameArea.eglibleRespawn());
+                //System.out.println("Game over: " + gameArea.gameOver());
                 
                 drawer.setFill(Color.BLACK);
                 drawer.fillRect(0, 0, GAME_FIELD_WIDTH, GAME_FIELD_HEIGHT);

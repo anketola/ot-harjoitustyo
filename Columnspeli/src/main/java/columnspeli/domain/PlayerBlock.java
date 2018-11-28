@@ -34,6 +34,19 @@ public class PlayerBlock {
         bottomBlock = shuffleHelper;
     }
     
+    public void respawn(ArrayList<Integer> possibleRespawns) {
+        Random rand = new Random();
+        int i = possibleRespawns.get(rand.nextInt(possibleRespawns.size()));
+        System.out.println("Respawns open: " + possibleRespawns);
+        System.out.println("Respawning to: " + i);
+        this.gridX = i;
+        this.x = i * ColumnsUi.BLOCK_SIZE;
+        newBlocks();
+        setY(0);
+        setGridY(0);
+    }
+    
+    
     public void moveDown() {
         this.y = y + ColumnsUi.BLOCK_SIZE;
         this.gridY++;
