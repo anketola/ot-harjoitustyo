@@ -99,11 +99,18 @@ public class GameArea {
     }
     
     public void seekBlockStreaks() {
+        for (int i = 0; i < 5; i++) {   
+        // TEMPORARY LOOP - loops five times as I haven't had time to implement
+        // everything fully, now it just provides more functionality
+        // this is for the cases when clear and drop gives new streaks
+        // going to fix later
         horizontalScan();
         verticalScan();
-        diagonalScan();
+        diagonalScanDownRight();
+        diagonalScanDownLeft();
         clearCollected();
         scanAndDrop();
+        }
     }
     
     public boolean nextBlockSimiliar(int compX, int compY, String direction) {
@@ -114,6 +121,16 @@ public class GameArea {
         }
         if (direction.equals("up")) {
             if (getBlock(compX, compY).getColor().equals(getBlock(compX, compY - 1).getColor())) {
+                return true;
+            }
+        }
+        if (direction.equals("downright")) {
+            if (getBlock(compX, compY).getColor().equals(getBlock(compX + 1, compY + 1).getColor())) {
+                return true;
+            }
+        }
+        if (direction.equals("downleft")) {
+            if (getBlock(compX, compY).getColor().equals(getBlock(compX - 1, compY + 1).getColor())) {
                 return true;
             }
         }
@@ -161,14 +178,72 @@ public class GameArea {
         }
     }
     
-    public void diagonalScan() {
-        
+    public void diagonalScanDownRight() {
+        int streakCount = 1;
+        int scanStartY = 0;
+        int scanStartX = 0;
+        int scanY;
+        int scanX;
+        while (scanStartY < getAreaEdgeY()) {
+            scanY = scanStartY;
+            scanX = scanStartX;
+            while ((scanX < getAreaEdgeX()) && (scanY < getAreaEdgeY())) {
+                if (hasBlock(scanX, scanY)) {
+                    if (nextBlockSimiliar(scanX, scanY, "downright")) {
+                        streakCount++;
+                    } else {
+                        if (streakCount >= 3) {
+                            for (int i = 0; i < streakCount; i++) {
+                                System.out.println("Deleting" + (scanX - i) + " , " + (scanY - i));
+                                collect(scanX - i, scanY - i);
+                            }   
+                        }
+                streakCount = 1;
+                    }
+                }    
+               
+            scanX++;
+            scanY++;
+            }
+        scanStartY++;
+        }
     }
     
+    public void diagonalScanDownLeft() {
+        int streakCount = 1;
+        int scanStartY = 0;
+        int scanStartX = getAreaEdgeX() - 1;
+        int scanY;
+        int scanX;
+        while (scanStartY < getAreaEdgeY()) {
+            scanY = scanStartY;
+            scanX = scanStartX;
+            while ((scanX >= 0) && (scanY < getAreaEdgeY())) {
+                if (hasBlock(scanX, scanY)) {
+                    if (nextBlockSimiliar(scanX, scanY, "downleft")) {
+                        streakCount++;
+                    } else {
+                        if (streakCount >= 3) {
+                            for (int i = 0; i < streakCount; i++) {
+                                System.out.println("Deleting" + (scanX + i) + " , " + (scanY - i));
+                                collect(scanX + i, scanY - i);
+                            }   
+                        }
+                streakCount = 1;
+                    }
+                }    
+               
+            scanX--;
+            scanY++;
+            }
+        scanStartY++;
+        }
+    }
+   
     public void collect(int x, int y) {
         demolishCollect.add(getBlock(x , y));
-        System.out.println("Collected: " + x + " , " + y);
-        System.out.println(demolishCollect);
+        //System.out.println("Collected: " + x + " , " + y);
+        //System.out.println(demolishCollect);
     }
     
     public void clearCollected() {
