@@ -12,11 +12,14 @@ public class GameArea {
     
     public GameArea(int x, int y) {
         this.areaBlocks = new Block[x][y];
+        generateEmptyArea();
         this.gameStatistics = new GameStatistics();
         this.gamePaused = false;
         this.playerBlock = new PlayerBlock(5, 0); // temp
         this.gameActive = false;
-        
+    }
+    
+    public void generateEmptyArea() {
         int y2 = 0;
         while (y2 < areaBlocks.length) {
             int x2 = 0;
@@ -27,6 +30,13 @@ public class GameArea {
             y2++;    
         }
     }
+    
+    public void resetState() {
+        this.gameStatistics.setScore(0);
+        generateEmptyArea();
+        playerBlock.respawn(eglibleRespawn());
+    }
+    
     
     public void setBlock(int x, int y, Block block) {
         areaBlocks[x][y] = block;

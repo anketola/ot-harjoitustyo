@@ -12,6 +12,10 @@ public class GameStatistics {
         this.score = score + increase;
     }
     
+    public void setScore(int newScore) {
+        this.score = newScore;
+    }
+    
     public int getScore() {
         return this.score;
     }
