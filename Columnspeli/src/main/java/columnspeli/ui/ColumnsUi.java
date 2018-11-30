@@ -38,13 +38,6 @@ public class ColumnsUi extends Application {
 
         GameArea gameArea = new GameArea(15, 30);
         
-        // Random blocks for testing purposes
-        
-        gameArea.setBlock(0, 19, new Block("red"));
-        gameArea.setBlock(0, 18, new Block("yellow"));
-        gameArea.setBlock(5, 10, new Block("yellow"));
-        gameArea.setBlock(9, 19, new Block("blue"));
-        
         BorderPane gameBorderPane = new BorderPane(); 
         GridPane rightGridPane = new GridPane();
         BorderPane gameOverBorderPane = new BorderPane();

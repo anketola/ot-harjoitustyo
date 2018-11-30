@@ -7,6 +7,7 @@ public class GameArea {
     private Block[][] areaBlocks;
     private PlayerBlock playerBlock;
     private GameStatistics gameStatistics;
+    private ArrayList<Block> demolishCollect = new ArrayList<>();
     boolean gameActive;
     boolean gamePaused;
     
@@ -56,7 +57,7 @@ public class GameArea {
             int tempY = playerBlock.getGridY();
             
             releaseBlocks();
-            scanAndErase(tempX, tempY);
+            seekBlockStreaks();    
             if (!gameOver()) {
                 playerBlock.respawn(eglibleRespawn());
             }
@@ -97,151 +98,116 @@ public class GameArea {
         return false;
     }
     
-    public void scanAndErase(int releaseX, int releaseY) {
-        // TO DO later: scan for acceptable color streaks + erase them
-        // now a temporary (and bad copy-paste) checker that checks only the nearby
-        // blocks of the released blocks
-        
-        // horizontal
-        
-        String scanColor;
-        for (int i = 0; i < 3; i++) {
-            scanColor = getBlock(releaseX, releaseY + 2 - i).getColor();
-            if (getBlock(releaseX - 1, releaseY + 2  - i).getColor().equals(scanColor)) {
-                if (getBlock(releaseX - 2, releaseY + 2 - i).getColor().equals(scanColor)) {
-                
-                    getBlock(releaseX, releaseY + 2 - i).demolishBlock();
-                    getBlock(releaseX - 1, releaseY + 2 - i).demolishBlock();
-                    getBlock(releaseX - 2, releaseY + 2 - i).demolishBlock();
-                    dropAbove(releaseX, releaseY + 2 - i);
-                    dropAbove(releaseX - 1, releaseY + 2 - i);
-                    dropAbove(releaseX - 2, releaseY + 2 - i);
-                    gameStatistics.addScore(1);
-                    return;
-                
-                }
+    public void seekBlockStreaks() {
+        horizontalScan();
+        verticalScan();
+        diagonalScan();
+        clearCollected();
+        scanAndDrop();
+    }
+    
+    public boolean nextBlockSimiliar(int compX, int compY, String direction) {
+        if (direction.equals("right")) {
+            if (getBlock(compX, compY).getColor().equals(getBlock(compX + 1, compY).getColor())) {
+                return true;
             }
-        
-            scanColor = getBlock(releaseX, releaseY + 2 - i).getColor();
-            if (getBlock(releaseX - 1, releaseY + 2 - i).getColor().equals(scanColor)) {
-                if (getBlock(releaseX + 1, releaseY + 2 - i).getColor().equals(scanColor)) {
-                
-                    getBlock(releaseX, releaseY + 2 - i).demolishBlock();
-                    getBlock(releaseX - 1, releaseY + 2 - i).demolishBlock();
-                    getBlock(releaseX + 1, releaseY + 2 - i).demolishBlock();
-                    dropAbove(releaseX, releaseY + 2 - i);
-                    dropAbove(releaseX - 1, releaseY + 2 - i);
-                    dropAbove(releaseX + 1, releaseY + 2 - i);
-                    gameStatistics.addScore(1);
-                    return;
-                }
+        }
+        if (direction.equals("up")) {
+            if (getBlock(compX, compY).getColor().equals(getBlock(compX, compY - 1).getColor())) {
+                return true;
             }
-        
-            scanColor = getBlock(releaseX, releaseY + 2 - i).getColor();
-            if (getBlock(releaseX + 1, releaseY + 2 - i).getColor().equals(scanColor)) {
-                if (getBlock(releaseX + 2, releaseY + 2 - i).getColor().equals(scanColor)) {
-                
-                    getBlock(releaseX, releaseY + 2 - i).demolishBlock();
-                    getBlock(releaseX + 1, releaseY + 2 - i).demolishBlock();
-                    getBlock(releaseX + 2, releaseY + 2 - i).demolishBlock();
-                    dropAbove(releaseX, releaseY + 2 - i);
-                    dropAbove(releaseX + 1, releaseY + 2 - i);
-                    dropAbove(releaseX + 2, releaseY + 2 - i);
-                    gameStatistics.addScore(1);
-                    return;
+        }
+        return false;
+    }
+    
+    public void horizontalScan() {
+        int streakCount = 1;
+        for (int scanY = getAreaEdgeY() - 1; scanY > 0; scanY--) {
+            for (int scanX = 0; scanX < getAreaEdgeX(); scanX++) {
+                if (hasBlock(scanX, scanY)) {
+                    if (nextBlockSimiliar(scanX, scanY, "right")) {
+                        streakCount++;
+                    } else {
+                        if (streakCount >= 3) {
+                            for (int i = 0; i < streakCount; i++) {
+                                collect(scanX - i, scanY);
+                            }
+                        }
+                        streakCount = 1;
+                    }
                 }
             }
         }
+    }
         
-        // vertical
-        
-        for (int i = 0; i < 3; i++) {
-            scanColor = getBlock(releaseX, releaseY + 2 - i).getColor();
-            if (getBlock(releaseX, releaseY + 1 - i).getColor().equals(scanColor)) {
-                if (getBlock(releaseX, releaseY - i).getColor().equals(scanColor)) {
+    public void verticalScan() {
+        int streakCount = 1;
+        for (int scanX = 0; scanX < getAreaEdgeX(); scanX++) {
+            for (int scanY = getAreaEdgeY() - 1; scanY > 0; scanY--) {
+                if (hasBlock(scanX, scanY)) {
+                    if (nextBlockSimiliar(scanX, scanY, "up")) {
+                        streakCount++;
+                    } else {
+                        if (streakCount >= 3) {
+                            for (int i = 0; i < streakCount; i++) {
+                                collect(scanX, scanY + i);
+                            }
+                        }
+                    streakCount = 1;
+                    }   
                 
-                    getBlock(releaseX, releaseY + 2 - i).demolishBlock();
-                    getBlock(releaseX, releaseY + 1 - i).demolishBlock();
-                    getBlock(releaseX, releaseY - i).demolishBlock();
-                    dropAbove(releaseX, releaseY + 2 - i);
-                    dropAbove(releaseX, releaseY + 1 - i);
-                    dropAbove(releaseX, releaseY - i);
-                    gameStatistics.addScore(1);
-                    return;
                 }
             }
-            
-            scanColor = getBlock(releaseX, releaseY + 2 - i).getColor();
-            if (getBlock(releaseX, releaseY + 1 - i).getColor().equals(scanColor)) {
-                if (getBlock(releaseX, releaseY + 3 - i).getColor().equals(scanColor)) {
-                
-                    getBlock(releaseX, releaseY + 2 - i).demolishBlock();
-                    getBlock(releaseX, releaseY + 1 - i).demolishBlock();
-                    getBlock(releaseX, releaseY + 3 - i).demolishBlock();
-                    dropAbove(releaseX, releaseY + 2 - i);
-                    dropAbove(releaseX, releaseY + 1 - i);
-                    dropAbove(releaseX, releaseY + 3 - i);
-                    gameStatistics.addScore(1);
-                    return;
-                }
-            }   
-        
-            scanColor = getBlock(releaseX, releaseY + 2 - i).getColor();
-            if (getBlock(releaseX, releaseY + 3 - i).getColor().equals(scanColor)) {
-                if (getBlock(releaseX, releaseY + 4 - i).getColor().equals(scanColor)) {
-                
-                    getBlock(releaseX, releaseY + 2 - i).demolishBlock();
-                    getBlock(releaseX, releaseY + 3 - i).demolishBlock();
-                    getBlock(releaseX, releaseY + 4 - i).demolishBlock();
-                    dropAbove(releaseX, releaseY + 2 - i);
-                    dropAbove(releaseX, releaseY + 3 - i);
-                    dropAbove(releaseX, releaseY + 4 - i);
-                    gameStatistics.addScore(1);
-                    return;
-                }
-            }  
-           
         }
-        
-        // diagonal
-        
-        for (int i = 0; i < 3; i++) {
-            scanColor = getBlock(releaseX, releaseY + 2 - i).getColor();
-            if (getBlock(releaseX - 1, releaseY + 1 - i).getColor().equals(scanColor)) {
-                if (getBlock(releaseX + 1, releaseY + 3 - i).getColor().equals(scanColor)) {
-                
-                    getBlock(releaseX, releaseY + 2 - i).demolishBlock();
-                    getBlock(releaseX - 1, releaseY + 1 - i).demolishBlock();
-                    getBlock(releaseX + 1, releaseY + 3 - i).demolishBlock();
-                    dropAbove(releaseX, releaseY + 2 - i);
-                    dropAbove(releaseX - 1, releaseY + 1 - i);
-                    dropAbove(releaseX + 1, releaseY + 3 - i);
-                    gameStatistics.addScore(1);
-                    return;
-                }
-            }
-            
-            scanColor = getBlock(releaseX, releaseY + 2 - i).getColor();
-            if (getBlock(releaseX - 1, releaseY + 1 - i).getColor().equals(scanColor)) {
-                if (getBlock(releaseX + 1, releaseY + 3 - i).getColor().equals(scanColor)) {
-                
-                    getBlock(releaseX, releaseY + 2 - i).demolishBlock();
-                    getBlock(releaseX + 1, releaseY + 1 - i).demolishBlock();
-                    getBlock(releaseX - 1, releaseY + 3 - i).demolishBlock();
-                    dropAbove(releaseX, releaseY + 2 - i);
-                    dropAbove(releaseX + 1, releaseY + 1 - i);
-                    dropAbove(releaseX - 1, releaseY + 3 - i);
-                    gameStatistics.addScore(1);
-                    return;
-                }
-            }
-           
-        }
+    }
+    
+    public void diagonalScan() {
         
     }
     
+    public void collect(int x, int y) {
+        demolishCollect.add(getBlock(x , y));
+        System.out.println("Collected: " + x + " , " + y);
+        System.out.println(demolishCollect);
+    }
+    
+    public void clearCollected() {
+        gameStatistics.addScore(demolishCollect.size());
+        for (int i = 0; i < demolishCollect.size(); i++) {
+            demolishCollect.get(i).demolishBlock();
+        }
+        demolishCollect.clear();
+    }
+    
+    public void scanAndDrop() {
+        ArrayList<Integer> topLine = findHighestBlock();
+        for (int scanX = 0; scanX < getAreaEdgeX(); scanX++) {
+            int scanY = topLine.get(scanX);
+            while (scanY < getAreaEdgeY()) {
+                if (!hasBlock(scanX, scanY)) {
+                    dropAbove(scanX, scanY);
+                    
+                }
+            scanY++;        
+            }
+        }
+    }
+    
+    public ArrayList<Integer> findHighestBlock() {
+        ArrayList<Integer> highestBlocks = new ArrayList<>();
+        int scanY = 0;
+        for (int scanX = 0; scanX < getAreaEdgeX(); scanX++) {
+            while (!hasBlock(scanX, scanY)) {
+                scanY++;
+            }
+            highestBlocks.add(scanY);
+            scanY = 0;
+        }
+        return highestBlocks;
+    }
+    
+    
     public void dropAbove(int dropX, int dropY) {
-        // TO DO - temporary
         while (dropY > 1) {
             getBlock(dropX, dropY).setColor(getBlock(dropX, dropY - 1).getColor());
             dropY--;

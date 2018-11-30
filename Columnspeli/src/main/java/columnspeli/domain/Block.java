@@ -9,7 +9,7 @@ public class Block {
     public Block() {
         this.blockColor = "empty";
     }
-            
+    
     public Block(String identity) {
         blockColor = identity;
     }
@@ -38,4 +38,4 @@ public class Block {
         return blockColor;
     }
     
-}
+ }

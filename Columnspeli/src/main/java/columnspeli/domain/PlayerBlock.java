@@ -37,8 +37,8 @@ public class PlayerBlock {
     public void respawn(ArrayList<Integer> possibleRespawns) {
         Random rand = new Random();
         int i = possibleRespawns.get(rand.nextInt(possibleRespawns.size()));
-        System.out.println("Respawns open: " + possibleRespawns);
-        System.out.println("Respawning to: " + i);
+        //System.out.println("Respawns open: " + possibleRespawns);
+        //System.out.println("Respawning to: " + i);
         this.gridX = i;
         this.x = i * ColumnsUi.BLOCK_SIZE;
         newBlocks();
