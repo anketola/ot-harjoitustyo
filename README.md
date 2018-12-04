@@ -16,8 +16,17 @@ Sovelluksessa on toteutettu nyt alustava runko. Palikat tippuvat pelialueella. P
 
 [Työaikakirjanpito](https://github.com/anketola/ot-harjoitustyo/blob/master/dokumentaatio/tuntikirjanpito.md)
 
+### Releaset
+
+placeholder
 
 ### Komentorivitoimintoja
+
+Jarin generointi (luo hakemistoon target suoritettavan jar tiedoston nimeltään Columnspeli-1.0-SNAPSHOT.jar)
+
+```
+mvn package
+```
 
 Testien suorittaminen
 
