@@ -1,16 +1,17 @@
 package columnspeli.domain;
 
 import java.util.Random;
+import javafx.scene.paint.Color;
 
 public class Block {
     
-    private String blockColor;
+    private Color blockColor;
     
     public Block() {
-        this.blockColor = "empty";
+        this.blockColor = Color.BLACK;
     }
     
-    public Block(String identity) {
+    public Block(Color identity) {
         blockColor = identity;
     }
     
@@ -18,27 +19,27 @@ public class Block {
         Random rand = new Random();
         int i = rand.nextInt(5) + 1;
         if (i == 1) {
-            blockColor = "red";
+            blockColor = Color.RED;
         } else if (i == 2) {
-            blockColor = "yellow";
+            blockColor = Color.YELLOW;
         } else if (i == 3) {
-            blockColor = "blue";
+            blockColor = Color.BLUE;
         } else if (i == 4) {
-            blockColor = "green";
+            blockColor = Color.GREEN;
         } else if (i == 5) {
-            blockColor = "purple";
+            blockColor = Color.PURPLE;
         }
     }
     
     public void demolishBlock() {
-        blockColor = "empty";
+        blockColor = Color.BLACK;
     }
     
-    public void setColor(String newColor) {
+    public void setColor(Color newColor) {
         blockColor = newColor;
     }
     
-    public String getColor() {
+    public Color getColor() {
         return blockColor;
     }
     

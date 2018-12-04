@@ -16,7 +16,6 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.input.KeyCode;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.geometry.Pos;
 import javafx.geometry.Insets;
 import javafx.scene.control.Slider;
 import javafx.beans.value.ChangeListener;
@@ -174,72 +173,30 @@ public class ColumnsUi extends Application {
                 drawer.setFill(Color.BLACK);
                 drawer.fillRect(0, 0, GAME_FIELD_WIDTH, GAME_FIELD_HEIGHT);
                 
-                drawerNextBlock.setFill(Color.WHITE);
-                drawerNextBlock.fillRect(0, 0, BLOCK_SIZE * 2 , BLOCK_SIZE * 4);
-                drawerNextBlock.setFill(Color.BLACK);
-                drawerNextBlock.fillRect(2, 2, BLOCK_SIZE * 2 - 2, BLOCK_SIZE * 4 - 2);
-                
-                // Drawing player object
-                
-                
-                String vari = gameArea.getPlayerBlock().getTopBlock().getColor();
-                
-                drawer.setFill(Color.WHITE);
-                drawer.fillRect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
-                
-                if (vari.equals("yellow")) {
-                    drawer.setFill(Color.YELLOW);
-                } else if (vari.equals("red")) {
-                    drawer.setFill(Color.RED);
-                } else if (vari.equals("blue")) {
-                    drawer.setFill(Color.BLUE);
-                } else if (vari.equals("green")) {
-                    drawer.setFill(Color.GREEN);
-                } else if (vari.equals("purple")) {
-                    drawer.setFill(Color.PURPLE);
-                }
-                
-                drawer.fillRect(x * BLOCK_SIZE + 1, y * BLOCK_SIZE+ 1, BLOCK_SIZE - 2, BLOCK_SIZE - 2);
+                // Functionality not in use yet 
+                //drawerNextBlock.setFill(Color.WHITE);
+                //drawerNextBlock.fillRect(0, 0, BLOCK_SIZE * 2 , BLOCK_SIZE * 4);
+                //drawerNextBlock.setFill(Color.BLACK);
+                //drawerNextBlock.fillRect(2, 2, BLOCK_SIZE * 2 - 2, BLOCK_SIZE * 4 - 2);
                 
                 
-                vari = gameArea.getPlayerBlock().getMiddleBlock().getColor();
+                // This draws a white rectangle to give a border for the blocks
+                // The actual colored ones are few pixels smaller 
                 
                 drawer.setFill(Color.WHITE);
-                drawer.fillRect(x * BLOCK_SIZE, y * BLOCK_SIZE + BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
-                
-                if (vari.equals("yellow")) {
-                    drawer.setFill(Color.YELLOW);
-                } else if (vari.equals("red")) {
-                    drawer.setFill(Color.RED);
-                } else if (vari.equals("blue")) {
-                    drawer.setFill(Color.BLUE);
-                } else if (vari.equals("green")) {
-                    drawer.setFill(Color.GREEN);
-                } else if (vari.equals("purple")) {
-                    drawer.setFill(Color.PURPLE);
-                }
-                
-                drawer.fillRect(x * BLOCK_SIZE + 1, y * BLOCK_SIZE + 1 + BLOCK_SIZE, BLOCK_SIZE - 2, BLOCK_SIZE - 2);
-                
-                
-                vari = gameArea.getPlayerBlock().getBottomBlock().getColor();
-                
-                drawer.setFill(Color.WHITE);
-                drawer.fillRect(x * BLOCK_SIZE, y * BLOCK_SIZE + 2 * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
-                
-                if (vari.equals("yellow")) {
-                    drawer.setFill(Color.YELLOW);
-                } else if (vari.equals("red")) {
-                    drawer.setFill(Color.RED);
-                } else if (vari.equals("blue")) {
-                    drawer.setFill(Color.BLUE);
-                } else if (vari.equals("green")) {
-                    drawer.setFill(Color.GREEN);
-                } else if (vari.equals("purple")) {
-                    drawer.setFill(Color.PURPLE);
-                }
-                
-                drawer.fillRect(x * BLOCK_SIZE + 1, y * BLOCK_SIZE + 1 + 2 * BLOCK_SIZE, BLOCK_SIZE - 2, BLOCK_SIZE - 2);
+                drawer.fillRect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE * 3);
+                Color color;
+                for (int i = 0; i < 3; i ++) {
+                    if (i == 0) {
+                        color = gameArea.getPlayerBlock().getTopBlock().getColor();
+                    } else if (i == 1) {
+                        color = gameArea.getPlayerBlock().getMiddleBlock().getColor();
+                    } else {
+                        color = gameArea.getPlayerBlock().getBottomBlock().getColor();
+                    }
+                        drawer.setFill(color);
+                        drawer.fillRect(x * BLOCK_SIZE + 1, y * BLOCK_SIZE + 1 + i * BLOCK_SIZE, BLOCK_SIZE - 2, BLOCK_SIZE - 2);
+                    }
                 
                 // draw other blocks
                 
@@ -250,20 +207,9 @@ public class ColumnsUi extends Application {
                         if (gameArea.hasBlock(x, y)) {
                             drawer.setFill(Color.WHITE);
                             drawer.fillRect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
-                            vari = gameArea.getBlock(x, y).getColor();
-                            if (vari.equals("yellow")) {
-                                drawer.setFill(Color.YELLOW);
-                            } else if (vari.equals("red")) {
-                                drawer.setFill(Color.RED);
-                            } else if (vari.equals("blue")) {
-                                drawer.setFill(Color.BLUE);
-                            } else if (vari.equals("green")) {
-                                drawer.setFill(Color.GREEN);
-                            } else if (vari.equals("purple")) {
-                                drawer.setFill(Color.PURPLE);
-                            }
-                            
-                        drawer.fillRect(1 + x * BLOCK_SIZE, 1 + y * BLOCK_SIZE, BLOCK_SIZE - 2, BLOCK_SIZE - 2);
+                            drawer.setFill(gameArea.getBlock(x, y).getColor());
+                            color = gameArea.getBlock(x, y).getColor();
+                            drawer.fillRect(1 + x * BLOCK_SIZE, 1 + y * BLOCK_SIZE, BLOCK_SIZE - 2, BLOCK_SIZE - 2);
                         }
                         x++;
                     }

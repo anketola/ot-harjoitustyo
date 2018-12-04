@@ -1,6 +1,7 @@
 package columnspeli.domain;
 
 import java.util.ArrayList;
+import javafx.scene.paint.Color;
 
 public class GameArea {
     
@@ -25,7 +26,7 @@ public class GameArea {
         while (y2 < areaBlocks.length) {
             int x2 = 0;
             while (x2 < areaBlocks[y2].length) {
-                areaBlocks[y2][x2] = new Block("empty");
+                areaBlocks[y2][x2] = new Block(Color.BLACK);
                 x2++;
             }
             y2++;    
@@ -112,19 +113,19 @@ public class GameArea {
     
     public boolean nextBlockSimiliar(int compX, int compY, String direction) {
         if (direction.equals("right")) {
-            if (getBlock(compX, compY).getColor().equals(getBlock(compX + 1, compY).getColor())) {
+            if (getBlock(compX, compY).getColor() == getBlock(compX + 1, compY).getColor()) {
                 return true;
             }
         } else if (direction.equals("up")) {
-            if (getBlock(compX, compY).getColor().equals(getBlock(compX, compY - 1).getColor())) {
+            if (getBlock(compX, compY).getColor() == getBlock(compX, compY - 1).getColor()) {
                 return true;
             }
         } else if (direction.equals("downright")) {
-            if (getBlock(compX, compY).getColor().equals(getBlock(compX + 1, compY + 1).getColor())) {
+            if (getBlock(compX, compY).getColor() == getBlock(compX + 1, compY + 1).getColor()) {
                 return true;
             }
         } else if (direction.equals("downleft")) {
-            if (getBlock(compX, compY).getColor().equals(getBlock(compX - 1, compY + 1).getColor())) {
+            if (getBlock(compX, compY).getColor() == getBlock(compX - 1, compY + 1).getColor()) {
                 return true;
             }
         }
@@ -311,7 +312,7 @@ public class GameArea {
     
     public boolean hasBlock(int x, int y) {
         if (y < getAreaEdgeY()) {
-            if (this.areaBlocks[x][y].getColor().equals("empty")) {
+            if (this.areaBlocks[x][y].getColor() == Color.BLACK) {
                 return false;
             }
         }
@@ -321,7 +322,7 @@ public class GameArea {
     public Block getBlock(int x, int y) {
         if ((x >= getAreaEdgeX()) || (x < 0) || (y < 0) || (y >= getAreaEdgeY())) {
             Block outOfArea = new Block();
-            outOfArea.setColor("Out of Bounds");
+            outOfArea.setColor(Color.BLACK);
             return outOfArea;
         }
         return this.areaBlocks[x][y];

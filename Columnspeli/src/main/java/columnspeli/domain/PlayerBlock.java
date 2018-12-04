@@ -1,8 +1,8 @@
 package columnspeli.domain;
 
-import columnspeli.ui.ColumnsUi;
 import java.util.ArrayList;
 import java.util.Random;
+import javafx.scene.paint.Color;
 
 public class PlayerBlock {
     
