@@ -45,17 +45,14 @@ public class GameArea {
     
     public void movePlayer(String direction) {
         if (direction.equals("left") && (!isCollisionLeft())) {
-            playerBlock.moveX(-20);
+            playerBlock.moveX(direction);
         }
         if (direction.equals("right") && (!isCollisionRight())) {
-            playerBlock.moveX(20);
+            playerBlock.moveX(direction);
         }
         if (direction.equals("down") && (!isCollisionDown())) {
             playerBlock.moveDown();
         } else if (direction.equals("down") && (isCollisionDown())) {
-            int tempX = playerBlock.getGridX(); // temp, fix
-            int tempY = playerBlock.getGridY();
-            
             releaseBlocks();
             seekBlockStreaks();    
             if (!gameOver()) {

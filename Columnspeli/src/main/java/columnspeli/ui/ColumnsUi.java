@@ -79,7 +79,7 @@ public class ColumnsUi extends Application {
         Label scoreTitle = new Label("Pisteet: ");
         Label scoreText = new Label(Integer.toString(gameArea.getStatistics().getScore()));
         Label timeTitle = new Label("Aikaa kulunut: ");
-        Label timeText = new Label("TO DO");
+        Label timeText = new Label("0");
         Label nextBlockText = new Label("Seuraava palikka:");
         Label gameOverText = new Label("Peli päättyi!"); 
         
@@ -166,8 +166,8 @@ public class ColumnsUi extends Application {
                 }
                 
                 if ((gameArea.gameActive()) && (!gameArea.paused())) {
-                int x = gameArea.getPlayerBlock().getX();
-                int y = gameArea.getPlayerBlock().getY();
+                int x = gameArea.getPlayerBlock().getGridX();
+                int y = gameArea.getPlayerBlock().getGridY();
                 scoreText.setText(Integer.toString(gameArea.getStatistics().getScore()));
                 timeText.setText(Long.toString(gameArea.getStatistics().getElapsedTime()));
                
@@ -185,7 +185,7 @@ public class ColumnsUi extends Application {
                 String vari = gameArea.getPlayerBlock().getTopBlock().getColor();
                 
                 drawer.setFill(Color.WHITE);
-                drawer.fillRect(x, y, BLOCK_SIZE, BLOCK_SIZE);
+                drawer.fillRect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
                 
                 if (vari.equals("yellow")) {
                     drawer.setFill(Color.YELLOW);
@@ -199,13 +199,13 @@ public class ColumnsUi extends Application {
                     drawer.setFill(Color.PURPLE);
                 }
                 
-                drawer.fillRect(x + 1, y + 1, BLOCK_SIZE - 2, BLOCK_SIZE - 2);
+                drawer.fillRect(x * BLOCK_SIZE + 1, y * BLOCK_SIZE+ 1, BLOCK_SIZE - 2, BLOCK_SIZE - 2);
                 
                 
                 vari = gameArea.getPlayerBlock().getMiddleBlock().getColor();
                 
                 drawer.setFill(Color.WHITE);
-                drawer.fillRect(x, y + BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+                drawer.fillRect(x * BLOCK_SIZE, y * BLOCK_SIZE + BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
                 
                 if (vari.equals("yellow")) {
                     drawer.setFill(Color.YELLOW);
@@ -219,13 +219,13 @@ public class ColumnsUi extends Application {
                     drawer.setFill(Color.PURPLE);
                 }
                 
-                drawer.fillRect(x + 1, y + 1 + BLOCK_SIZE, BLOCK_SIZE - 2, BLOCK_SIZE - 2);
+                drawer.fillRect(x * BLOCK_SIZE + 1, y * BLOCK_SIZE + 1 + BLOCK_SIZE, BLOCK_SIZE - 2, BLOCK_SIZE - 2);
                 
                 
                 vari = gameArea.getPlayerBlock().getBottomBlock().getColor();
                 
                 drawer.setFill(Color.WHITE);
-                drawer.fillRect(x, y + 2 * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+                drawer.fillRect(x * BLOCK_SIZE, y * BLOCK_SIZE + 2 * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
                 
                 if (vari.equals("yellow")) {
                     drawer.setFill(Color.YELLOW);
@@ -239,7 +239,7 @@ public class ColumnsUi extends Application {
                     drawer.setFill(Color.PURPLE);
                 }
                 
-                drawer.fillRect(x + 1, y + 1 + 2 * BLOCK_SIZE, BLOCK_SIZE - 2, BLOCK_SIZE - 2);
+                drawer.fillRect(x * BLOCK_SIZE + 1, y * BLOCK_SIZE + 1 + 2 * BLOCK_SIZE, BLOCK_SIZE - 2, BLOCK_SIZE - 2);
                 
                 // draw other blocks
                 

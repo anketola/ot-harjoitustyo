@@ -6,8 +6,6 @@ import java.util.Random;
 
 public class PlayerBlock {
     
-    private int x;
-    private int y;
     private int gridX;
     private int gridY;
     private Block topBlock;
@@ -15,8 +13,6 @@ public class PlayerBlock {
     private Block bottomBlock;
     
     public PlayerBlock(int x, int y) {
-        this.x = x * ColumnsUi.BLOCK_SIZE;
-        this.y = y * ColumnsUi.BLOCK_SIZE;
         this.gridY = y;
         this.gridX = x;
         this.topBlock = new Block();
@@ -40,49 +36,25 @@ public class PlayerBlock {
         //System.out.println("Respawns open: " + possibleRespawns);
         //System.out.println("Respawning to: " + i);
         this.gridX = i;
-        this.x = i * ColumnsUi.BLOCK_SIZE;
         newBlocks();
-        setY(0);
         setGridY(0);
     }
     
     
     public void moveDown() {
-        this.y = y + ColumnsUi.BLOCK_SIZE;
         this.gridY++;
     }
     
-    public void moveX(int changeX) {
-        if ((this.x + changeX) < 0 || ((this.x + changeX) >= ColumnsUi.GAME_FIELD_WIDTH)) {
-            return;
-        }
-        this.x = x + changeX;
-        if (changeX > 0) {        
+    public void moveX(String direction) {
+        if (direction.equals("right")) {        
             gridX++;
-        } else {
+        } else if (direction.equals("left")) {
             this.gridX--; 
         }
     }
     
     public void speedPush() {
-        this.y = y + ColumnsUi.BLOCK_SIZE;
         this.gridY++;
-    }
-    
-    public void setY(int y) {
-        this.y = y;
-    }
-    
-    public void setX(int x) {
-        this.x = x;
-    }
-    
-    public int getX() {
-        return this.x;
-    }
-    
-    public int getY() {
-        return this.y;
     }
     
     public int getGridX() {
