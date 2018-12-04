@@ -72,7 +72,7 @@ public class ColumnsUi extends Application {
         Canvas nextBlockCanvas = new Canvas(BLOCK_SIZE * 2, BLOCK_SIZE * 4);
         
         GraphicsContext drawer = gameCanvas.getGraphicsContext2D();
-        GraphicsContext drawerNextBlock = nextBlockCanvas.getGraphicsContext2D();
+        // GraphicsContext drawerNextBlock = nextBlockCanvas.getGraphicsContext2D();
         
         Label speedTitle = new Label("Pelin nopeus");
         Label scoreTitle = new Label("Pisteet: ");

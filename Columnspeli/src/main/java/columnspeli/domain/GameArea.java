@@ -239,12 +239,14 @@ public class GameArea {
         //System.out.println(demolishCollect);
     }
     
-    public void clearCollected() {
+    public int clearCollected() {
         gameStatistics.addScore(demolishCollect.size());
+        int amount = demolishCollect.size();
         for (int i = 0; i < demolishCollect.size(); i++) {
             demolishCollect.get(i).demolishBlock();
         }
         demolishCollect.clear();
+        return amount;
     }
     
     public void scanAndDrop() {
