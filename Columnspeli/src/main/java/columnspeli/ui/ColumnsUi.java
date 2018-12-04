@@ -18,25 +18,43 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.geometry.Pos;
 import javafx.geometry.Insets;
-
-// Messy code at times, will be fixed. Enum will be implemented later etc
-// The game is now "playable" to some degree, will be fixing stuff later
-// the falling speed is controlled by "dropspeed" variable with 0 - 10 as values
-// no practical implementation for it yet
+import javafx.scene.control.Slider;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 
 public class ColumnsUi extends Application {
     
     public static int GAME_FIELD_WIDTH = 240;
     public static int GAME_FIELD_HEIGHT = 480;
     public static int BLOCK_SIZE = 20; 
-  
+    public static int DEFAULT_SPEED = 5;
     
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Columns-peli");
         primaryStage.setResizable(false);
-
+        
         GameArea gameArea = new GameArea(12, 24);
+        gameArea.getStatistics().setSpeed(DEFAULT_SPEED);
+        
+        Slider speedSlider = new Slider();
+        speedSlider.setMin(1);
+        speedSlider.setMax(10);
+        speedSlider.setValue(DEFAULT_SPEED);
+        speedSlider.setMajorTickUnit(1);
+        speedSlider.setMinorTickCount(0);
+        speedSlider.setBlockIncrement(1);
+        speedSlider.setShowTickLabels(true);
+        speedSlider.setShowTickMarks(true);
+        speedSlider.setSnapToTicks(true);
+        speedSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> ov,
+                Number old_val, Number new_val) {
+                gameArea.getStatistics().setSpeed(new_val.intValue());
+            }
+        });
+        
         
         BorderPane gameBorderPane = new BorderPane(); 
         GridPane rightGridPane = new GridPane();
@@ -50,17 +68,14 @@ public class ColumnsUi extends Application {
         
         buttonLaunch.setMaxWidth(Double.MAX_VALUE);
         buttonQuit.setMaxWidth(Double.MAX_VALUE);
-        menuVBox.setPadding(new Insets(50, 50, 50, 50));
-        menuVBox.getChildren().addAll(buttonLaunch, buttonQuit);
         
-       
         Canvas gameCanvas = new Canvas(GAME_FIELD_WIDTH, GAME_FIELD_HEIGHT);
         Canvas nextBlockCanvas = new Canvas(BLOCK_SIZE * 2, BLOCK_SIZE * 4);
         
         GraphicsContext drawer = gameCanvas.getGraphicsContext2D();
         GraphicsContext drawerNextBlock = nextBlockCanvas.getGraphicsContext2D();
         
-        
+        Label speedTitle = new Label("Pelin nopeus");
         Label scoreTitle = new Label("Pisteet: ");
         Label scoreText = new Label(Integer.toString(gameArea.getStatistics().getScore()));
         Label timeTitle = new Label("Aikaa kulunut: ");
@@ -81,6 +96,9 @@ public class ColumnsUi extends Application {
         rightGridPane.setPrefWidth(200);
         gameBorderPane.setCenter(gameCanvas);
         gameBorderPane.setRight(rightGridPane);
+        
+        menuVBox.setPadding(new Insets(50, 50, 50, 50));
+        menuVBox.getChildren().addAll(buttonLaunch, buttonQuit, speedTitle, speedSlider);
         
         menuBorderPane.setPrefWidth(600);
         menuBorderPane.setPrefHeight(400);
@@ -252,7 +270,7 @@ public class ColumnsUi extends Application {
                     y++;
                 }
                 dropSpeed++;
-                if (dropSpeed == 2) {
+                if (dropSpeed == (11 - gameArea.getStatistics().getSpeed())) {
                     dropSpeed = 0;
                     gameArea.movePlayer("down");
                 }
