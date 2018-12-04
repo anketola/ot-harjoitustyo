@@ -3,6 +3,7 @@ package columnspeli.domain;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import javafx.scene.paint.Color;
 
 public class GameAreaTest {
     
@@ -27,7 +28,7 @@ public class GameAreaTest {
     @Test
     public void leftCollisionDetected() {
         GameArea testArea = new GameArea(10, 10);
-        Block testBlock = new Block("red");
+        Block testBlock = new Block(Color.RED);
         testArea.setBlock(4, 0, testBlock); 
         // 5 is the default first PlayerBlock spawn for now
         assertTrue(testArea.isCollisionLeft());
@@ -36,7 +37,7 @@ public class GameAreaTest {
     @Test
     public void rightCollisionDetected() {
         GameArea testArea = new GameArea(10, 10);
-        Block testBlock = new Block("red");
+        Block testBlock = new Block(Color.RED);
         testArea.setBlock(6, 0, testBlock); 
         // 5 is the default first PlayerBlock spawn for now
         assertTrue(testArea.isCollisionRight());
@@ -45,7 +46,7 @@ public class GameAreaTest {
     @Test
     public void downCollisionDetected() {
         GameArea testArea = new GameArea(10, 10);
-        Block testBlock = new Block("red");
+        Block testBlock = new Block(Color.RED);
         testArea.setBlock(5, 3, testBlock); 
         // 5 is the default first PlayerBlock spawn for now
         assertTrue(testArea.isCollisionDown());
@@ -57,9 +58,9 @@ public class GameAreaTest {
     @Test
     public void scanAndEraseFullLeft() { // temp, method will be replaced
         GameArea testArea = new GameArea(10, 10);
-        Block testBlock1 = new Block("red");
-        Block testBlock2 = new Block("red");
-        Block testBlock3 = new Block("red");
+        Block testBlock1 = new Block(Color.RED);
+        Block testBlock2 = new Block(Color.RED);
+        Block testBlock3 = new Block(Color.RED);
         testArea.setBlock(5, 8, testBlock1);
         testArea.setBlock(4, 8, testBlock2);
         testArea.setBlock(3, 8, testBlock3);
@@ -70,9 +71,9 @@ public class GameAreaTest {
     @Test
     public void scanAndEraseVerticallTop() { // temp, method will be replaced
         GameArea testArea = new GameArea(10, 10);
-        Block testBlock1 = new Block("red");
-        Block testBlock2 = new Block("red");
-        Block testBlock3 = new Block("red");
+        Block testBlock1 = new Block(Color.RED);
+        Block testBlock2 = new Block(Color.RED);
+        Block testBlock3 = new Block(Color.RED);
         testArea.setBlock(0, 5, testBlock1);
         testArea.setBlock(0, 6, testBlock2);
         testArea.setBlock(0, 7, testBlock3);
@@ -83,9 +84,9 @@ public class GameAreaTest {
     @Test
     public void scanAndEraseVerticallMiddle() { // temp, method will be replaced
         GameArea testArea = new GameArea(10, 10);
-        Block testBlock1 = new Block("red");
-        Block testBlock2 = new Block("red");
-        Block testBlock3 = new Block("red");
+        Block testBlock1 = new Block(Color.RED);
+        Block testBlock2 = new Block(Color.RED);
+        Block testBlock3 = new Block(Color.RED);
         testArea.setBlock(0, 5, testBlock1);
         testArea.setBlock(0, 6, testBlock2);
         testArea.setBlock(0, 7, testBlock3);
@@ -105,7 +106,7 @@ public class GameAreaTest {
     @Test
     public void leftCollisionNoMove() {
         GameArea testArea = new GameArea(10, 5);
-        Block testBlock = new Block("red");
+        Block testBlock = new Block(Color.RED);
         testArea.setBlock(4, 0, testBlock);
         testArea.movePlayer("left");
         assertEquals(5, testArea.getPlayerBlock().getGridX());
@@ -114,7 +115,7 @@ public class GameAreaTest {
     @Test
     public void rightCollisionNoMove() {
         GameArea testArea = new GameArea(10, 5);
-        Block testBlock = new Block("red");
+        Block testBlock = new Block(Color.RED);
         testArea.setBlock(6, 0, testBlock);
         testArea.movePlayer("right");
         assertEquals(5, testArea.getPlayerBlock().getGridX());
