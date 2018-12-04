@@ -104,12 +104,12 @@ public class GameArea {
         // everything fully, now it just provides more functionality
         // this is for the cases when clear and drop gives new streaks
         // going to fix later
-        horizontalScan();
-        verticalScan();
-        diagonalScanDownRight();
-        diagonalScanDownLeft();
-        clearCollected();
-        scanAndDrop();
+            horizontalScan();
+            verticalScan();
+            diagonalScanDownRight();
+            diagonalScanDownLeft();
+            clearCollected();
+            scanAndDrop();
         }
     }
     
@@ -118,18 +118,15 @@ public class GameArea {
             if (getBlock(compX, compY).getColor().equals(getBlock(compX + 1, compY).getColor())) {
                 return true;
             }
-        }
-        if (direction.equals("up")) {
+        } else if (direction.equals("up")) {
             if (getBlock(compX, compY).getColor().equals(getBlock(compX, compY - 1).getColor())) {
                 return true;
             }
-        }
-        if (direction.equals("downright")) {
+        } else if (direction.equals("downright")) {
             if (getBlock(compX, compY).getColor().equals(getBlock(compX + 1, compY + 1).getColor())) {
                 return true;
             }
-        }
-        if (direction.equals("downleft")) {
+        } else if (direction.equals("downleft")) {
             if (getBlock(compX, compY).getColor().equals(getBlock(compX - 1, compY + 1).getColor())) {
                 return true;
             }
@@ -170,7 +167,7 @@ public class GameArea {
                                 collect(scanX, scanY + i);
                             }
                         }
-                    streakCount = 1;
+                        streakCount = 1;
                     }   
                 
                 }
@@ -198,14 +195,13 @@ public class GameArea {
                                 collect(scanX - i, scanY - i);
                             }   
                         }
-                streakCount = 1;
+                        streakCount = 1;
                     }
                 }    
-               
-            scanX++;
-            scanY++;
+                scanX++;
+                scanY++;
             }
-        scanStartY++;
+            scanStartY++;
         }
     }
     
@@ -229,14 +225,13 @@ public class GameArea {
                                 collect(scanX + i, scanY - i);
                             }   
                         }
-                streakCount = 1;
+                        streakCount = 1;
                     }
                 }    
-               
-            scanX--;
-            scanY++;
+                scanX--;
+                scanY++;
             }
-        scanStartY++;
+            scanStartY++;
         }
     }
    
@@ -263,7 +258,7 @@ public class GameArea {
                     dropAbove(scanX, scanY);
                     
                 }
-            scanY++;        
+                scanY++;        
             }
         }
     }
@@ -294,7 +289,7 @@ public class GameArea {
         setBlock(playerBlock.getGridX(), playerBlock.getGridY(), playerBlock.getTopBlock());
         setBlock(playerBlock.getGridX(), playerBlock.getGridY() + 1, playerBlock.getMiddleBlock());
         setBlock(playerBlock.getGridX(), playerBlock.getGridY() + 2, playerBlock.getBottomBlock());
-     }
+    }
     
     public boolean gameOver() {
         ArrayList respawns = eglibleRespawn();
