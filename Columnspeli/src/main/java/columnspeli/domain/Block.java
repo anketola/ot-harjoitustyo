@@ -16,13 +16,17 @@ public class Block {
     
     public void randomizeBlock() {
         Random rand = new Random();
-        int i = rand.nextInt(3) + 1;
+        int i = rand.nextInt(5) + 1;
         if (i == 1) {
             blockColor = "red";
         } else if (i == 2) {
             blockColor = "yellow";
         } else if (i == 3) {
             blockColor = "blue";
+        } else if (i == 4) {
+            blockColor = "green";
+        } else if (i == 5) {
+            blockColor = "purple";
         }
     }
     

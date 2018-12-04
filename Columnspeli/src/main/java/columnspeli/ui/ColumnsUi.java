@@ -26,8 +26,8 @@ import javafx.geometry.Insets;
 
 public class ColumnsUi extends Application {
     
-    public static int GAME_FIELD_WIDTH = 300;
-    public static int GAME_FIELD_HEIGHT = 600;
+    public static int GAME_FIELD_WIDTH = 240;
+    public static int GAME_FIELD_HEIGHT = 480;
     public static int BLOCK_SIZE = 20; 
   
     
@@ -36,7 +36,7 @@ public class ColumnsUi extends Application {
         primaryStage.setTitle("Columns-peli");
         primaryStage.setResizable(false);
 
-        GameArea gameArea = new GameArea(15, 30);
+        GameArea gameArea = new GameArea(12, 24);
         
         BorderPane gameBorderPane = new BorderPane(); 
         GridPane rightGridPane = new GridPane();
@@ -136,6 +136,8 @@ public class ColumnsUi extends Application {
             }
         });
         
+        
+        
         new AnimationTimer() {
             long past = 0;
             int dropSpeed = 0;
@@ -173,6 +175,10 @@ public class ColumnsUi extends Application {
                     drawer.setFill(Color.RED);
                 } else if (vari.equals("blue")) {
                     drawer.setFill(Color.BLUE);
+                } else if (vari.equals("green")) {
+                    drawer.setFill(Color.GREEN);
+                } else if (vari.equals("purple")) {
+                    drawer.setFill(Color.PURPLE);
                 }
                 
                 drawer.fillRect(x + 1, y + 1, BLOCK_SIZE - 2, BLOCK_SIZE - 2);
@@ -189,6 +195,10 @@ public class ColumnsUi extends Application {
                     drawer.setFill(Color.RED);
                 } else if (vari.equals("blue")) {
                     drawer.setFill(Color.BLUE);
+                } else if (vari.equals("green")) {
+                    drawer.setFill(Color.GREEN);
+                } else if (vari.equals("purple")) {
+                    drawer.setFill(Color.PURPLE);
                 }
                 
                 drawer.fillRect(x + 1, y + 1 + BLOCK_SIZE, BLOCK_SIZE - 2, BLOCK_SIZE - 2);
@@ -205,6 +215,10 @@ public class ColumnsUi extends Application {
                     drawer.setFill(Color.RED);
                 } else if (vari.equals("blue")) {
                     drawer.setFill(Color.BLUE);
+                } else if (vari.equals("green")) {
+                    drawer.setFill(Color.GREEN);
+                } else if (vari.equals("purple")) {
+                    drawer.setFill(Color.PURPLE);
                 }
                 
                 drawer.fillRect(x + 1, y + 1 + 2 * BLOCK_SIZE, BLOCK_SIZE - 2, BLOCK_SIZE - 2);
@@ -225,6 +239,10 @@ public class ColumnsUi extends Application {
                                 drawer.setFill(Color.RED);
                             } else if (vari.equals("blue")) {
                                 drawer.setFill(Color.BLUE);
+                            } else if (vari.equals("green")) {
+                                drawer.setFill(Color.GREEN);
+                            } else if (vari.equals("purple")) {
+                                drawer.setFill(Color.PURPLE);
                             }
                             
                         drawer.fillRect(1 + x * BLOCK_SIZE, 1 + y * BLOCK_SIZE, BLOCK_SIZE - 2, BLOCK_SIZE - 2);
@@ -234,7 +252,7 @@ public class ColumnsUi extends Application {
                     y++;
                 }
                 dropSpeed++;
-                if (dropSpeed == 10) {
+                if (dropSpeed == 2) {
                     dropSpeed = 0;
                     gameArea.movePlayer("down");
                 }
