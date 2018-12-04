@@ -63,7 +63,7 @@ public class GameAreaTest {
         testArea.setBlock(5, 8, testBlock1);
         testArea.setBlock(4, 8, testBlock2);
         testArea.setBlock(3, 8, testBlock3);
-        testArea.scanAndErase(5, 8);
+        testArea.seekBlockStreaks();
         assertTrue(!testArea.hasBlock(5, 8));
     }
     
@@ -76,7 +76,7 @@ public class GameAreaTest {
         testArea.setBlock(0, 5, testBlock1);
         testArea.setBlock(0, 6, testBlock2);
         testArea.setBlock(0, 7, testBlock3);
-        testArea.scanAndErase(0, 5);
+        testArea.seekBlockStreaks();
         assertTrue(!testArea.hasBlock(0, 5));
     }
     
@@ -89,7 +89,7 @@ public class GameAreaTest {
         testArea.setBlock(0, 5, testBlock1);
         testArea.setBlock(0, 6, testBlock2);
         testArea.setBlock(0, 7, testBlock3);
-        testArea.scanAndErase(0, 5);
+        testArea.seekBlockStreaks();
         assertTrue(!testArea.hasBlock(0, 5));
     }
     
