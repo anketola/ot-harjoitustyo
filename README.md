@@ -4,9 +4,9 @@ Tämä sovellus on reaaliaikainen Columns-peli. Sovellus on Ohelmistotekniikan m
 
 *Sovelluksen tämänhetkisistä toiminnoista ja lyhyt ohje:*
 
-Sovelluksessa on toteutettu nyt alustava runko. Palikat tippuvat pelialueella. Pelaaja voi käyttää nuolinäppäimiä palikoiden ohjaamiseen. Neliöiden järjestystä vaihdetaan painamalla ylös-nappia. Putoamista voi nopeuttaa painamalla alas-nuolta. 
+Ohje: Palikat tippuvat pelialueella. Pelaaja voi käyttää nuolinäppäimiä palikoiden ohjaamiseen. Neliöiden järjestystä vaihdetaan painamalla ylös-nappia. Putoamista voi nopeuttaa painamalla alas-nuolta. 
 
-**Uutta 27.11.** palikat jäävät alueelle. Sovellus tarkastaa väliaikaisella (ei toimi oikein, korjataan myöhemmin, kun keksin järkevimmän algoritmin tähän) metodilla hyväksyttäviä rivejä. Peli pitää kirjaa pisteistä ja näyttää ne. Peli tunnistaa myös sen, mihin uusi pelaajapalikka voi syntyä ylälaidassa. Peli tunnistaa "game over" -tilan. Tämän seuraukset lisätään myöhemmin.
+**Päivitysinfoa 4.12:** Sovellukseen on nyt tehty uusi algoritmi ja vanha on korvattu sillä. Sillä ei ole nyt pituusrajoituksia (eli voi olla esim. 5 pitkä värisuora). Samalla voi olla samanaikaisesti esim. pystysuorassa ja vinottain suora ja tämä tunnistuu oikein. Poistettavat palikat menevät tavallaan "koriin", ja ne deletoidaan. Vaikeustason voi nyt säätää alkuruudusta - eli pelin nopeutta voi säätää. Peliin on lisätty 2 uutta väriä (nyt 5 yhteensä). Lisätty ajastin. Toisteista koodia, käyttämättömiä metodeita ja muuttujia poistettu. Värit toimivat nyt järkevämmin. Korjattavaa yms: Algoritmin jäljiltä jäi pieni bugi (huomaa jos yrittää hävitä peliä, en ehtinyt korjata) ja katvealue. GameArea-luokka on turhan paisunut. DAO pakkaus tulossa vielä, sitä ei ehdity vielä koodata (piste-ennätyksiä varten). Korjailu ja lisäily jatkuu kohta..
 
 ### Dokumentaatio
 
@@ -18,7 +18,7 @@ Sovelluksessa on toteutettu nyt alustava runko. Palikat tippuvat pelialueella. P
 
 ### Releaset
 
-placeholder
+[Viikko 5](https://github.com/anketola/ot-harjoitustyo/releases/tag/viikko5)
 
 ### Komentorivitoimintoja
 
