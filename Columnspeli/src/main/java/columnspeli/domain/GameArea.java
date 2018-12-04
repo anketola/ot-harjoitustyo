@@ -348,6 +348,7 @@ public class GameArea {
     
     public void activateGame() {
         this.gameActive = true;
+        gameStatistics.startTimer();
     }
     
     public void closeGame() {

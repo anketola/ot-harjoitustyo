@@ -4,6 +4,7 @@ public class GameStatistics {
 
     private int score;
     private int speed;
+    long startTime;
     
     public GameStatistics() {
         this.score = 0;
@@ -30,9 +31,13 @@ public class GameStatistics {
         return this.speed;
     }
     
-    public int getElapsedTime() {
-        // TO DO
-        return 0;
+    public void startTimer() {
+        this.startTime = System.currentTimeMillis();
+    }
+    
+    public long getElapsedTime() {
+        long timeElapsed = System.currentTimeMillis() - this.startTime;
+        return timeElapsed / 1000;
     }
     
 }

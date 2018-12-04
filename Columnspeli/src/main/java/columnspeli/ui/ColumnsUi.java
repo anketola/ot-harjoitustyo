@@ -169,7 +169,7 @@ public class ColumnsUi extends Application {
                 int x = gameArea.getPlayerBlock().getX();
                 int y = gameArea.getPlayerBlock().getY();
                 scoreText.setText(Integer.toString(gameArea.getStatistics().getScore()));
-                
+                timeText.setText(Long.toString(gameArea.getStatistics().getElapsedTime()));
                
                 drawer.setFill(Color.BLACK);
                 drawer.fillRect(0, 0, GAME_FIELD_WIDTH, GAME_FIELD_HEIGHT);
