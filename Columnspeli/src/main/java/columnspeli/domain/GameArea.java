@@ -278,8 +278,12 @@ public class GameArea {
     
     
     public void dropAbove(int dropX, int dropY) {
-        while (dropY > 0) {
-            getBlock(dropX, dropY).setColor(getBlock(dropX, dropY - 1).getColor());
+        while (dropY >= 0) {
+            if (dropY > 0) {
+                getBlock(dropX, dropY).setColor(getBlock(dropX, dropY - 1).getColor());
+            } else if (dropY == 0) {
+                getBlock(dropX, dropY).setColor(Color.BLACK);
+            }
             dropY--;
         }
         
