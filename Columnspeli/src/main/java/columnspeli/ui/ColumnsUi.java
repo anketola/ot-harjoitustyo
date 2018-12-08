@@ -158,6 +158,7 @@ public class ColumnsUi extends Application {
         new AnimationTimer() {
             long past = 0;
             int dropSpeed = 0;
+            int shrinkCounter = 0;
             @Override
             public void handle(long now) {
                 if (now - past < 100000000) {
@@ -218,7 +219,12 @@ public class ColumnsUi extends Application {
                 dropSpeed++;
                 if (dropSpeed == (11 - gameArea.getStatistics().getSpeed())) {
                     dropSpeed = 0;
+                    shrinkCounter++;
                     gameArea.movePlayer("down");
+                    if (shrinkCounter == gameArea.getStatistics().getShrinkSpeed()) {
+                        gameArea.shrinkArea();
+                        shrinkCounter = 0;
+                    }
                 }
                 if (gameArea.gameOver()) {
                     primaryStage.setScene(gameOverScene);

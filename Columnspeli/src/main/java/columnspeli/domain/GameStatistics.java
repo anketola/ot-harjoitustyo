@@ -4,11 +4,21 @@ public class GameStatistics {
 
     private int score;
     private int speed;
+    private int shrinkSpeed;
     long startTime;
     
     public GameStatistics() {
         this.score = 0;
         this.speed = 0;
+        this.shrinkSpeed = 30;
+    }
+    
+    public void setShrinkSpeed(int newShrinkSpeed) {
+        this.shrinkSpeed = newShrinkSpeed;
+    }
+    
+    public int getShrinkSpeed() {
+        return this.shrinkSpeed;
     }
   
     public void addScore(int increase) {

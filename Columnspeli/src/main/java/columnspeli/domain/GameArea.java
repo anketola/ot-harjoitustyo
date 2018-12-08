@@ -11,6 +11,7 @@ public class GameArea {
     private ArrayList<Block> demolishCollect = new ArrayList<>();
     boolean gameActive;
     boolean gamePaused;
+    private int shrinkValue;
     
     public GameArea(int x, int y) {
         this.areaBlocks = new Block[x][y];
@@ -19,6 +20,7 @@ public class GameArea {
         this.gamePaused = false;
         this.playerBlock = new PlayerBlock(5, 0); // temp
         this.gameActive = false;
+        this.shrinkValue = 0;
     }
     
     public void generateEmptyArea() {
@@ -35,6 +37,7 @@ public class GameArea {
     
     public void resetState() {
         this.gameStatistics.setScore(0);
+        this.shrinkValue = 0;
         generateEmptyArea();
         playerBlock.respawn(eglibleRespawn());
     }
@@ -113,19 +116,19 @@ public class GameArea {
     
     public boolean nextBlockSimiliar(int compX, int compY, String direction) {
         if (direction.equals("right")) {
-            if (getBlock(compX, compY).getColor() == getBlock(compX + 1, compY).getColor()) {
+            if ((getBlock(compX, compY).getColor() == getBlock(compX + 1, compY).getColor()) && (getBlock(compX + 1, compY).getColor() != Color.GRAY)) {
                 return true;
             }
         } else if (direction.equals("up")) {
-            if (getBlock(compX, compY).getColor() == getBlock(compX, compY - 1).getColor()) {
+            if ((getBlock(compX, compY).getColor() == getBlock(compX, compY - 1).getColor()) && (getBlock(compX, compY - 1).getColor() != Color.GRAY)) {
                 return true;
             }
         } else if (direction.equals("downright")) {
-            if (getBlock(compX, compY).getColor() == getBlock(compX + 1, compY + 1).getColor()) {
+            if ((getBlock(compX, compY).getColor() == getBlock(compX + 1, compY + 1).getColor()) && (getBlock(compX + 1, compY + 1).getColor() != Color.GRAY)) {
                 return true;
             }
         } else if (direction.equals("downleft")) {
-            if (getBlock(compX, compY).getColor() == getBlock(compX - 1, compY + 1).getColor()) {
+            if ((getBlock(compX, compY).getColor() == getBlock(compX - 1, compY + 1).getColor()) && (getBlock(compX - 1, compY + 1).getColor() != Color.GRAY)) {
                 return true;
             }
         }
@@ -273,8 +276,21 @@ public class GameArea {
             highestBlocks.add(scanY);
             scanY = 0;
         }
+        System.out.println(highestBlocks);
         return highestBlocks;
     }
+    
+    public void shrinkArea() {
+        int x = 0;
+        int y = getAreaEdgeY() - 1 - this.shrinkValue;
+        while (x < getAreaEdgeX()) {
+            getBlock(x, y).setColor(Color.GRAY);
+            x++;
+    }
+    this.shrinkValue++;
+    }
+        
+        
     
     
     public void dropAbove(int dropX, int dropY) {
