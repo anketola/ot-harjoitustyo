@@ -8,7 +8,7 @@ import columnspeli.domain.ScoreEntry;
 import columnspeli.dao.ScoreEntryDao;
 import columnspeli.dao.Database;
 
-
+import java.sql.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -45,7 +45,7 @@ public class ColumnsUi extends Application {
         Database database = new Database("jdbc:sqlite:" + databaseFile.getAbsolutePath());
         ScoreEntryDao scoreEntryDao = new ScoreEntryDao(database);
         
-        GameArea gameArea = new GameArea(5, 5);
+        GameArea gameArea = new GameArea(12, 24);
         ScoreBoardHandler scoreBoardHandler = new ScoreBoardHandler(scoreEntryDao);
         gameArea.getStatistics().setSpeed(DEFAULT_SPEED);
         
@@ -94,7 +94,6 @@ public class ColumnsUi extends Application {
         buttonReturnFromScoreView.setMaxWidth(Double.MAX_VALUE);
         
         Canvas gameCanvas = new Canvas(GAME_FIELD_WIDTH, GAME_FIELD_HEIGHT);
-        Canvas nextBlockCanvas = new Canvas(BLOCK_SIZE * 2, BLOCK_SIZE * 4);
         
         GraphicsContext drawer = gameCanvas.getGraphicsContext2D();
         
@@ -188,7 +187,14 @@ public class ColumnsUi extends Application {
         });
         
         buttonSendHighScore.setOnAction((event) -> {
-            scoreBoardHandler.saveScoreEntry("Timo", 9000);
+            try {
+            scoreBoardHandler.saveScoreEntry(highScoreName.getText(), 9000);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+            highScoreName.setText("");
+            primaryStage.setScene(gameScoreScene);
+            
         });
         
         buttonQuit.setOnAction((event) -> {

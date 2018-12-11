@@ -38,8 +38,9 @@ public class ScoreBoardHandler {
         return i;
     }
     
-    public void saveScoreEntry(String name, int score) throws Exception {
-        scoreDao.save(new ScoreEntry(name, score));
+    public void saveScoreEntry(String newName, int newScore) throws Exception {
+        ScoreEntry scoreEntry = new ScoreEntry(newName, newScore);
+        scoreDao.save(scoreEntry);
     }
       
 }
