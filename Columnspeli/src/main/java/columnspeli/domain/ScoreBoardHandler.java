@@ -5,11 +5,20 @@ import java.util.ArrayList;
 
 public class ScoreBoardHandler {
     
+    /**
+     * Piste-ennätysten hallintaan UI:n ja DAO:n välissä tarkoitettu luokka
+     */
+    
     private ScoreEntryDao scoreDao;
     
     public ScoreBoardHandler(ScoreEntryDao scoreDao) {
         this.scoreDao = scoreDao;
     }
+    
+    /**
+     * Metodi etsii tietokannasta tuloksia. Jos tuloksia puuttuu, ne täytetään tyhjillä.
+     * @return palauttaa kymmenen parasta tulosta,
+     */
     
     public ArrayList<ScoreEntry> giveTopTenPlayers() throws Exception {
         ArrayList<ScoreEntry> topTenPlayers = scoreDao.findAll();
@@ -21,6 +30,13 @@ public class ScoreBoardHandler {
         return topTenPlayers;
     }
     
+    /**
+     * Käyttölittymää avustava ja muokkaava luokka, joka tunnistaa, onko käyttäjä oikeutettu nimen syöttämiseen
+     * @param score Käyttäjän saavuttama pistemäärä.
+     * @return palauttaa True, jos käyttäjälle avataan mahdollisuus nimen syöttämiseen.
+     *  
+     */
+    
     public boolean isEglibleForScoreList(int score) throws Exception {
         ArrayList<ScoreEntry> currentScores = giveTopTenPlayers();
         if (score > currentScores.get(currentScores.size()).getScore()) {
@@ -28,6 +44,12 @@ public class ScoreBoardHandler {
         }
         return false;
     }
+    
+    /**
+     * Käyttöliittymän pisteennäyttöä avustava luokka, joka tunnistaa oikean kohdan uudelle piste-ennätykselle
+     * @param score käyttäjän pisteet
+     * @return sijoitus listalla
+     */
     
     public int findNewPlaceOnScoreList(int score) throws Exception {
         ArrayList<ScoreEntry> topTenPlayers = scoreDao.findAll();
@@ -38,6 +60,13 @@ public class ScoreBoardHandler {
         
         return i;
     }
+    
+    /**
+     * Metodi tallentaa ennätyksen tietokantaan
+     * @param newName käyttäjän nimi tai nimimerkki
+     * @param newScore käyttäjän pistemäärä
+     * 
+     */
     
     public void saveScoreEntry(String newName, int newScore) throws Exception {
         ScoreEntry scoreEntry = new ScoreEntry(newName, newScore);

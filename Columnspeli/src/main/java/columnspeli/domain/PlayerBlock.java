@@ -3,6 +3,11 @@ package columnspeli.domain;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Pelaajan ohjauksessa oleva pelipalikka.
+ * 
+ */
+
 public class PlayerBlock {
     
     private int gridX;
@@ -22,6 +27,12 @@ public class PlayerBlock {
         this.bottomBlock.randomizeBlock();
     }
     
+    /**
+     * Metodi on tarkoitettu reagoimaan käyttäjän "ylös" napin painallukseen
+     * vaihtamalla palikoiden järjestystä asianmukaisessti.
+     */
+    
+    
     public void shuffleBlocks() {
         Block shuffleHelper = topBlock;
         topBlock = middleBlock;
@@ -29,20 +40,34 @@ public class PlayerBlock {
         bottomBlock = shuffleHelper;
     }
     
+    /**
+     * Metodi asettaa pelaajan ohjaaman palikan taikaisin ylös ja arpoo uudet
+     * neliöt.
+     * 
+     * @param possibleRespawns sisältää pelialuen X akselilla mahdolliset sytymäpaikat
+     *
+     */
+    
     public void respawn(ArrayList<Integer> possibleRespawns) {
         Random rand = new Random();
         int i = possibleRespawns.get(rand.nextInt(possibleRespawns.size()));
-        //System.out.println("Respawns open: " + possibleRespawns);
-        //System.out.println("Respawning to: " + i);
         this.gridX = i;
         newBlocks();
         setGridY(0);
     }
     
+    /**
+     * Metodi siirtää pelaajan ohjaamaa palikkaan yhden ruudun alas
+     */
     
     public void moveDown() {
         this.gridY++;
     }
+    
+    /**
+     * Metodi siirtää pelajan ohjaamaa palikkaa sivusuunnassa
+     * @param direction ilmaisee haluaako pelaaja siirtyä vasemmalle vai oikealle
+     */
     
     public void moveX(String direction) {
         if (direction.equals("right")) {        
@@ -83,6 +108,11 @@ public class PlayerBlock {
     public Block getBottomBlock() {
         return bottomBlock;
     }
+    
+    /**
+     * Metodi arpo uudet sattumanvaraiset Block-oliot pelaajan kuljetettavaksi
+     */
+    
     
     public void newBlocks() {
         topBlock = new Block();

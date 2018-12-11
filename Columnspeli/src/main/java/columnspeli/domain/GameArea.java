@@ -3,6 +3,12 @@ package columnspeli.domain;
 import java.util.ArrayList;
 import javafx.scene.paint.Color;
 
+/**
+ * Pelialueen sisällöstä huolehtiva luokka ( tässä vaiheessa myönnän, että tämä pitää pilkkoa, sisällä logiikkaa)
+ * 
+ */
+
+
 public class GameArea {
     
     private Block[][] areaBlocks;
@@ -22,6 +28,10 @@ public class GameArea {
         this.gameActive = false;
         this.shrinkValue = 0;
     }
+
+    /**
+     * Metodi luo pelialueen täyteen mustia neliöitä.
+     */
     
     public void generateEmptyArea() {
         int y2 = 0;
@@ -35,6 +45,10 @@ public class GameArea {
         }
     }
     
+    /**
+     * Metodi nollaa pelialueen ja aloittaa pelin alusta.
+     */
+    
     public void resetState() {
         this.gameStatistics.setScore(0);
         this.shrinkValue = 0;
@@ -43,9 +57,21 @@ public class GameArea {
     }
     
     
+    /**
+     * Metodi asetta Block-olion toivottuun paikkaan.
+     * @param x olion x-koordinaatti gridillä
+     * @param y olion x-koordinaatti gridillä
+     * @param block asetettava Block-olio.
+     */
+    
     public void setBlock(int x, int y, Block block) {
         areaBlocks[x][y] = block;
     }
+    
+    /**
+     * Metodi välittää pelaajan ohjaamalle palikalle näppäimistösyötteen ja käsittelee sen tai palikan putoamisen merkityksen.
+     * @param direction pelaajan näppäimistösyötteen mukainen suunta
+     */
     
     public void movePlayer(String direction) {
         if (direction.equals("left") && (!isCollisionLeft())) {
@@ -66,6 +92,11 @@ public class GameArea {
                 
     }
     
+    /**
+     * Metodi tarkistaa, onko pelaajan kolmesta nelliöstä koostuvan palikan mahdollista liikkuva vasemmalle.
+     * @return palauttaa true, jos vasemmalla puolella on este.
+     */
+    
     public boolean isCollisionLeft() {
         int blockX = playerBlock.getGridX();
         int topBlockY = playerBlock.getGridY();
@@ -77,6 +108,11 @@ public class GameArea {
         }
         return false;
     }
+    
+    /**
+     * Metodi tarkistaa, onko pelaajan kolmesta nelliöstä koostuvan palikan mahdollista liikkuva oikealle.
+     * @return palauttaa true, jos oikealla puolella on este.
+     */
     
     public boolean isCollisionRight() {
         int blockX = playerBlock.getGridX();
@@ -90,6 +126,11 @@ public class GameArea {
         return false;
     }
     
+    /**
+     * Metodi tarkistaa onko pelaajan ohjaaman, kolmesta neliöstä koostuvan palikan mahdollista liikkua alas.
+     * @return 
+     */
+    
     public boolean isCollisionDown() {
         int blockX = playerBlock.getGridX();
         int topBlockY = playerBlock.getGridY();
@@ -98,6 +139,10 @@ public class GameArea {
         }
         return false;
     }
+    
+    /**
+     * Metodi sisältää pelialueen systemaattista tarkastelua varten metodikokoelman.
+     */
     
     public void seekBlockStreaks() {
         for (int i = 0; i < 5; i++) {   
@@ -113,6 +158,14 @@ public class GameArea {
             scanAndDrop();
         }
     }
+    
+    /**
+     * Metodi tarkastaa onko parametrien mukainen Block saman värinen kuin vertailusuunta;
+     * @param compX Vertailtavaksi otettavan Block-olion x-koordinaatti.
+     * @param compY Vertailtavaksi otettavan Block-olion y-koordinaatti.
+     * @param direction Suunta, mihin verrataan.
+     * @return palauttaa true, jos parametrien perusteella seuraava palikka on samanvärinen.
+     */
     
     public boolean nextBlockSimiliar(int compX, int compY, String direction) {
         if (direction.equals("right")) {
@@ -135,6 +188,10 @@ public class GameArea {
         return false;
     }
     
+    /**
+     * Metodi systemaattiselle vasemmalta oikealle tarkastelulle. Käy koko pelialueen läpi.
+     */
+    
     public void horizontalScan() {
         int streakCount = 1;
         for (int scanY = getAreaEdgeY() - 1; scanY > 0; scanY--) {
@@ -154,7 +211,11 @@ public class GameArea {
             }
         }
     }
-        
+    
+    /**
+     * Metodi systemaattiselle vasemmalta oikealle tarkastelulle. Käy koko pelialueen läpi.
+     */
+    
     public void verticalScan() {
         int streakCount = 1;
         for (int scanX = 0; scanX < getAreaEdgeX(); scanX++) {
@@ -175,6 +236,10 @@ public class GameArea {
             }
         }
     }
+    
+    /**
+     * Metodi oikeaan alaviistoon menevien suorien tunistamiseksi.
+     */
     
     public void diagonalScanDownRight() {
         int streakCount = 1;
@@ -206,6 +271,10 @@ public class GameArea {
         }
     }
     
+    /**
+     * Metodi vasempaan alaviistoon menevien suorien tunistamiseksi.
+     */
+    
     public void diagonalScanDownLeft() {
         int streakCount = 1;
         int scanStartY = 0;
@@ -235,12 +304,21 @@ public class GameArea {
             scanStartY++;
         }
     }
-   
+
+    /**
+     * Kerää algoritmien havitsemat palikat talteen.
+     * @param x neliön x sijainti
+     * @param y neliön y sijainti.
+     */
+    
     public void collect(int x, int y) {
         demolishCollect.add(getBlock(x , y));
-        //System.out.println("Collected: " + x + " , " + y);
-        //System.out.println(demolishCollect);
     }
+    
+    /**
+     * Metodi lisää pistetä kerättyjen neliöiden määrän perusteella, muuttaa palikat mustiksi ja tyhjentää demolishCollect-korin.
+     * @return palauttaaa poistettujen määrän. 
+     */
     
     public int clearCollected() {
         gameStatistics.addScore(demolishCollect.size());
@@ -251,6 +329,10 @@ public class GameArea {
         demolishCollect.clear();
         return amount;
     }
+    
+    /**
+     * Metodi etsii ja tiputtaa ylempänä olevia palikoita, jos niiden alla on mustia aukkoja.
+     */
     
     public void scanAndDrop() {
         ArrayList<Integer> topLine = findHighestBlock();
@@ -266,6 +348,12 @@ public class GameArea {
         }
     }
     
+    /**
+     * Metodi etsii jokaisen ruudukon X kohdalta korkeimman palikan.
+     * @return 
+     */
+    
+    
     public ArrayList<Integer> findHighestBlock() {
         ArrayList<Integer> highestBlocks = new ArrayList<>();
         int scanY = 0;
@@ -280,6 +368,10 @@ public class GameArea {
         return highestBlocks;
     }
     
+    /**
+     * Metodi luo pelialueen alle harmaata, tuhoutumatonta aluetta pelin päättymisen nopeuttamiseksi.
+     */
+    
     public void shrinkArea() {
         int x = 0;
         int y = getAreaEdgeY() - 1 - this.shrinkValue;
@@ -290,7 +382,11 @@ public class GameArea {
         this.shrinkValue++;
     }
         
-        
+    /**
+     * Metodi tiputtaa annettujen koordinaattien päällä olevat neliöt. Ei etsi.
+     * @param dropX aloituskohdan X arvo.
+     * @param dropY aloituskohdan Y arvo.
+     */    
     
     
     public void dropAbove(int dropX, int dropY) {
@@ -305,11 +401,20 @@ public class GameArea {
         
     }
     
+    /**
+     * Metodi vapauttaa pelaajan ohjattavana olleet kolme palikkaa osaksi pelilautaa.
+     */
+    
     public void releaseBlocks() {
         setBlock(playerBlock.getGridX(), playerBlock.getGridY(), playerBlock.getTopBlock());
         setBlock(playerBlock.getGridX(), playerBlock.getGridY() + 1, playerBlock.getMiddleBlock());
         setBlock(playerBlock.getGridX(), playerBlock.getGridY() + 2, playerBlock.getBottomBlock());
     }
+    
+    /**
+     * Metodi tarkkailee pelin päättymistä
+     * @return palauttaa true, jos peli päättynyt.
+     */
     
     public boolean gameOver() {
         ArrayList respawns = eglibleRespawn();
@@ -318,6 +423,11 @@ public class GameArea {
         }
         return false;
     }
+    
+    /**
+     * Metodi skannaa pelialueen ylialuetta tunnistaakseen paikkoja, johon pelaajan palikka voi vielä syntyä.
+     * @return 
+     */
     
     public ArrayList<Integer> eglibleRespawn() {
         ArrayList<Integer> possibleRespawnX = new ArrayList<>();
@@ -331,7 +441,7 @@ public class GameArea {
         return possibleRespawnX;
     }
     
-    
+
     public boolean hasBlock(int x, int y) {
         if (y < getAreaEdgeY()) {
             if (this.areaBlocks[x][y].getColor() == Color.BLACK) {

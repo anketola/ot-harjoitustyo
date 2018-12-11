@@ -1,5 +1,10 @@
 package columnspeli.domain;
 
+/**
+ * Sovelluksen pisteistä ja nopeustiloista kirjaa pitävä luokka.
+ * 
+ */
+
 public class GameStatistics {
 
     private int score;

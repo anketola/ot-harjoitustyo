@@ -103,7 +103,7 @@ public class ColumnsUi extends Application {
         Label scoreText = new Label(Integer.toString(gameArea.getStatistics().getScore()));
         Label timeTitle = new Label("Aikaa kulunut: ");
         Label timeText = new Label("0");
-        Label nextBlockText = new Label("Seuraava palikka:");
+        Label nextBlockText = new Label("");
         Label gameOverText = new Label("Peli päättyi!"); 
         Label gameOverTextScore = new Label();
         Label scoreMainText = new Label("Ennätyspisteet");

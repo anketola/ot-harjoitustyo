@@ -3,6 +3,12 @@ package columnspeli.domain;
 import java.util.Random;
 import javafx.scene.paint.Color;
 
+/**
+ * Pelialueen täyttäviä eri värisiä neliöitä edustava luokka.
+ * Luokka on käytössä myös ylhäältä tiippuva PlayerObjectin osana.
+ */
+
+
 public class Block {
     
     private Color blockColor;
@@ -14,6 +20,10 @@ public class Block {
     public Block(Color identity) {
         blockColor = identity;
     }
+    
+    /**
+     * Metodin tarkoituksena on antaa Blockille sattumanvarainen väri.
+     */
     
     public void randomizeBlock() {
         Random rand = new Random();
@@ -30,6 +40,11 @@ public class Block {
             blockColor = Color.PURPLE;
         }
     }
+    
+    /**
+     * Metodi tuhoaa Blockin muuttamalla.
+     * Musta väli tulkitaan ei-palikaksi.
+     */
     
     public void demolishBlock() {
         blockColor = Color.BLACK;
