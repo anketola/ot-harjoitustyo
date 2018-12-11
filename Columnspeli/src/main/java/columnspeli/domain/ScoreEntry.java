@@ -1,4 +1,4 @@
-package columnspeli.dao;
+package columnspeli.domain;
 
 public class ScoreEntry {
     

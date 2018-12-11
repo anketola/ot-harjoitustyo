@@ -3,9 +3,10 @@ package columnspeli.ui;
 
 import columnspeli.domain.Block;
 import columnspeli.domain.GameArea;
-import columnspeli.dao.Database;
-import columnspeli.dao.ScoreEntry;
+import columnspeli.domain.ScoreBoardHandler;
+import columnspeli.domain.ScoreEntry;
 import columnspeli.dao.ScoreEntryDao;
+import columnspeli.dao.Database;
 
 
 import javafx.application.Application;
@@ -43,8 +44,8 @@ public class ColumnsUi extends Application {
         Database database = new Database("jdbc:sqlite:" + databaseFile.getAbsolutePath());
         ScoreEntryDao scoreEntryDao = new ScoreEntryDao(database);
         
-        
         GameArea gameArea = new GameArea(12, 24);
+        ScoreBoardHandler scoreBoardHandler = new ScoreBoardHandler(scoreEntryDao);
         gameArea.getStatistics().setSpeed(DEFAULT_SPEED);
         
         Slider speedSlider = new Slider();
@@ -81,10 +82,13 @@ public class ColumnsUi extends Application {
         
         Button buttonPause = new Button("Jäädytä peli");
         Button returnToMenu = new Button("Palaa valikkoon");
+        Button returnToMenuFromScoreView = new Button("Palaa päävalikkoon");
+        
         
         buttonLaunch.setMaxWidth(Double.MAX_VALUE);
         buttonScoreScreen.setMaxWidth(Double.MAX_VALUE);
         buttonQuit.setMaxWidth(Double.MAX_VALUE);
+        returnToMenuFromScoreView.setMaxWidth(Double.MAX_VALUE);
         
         Canvas gameCanvas = new Canvas(GAME_FIELD_WIDTH, GAME_FIELD_HEIGHT);
         Canvas nextBlockCanvas = new Canvas(BLOCK_SIZE * 2, BLOCK_SIZE * 4);
@@ -116,7 +120,7 @@ public class ColumnsUi extends Application {
         scoreGridPane.add(new Label("Nimi"), 1, 0);
         scoreGridPane.add(new Label("Pisteet"), 2, 0);
         
-        ArrayList<ScoreEntry> scoreDisplay = scoreEntryDao.findAllMatching();
+        ArrayList<ScoreEntry> scoreDisplay = scoreBoardHandler.giveTopTenPlayers();
         for (int i = 0; i < 10; i++) {
             scoreGridPane.add(new Label(Integer.toString(i + 1)), 0, 1 + i);
             scoreGridPane.add(new Label(scoreDisplay.get(i).getName()), 1, 1 + i);
@@ -145,6 +149,7 @@ public class ColumnsUi extends Application {
         scoreBorderPane.setPrefHeight(400);
         scoreBorderPane.setCenter(scoreGridPane);
         scoreBorderPane.setTop(scoreMainText);
+        scoreBorderPane.setBottom(returnToMenuFromScoreView);
         
         gameOverBorderPane.setPrefWidth(600);
         gameOverBorderPane.setPrefHeight(400);
@@ -166,6 +171,10 @@ public class ColumnsUi extends Application {
         
         buttonScoreScreen.setOnAction((event) -> {
             primaryStage.setScene(gameScoreScene);
+        });
+        
+        returnToMenuFromScoreView.setOnAction((event) -> {
+            primaryStage.setScene(menuScene);
         });
         
         returnToMenu.setOnAction((event) -> {

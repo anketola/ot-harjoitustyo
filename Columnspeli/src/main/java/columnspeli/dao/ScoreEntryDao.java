@@ -1,5 +1,6 @@
 package columnspeli.dao;
 
+import columnspeli.domain.ScoreEntry;
 import java.sql.*;
 import java.util.*;
 
@@ -12,7 +13,7 @@ public class ScoreEntryDao implements Dao <ScoreEntry, Integer> {
     }
     
     @Override
-    public ArrayList<ScoreEntry> findAllMatching() throws SQLException {
+    public ArrayList<ScoreEntry> findAll() throws SQLException {
         ArrayList<ScoreEntry> matchingEntries = new ArrayList<>();
         Connection SQLConnection = database.getConnection();
         PreparedStatement prepStatement = SQLConnection.prepareStatement("SELECT * FROM Scores");
@@ -23,21 +24,30 @@ public class ScoreEntryDao implements Dao <ScoreEntry, Integer> {
         prepStatement.close();
         results.close();
         SQLConnection.close();
-        if (matchingEntries.size() < 10) {
-            while (matchingEntries.size() < 10)
-                matchingEntries.add(new ScoreEntry("Empty", 0));
-        }
+        
     return matchingEntries;
     }
     
     @Override
-    public ScoreEntry save(ScoreEntry scoreEntry) {
-        return null;
+    public void save(ScoreEntry scoreEntry) throws SQLException {
+        Connection SQLConnection = database.getConnection();
+        PreparedStatement prepStatement = SQLConnection.prepareStatement("INSERT INTO Scores"
+                + " (name)"
+                + " (score)"
+                + " VALUES (?, ?)"
+        );
+        prepStatement.setString(1, scoreEntry.getName());
+        prepStatement.setInt(2, scoreEntry.getScore());
+        ResultSet results = prepStatement.executeQuery();
+        results.next ();
+        prepStatement.close();
+        results.close();
+        SQLConnection.close();
     }
     
     @Override
     public void delete(Integer key) throws SQLException {
-        // TO DO
+        // TO DO - or is this even needed in time..
     }
     
     
