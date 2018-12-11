@@ -20,6 +20,8 @@ Ohje: Palikat tippuvat pelialueella. Pelaaja voi käyttää nuolinäppäimiä pa
 
 [Viikko 5](https://github.com/anketola/ot-harjoitustyo/releases/tag/viikko5)
 
+[Viikko 6](https://github.com/anketola/ot-harjoitustyo/releases/tag/Viikko)
+
 ### Komentorivitoimintoja
 
 Jarin generointi (luo hakemistoon target suoritettavan jar tiedoston nimeltään Columnspeli-1.0-SNAPSHOT.jar)
