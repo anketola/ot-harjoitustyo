@@ -4,34 +4,34 @@ import columnspeli.domain.ScoreEntry;
 import java.sql.*;
 import java.util.*;
 
-public class ScoreEntryDao implements Dao <ScoreEntry, Integer> {
+public class ScoreEntryDao implements Dao<ScoreEntry, Integer> {
 
     private Database database;
 
-    public ScoreEntryDao(Database database){
+    public ScoreEntryDao(Database database) {
         this.database = database;
     }
     
     @Override
     public ArrayList<ScoreEntry> findAll() throws SQLException {
         ArrayList<ScoreEntry> matchingEntries = new ArrayList<>();
-        Connection SQLConnection = database.getConnection();
-        PreparedStatement prepStatement = SQLConnection.prepareStatement("SELECT * FROM Scores");
+        Connection connection = database.getConnection();
+        PreparedStatement prepStatement = connection.prepareStatement("SELECT * FROM Scores");
         ResultSet results = prepStatement.executeQuery();
         while (results.next()) {
             matchingEntries.add(new ScoreEntry(results.getString("name"), results.getInt("score")));
         }
         prepStatement.close();
         results.close();
-        SQLConnection.close();
+        connection.close();
         
-    return matchingEntries;
+        return matchingEntries;
     }
     
     @Override
     public void save(ScoreEntry scoreEntry) throws SQLException {
-        Connection SQLConnection = database.getConnection();
-        PreparedStatement prepStatement = SQLConnection.prepareStatement("INSERT INTO Scores"
+        Connection connection = database.getConnection();
+        PreparedStatement prepStatement = connection.prepareStatement("INSERT INTO Scores"
                 + " (name, score)"
                 + " VALUES (?, ?)"
         );
@@ -39,7 +39,7 @@ public class ScoreEntryDao implements Dao <ScoreEntry, Integer> {
         prepStatement.setInt(2, scoreEntry.getScore());
         prepStatement.executeUpdate();
         prepStatement.close();
-        SQLConnection.close();
+        connection.close();
     }
     
     @Override

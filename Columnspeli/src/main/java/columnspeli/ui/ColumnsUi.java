@@ -44,9 +44,10 @@ public class ColumnsUi extends Application {
         File databaseFile = new File("db", "scores.db");
         Database database = new Database("jdbc:sqlite:" + databaseFile.getAbsolutePath());
         ScoreEntryDao scoreEntryDao = new ScoreEntryDao(database);
+        ScoreBoardHandler scoreBoardHandler = new ScoreBoardHandler(scoreEntryDao);
         
         GameArea gameArea = new GameArea(12, 24);
-        ScoreBoardHandler scoreBoardHandler = new ScoreBoardHandler(scoreEntryDao);
+        
         gameArea.getStatistics().setSpeed(DEFAULT_SPEED);
         
         Slider speedSlider = new Slider();

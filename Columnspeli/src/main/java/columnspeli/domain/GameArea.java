@@ -286,8 +286,8 @@ public class GameArea {
         while (x < getAreaEdgeX()) {
             getBlock(x, y).setColor(Color.GRAY);
             x++;
-    }
-    this.shrinkValue++;
+        }
+        this.shrinkValue++;
     }
         
         
