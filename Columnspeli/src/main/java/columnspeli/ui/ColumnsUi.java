@@ -3,6 +3,10 @@ package columnspeli.ui;
 
 import columnspeli.domain.Block;
 import columnspeli.domain.GameArea;
+import columnspeli.dao.Database;
+import columnspeli.dao.ScoreEntry;
+import columnspeli.dao.ScoreEntryDao;
+
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -20,6 +24,8 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Slider;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import java.util.ArrayList;
+import java.io.File;
 
 public class ColumnsUi extends Application {
     
@@ -29,9 +35,14 @@ public class ColumnsUi extends Application {
     public static int DEFAULT_SPEED = 5;
     
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Columns-peli");
         primaryStage.setResizable(false);
+        
+        File databaseFile = new File("db", "scores.db");
+        Database database = new Database("jdbc:sqlite:" + databaseFile.getAbsolutePath());
+        ScoreEntryDao scoreEntryDao = new ScoreEntryDao(database);
+        
         
         GameArea gameArea = new GameArea(12, 24);
         gameArea.getStatistics().setSpeed(DEFAULT_SPEED);
@@ -57,15 +68,22 @@ public class ColumnsUi extends Application {
         
         BorderPane gameBorderPane = new BorderPane(); 
         GridPane rightGridPane = new GridPane();
+        GridPane scoreGridPane = new GridPane();
         BorderPane gameOverBorderPane = new BorderPane();
         BorderPane menuBorderPane = new BorderPane();
+        BorderPane scoreBorderPane = new BorderPane();
+        
+        
         VBox menuVBox = new VBox();
         Button buttonLaunch = new Button("Käynnistä peli");
+        Button buttonScoreScreen = new Button("Ennätyspisteet");
         Button buttonQuit = new Button("Lopeta peli");
+        
         Button buttonPause = new Button("Jäädytä peli");
         Button returnToMenu = new Button("Palaa valikkoon");
         
         buttonLaunch.setMaxWidth(Double.MAX_VALUE);
+        buttonScoreScreen.setMaxWidth(Double.MAX_VALUE);
         buttonQuit.setMaxWidth(Double.MAX_VALUE);
         
         Canvas gameCanvas = new Canvas(GAME_FIELD_WIDTH, GAME_FIELD_HEIGHT);
@@ -81,6 +99,7 @@ public class ColumnsUi extends Application {
         Label timeText = new Label("0");
         Label nextBlockText = new Label("Seuraava palikka:");
         Label gameOverText = new Label("Peli päättyi!"); 
+        Label scoreMainText = new Label("Ennätyspisteet");
         
         rightGridPane.add(scoreTitle, 0, 0);
         rightGridPane.add(scoreText, 0, 1);
@@ -90,6 +109,25 @@ public class ColumnsUi extends Application {
         rightGridPane.add(nextBlockText, 0, 5);
         //rightGridPane.add(nextBlockCanvas, 0, 6);
         
+        
+        
+        
+        scoreGridPane.add(new Label("Sijoitus"), 0, 0);
+        scoreGridPane.add(new Label("Nimi"), 1, 0);
+        scoreGridPane.add(new Label("Pisteet"), 2, 0);
+        
+        ArrayList<ScoreEntry> scoreDisplay = scoreEntryDao.findAllMatching();
+        for (int i = 0; i < 10; i++) {
+            scoreGridPane.add(new Label(Integer.toString(i + 1)), 0, 1 + i);
+            scoreGridPane.add(new Label(scoreDisplay.get(i).getName()), 1, 1 + i);
+            scoreGridPane.add(new Label(Integer.toString(scoreDisplay.get(i).getScore())), 2, 1 + i);
+        }
+        
+
+        scoreGridPane.setHgap(20);
+        scoreGridPane.setVgap(10);
+        scoreGridPane.setPadding(new Insets(20, 20, 20, 20));
+        
         rightGridPane.setHgap(20);
         rightGridPane.setVgap(20);
         rightGridPane.setPrefWidth(200);
@@ -97,25 +135,37 @@ public class ColumnsUi extends Application {
         gameBorderPane.setRight(rightGridPane);
         
         menuVBox.setPadding(new Insets(50, 50, 50, 50));
-        menuVBox.getChildren().addAll(buttonLaunch, buttonQuit, speedTitle, speedSlider);
+        menuVBox.getChildren().addAll(buttonLaunch, buttonScoreScreen, buttonQuit, speedTitle, speedSlider);
         
         menuBorderPane.setPrefWidth(600);
         menuBorderPane.setPrefHeight(400);
         menuBorderPane.setCenter(menuVBox);
+        
+        scoreBorderPane.setPrefWidth(600);
+        scoreBorderPane.setPrefHeight(400);
+        scoreBorderPane.setCenter(scoreGridPane);
+        scoreBorderPane.setTop(scoreMainText);
         
         gameOverBorderPane.setPrefWidth(600);
         gameOverBorderPane.setPrefHeight(400);
         gameOverBorderPane.setCenter(gameOverText);
         gameOverBorderPane.setBottom(returnToMenu);
         
+        
+        
         Scene gameScene = new Scene(gameBorderPane);
         Scene menuScene = new Scene(menuBorderPane);
+        Scene gameScoreScene = new Scene(scoreBorderPane);
         Scene gameOverScene = new Scene(gameOverBorderPane); 
         
         buttonLaunch.setOnAction((event) -> {
             primaryStage.setScene(gameScene);
             gameArea.activateGame();
             gameArea.resetState();
+        });
+        
+        buttonScoreScreen.setOnAction((event) -> {
+            primaryStage.setScene(gameScoreScene);
         });
         
         returnToMenu.setOnAction((event) -> {
@@ -241,6 +291,7 @@ public class ColumnsUi extends Application {
     }
     
     public static void main(String[] args) {
+        
         launch(args);
     }
     
