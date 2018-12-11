@@ -12,7 +12,7 @@ Ohje: Palikat tippuvat pelialueella. Pelaaja voi käyttää nuolinäppäimiä pa
 
 [Vaatimusmäärittely](https://github.com/anketola/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
 
-[Käyttöohje](https://github.com/anketola/ot-harjoitustyo/blob/master/dokumentaatio/kayttohje.md)
+[Käyttöohje](https://github.com/anketola/ot-harjoitustyo/blob/master/dokumentaatio/kayttoohje.md)
 
 [Arkkitehtuurikuvaus](https://github.com/anketola/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
 
