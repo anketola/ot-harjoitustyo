@@ -25,6 +25,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Slider;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.control.TextField;
 import java.util.ArrayList;
 import java.io.File;
 
@@ -44,7 +45,7 @@ public class ColumnsUi extends Application {
         Database database = new Database("jdbc:sqlite:" + databaseFile.getAbsolutePath());
         ScoreEntryDao scoreEntryDao = new ScoreEntryDao(database);
         
-        GameArea gameArea = new GameArea(12, 24);
+        GameArea gameArea = new GameArea(5, 5);
         ScoreBoardHandler scoreBoardHandler = new ScoreBoardHandler(scoreEntryDao);
         gameArea.getStatistics().setSpeed(DEFAULT_SPEED);
         
@@ -75,26 +76,27 @@ public class ColumnsUi extends Application {
         BorderPane scoreBorderPane = new BorderPane();
         
         
+        VBox gameOverVBox = new VBox();
         VBox menuVBox = new VBox();
         Button buttonLaunch = new Button("Käynnistä peli");
         Button buttonScoreScreen = new Button("Ennätyspisteet");
         Button buttonQuit = new Button("Lopeta peli");
+        Button buttonSendHighScore = new Button("Tallenna");
         
         Button buttonPause = new Button("Jäädytä peli");
-        Button returnToMenu = new Button("Palaa valikkoon");
-        Button returnToMenuFromScoreView = new Button("Palaa päävalikkoon");
+        Button buttonReturnToMenu = new Button("Palaa valikkoon");
+        Button buttonReturnFromScoreView = new Button("Palaa päävalikkoon");
         
         
         buttonLaunch.setMaxWidth(Double.MAX_VALUE);
         buttonScoreScreen.setMaxWidth(Double.MAX_VALUE);
         buttonQuit.setMaxWidth(Double.MAX_VALUE);
-        returnToMenuFromScoreView.setMaxWidth(Double.MAX_VALUE);
+        buttonReturnFromScoreView.setMaxWidth(Double.MAX_VALUE);
         
         Canvas gameCanvas = new Canvas(GAME_FIELD_WIDTH, GAME_FIELD_HEIGHT);
         Canvas nextBlockCanvas = new Canvas(BLOCK_SIZE * 2, BLOCK_SIZE * 4);
         
         GraphicsContext drawer = gameCanvas.getGraphicsContext2D();
-        // GraphicsContext drawerNextBlock = nextBlockCanvas.getGraphicsContext2D();
         
         Label speedTitle = new Label("Pelin nopeus");
         Label scoreTitle = new Label("Pisteet: ");
@@ -103,7 +105,11 @@ public class ColumnsUi extends Application {
         Label timeText = new Label("0");
         Label nextBlockText = new Label("Seuraava palikka:");
         Label gameOverText = new Label("Peli päättyi!"); 
+        Label gameOverTextScore = new Label();
         Label scoreMainText = new Label("Ennätyspisteet");
+       
+        Label newScoreText = new Label("Anna nimesi");
+        TextField highScoreName = new TextField();
         
         rightGridPane.add(scoreTitle, 0, 0);
         rightGridPane.add(scoreText, 0, 1);
@@ -111,9 +117,6 @@ public class ColumnsUi extends Application {
         rightGridPane.add(timeText, 0, 3);
         rightGridPane.add(buttonPause, 0, 4);
         rightGridPane.add(nextBlockText, 0, 5);
-        //rightGridPane.add(nextBlockCanvas, 0, 6);
-        
-        
         
         
         scoreGridPane.add(new Label("Sijoitus"), 0, 0);
@@ -141,6 +144,8 @@ public class ColumnsUi extends Application {
         menuVBox.setPadding(new Insets(50, 50, 50, 50));
         menuVBox.getChildren().addAll(buttonLaunch, buttonScoreScreen, buttonQuit, speedTitle, speedSlider);
         
+        gameOverVBox.getChildren().addAll(gameOverText, gameOverTextScore, newScoreText, highScoreName, buttonSendHighScore);
+        
         menuBorderPane.setPrefWidth(600);
         menuBorderPane.setPrefHeight(400);
         menuBorderPane.setCenter(menuVBox);
@@ -149,15 +154,15 @@ public class ColumnsUi extends Application {
         scoreBorderPane.setPrefHeight(400);
         scoreBorderPane.setCenter(scoreGridPane);
         scoreBorderPane.setTop(scoreMainText);
-        scoreBorderPane.setBottom(returnToMenuFromScoreView);
+        scoreBorderPane.setBottom(buttonReturnFromScoreView);
         
         gameOverBorderPane.setPrefWidth(600);
         gameOverBorderPane.setPrefHeight(400);
-        gameOverBorderPane.setCenter(gameOverText);
-        gameOverBorderPane.setBottom(returnToMenu);
+        gameOverBorderPane.setCenter(gameOverVBox);
+        gameOverBorderPane.setBottom(buttonReturnToMenu);
         
         
-        
+       
         Scene gameScene = new Scene(gameBorderPane);
         Scene menuScene = new Scene(menuBorderPane);
         Scene gameScoreScene = new Scene(scoreBorderPane);
@@ -173,13 +178,17 @@ public class ColumnsUi extends Application {
             primaryStage.setScene(gameScoreScene);
         });
         
-        returnToMenuFromScoreView.setOnAction((event) -> {
+        buttonReturnFromScoreView.setOnAction((event) -> {
             primaryStage.setScene(menuScene);
         });
         
-        returnToMenu.setOnAction((event) -> {
+        buttonReturnToMenu.setOnAction((event) -> {
             primaryStage.setScene(menuScene);
             
+        });
+        
+        buttonSendHighScore.setOnAction((event) -> {
+            scoreBoardHandler.saveScoreEntry("Timo", 9000);
         });
         
         buttonQuit.setOnAction((event) -> {
@@ -233,13 +242,6 @@ public class ColumnsUi extends Application {
                 drawer.setFill(Color.BLACK);
                 drawer.fillRect(0, 0, GAME_FIELD_WIDTH, GAME_FIELD_HEIGHT);
                 
-                // Functionality not in use yet 
-                //drawerNextBlock.setFill(Color.WHITE);
-                //drawerNextBlock.fillRect(0, 0, BLOCK_SIZE * 2 , BLOCK_SIZE * 4);
-                //drawerNextBlock.setFill(Color.BLACK);
-                //drawerNextBlock.fillRect(2, 2, BLOCK_SIZE * 2 - 2, BLOCK_SIZE * 4 - 2);
-                
-                
                 // This draws a white rectangle to give a border for the blocks
                 // The actual colored ones are few pixels smaller 
                 
@@ -286,6 +288,9 @@ public class ColumnsUi extends Application {
                     }
                 }
                 if (gameArea.gameOver()) {
+                    int activeScore = gameArea.getStatistics().getScore();
+                    gameOverText.setText("Onneksi olkoon, pääsit ennätyslistalle!");
+                    gameOverTextScore.setText("Pisteesi olivat " + Integer.toString(gameArea.getStatistics().getScore()));
                     primaryStage.setScene(gameOverScene);
                     gameArea.closeGame();
                 }

@@ -32,16 +32,13 @@ public class ScoreEntryDao implements Dao <ScoreEntry, Integer> {
     public void save(ScoreEntry scoreEntry) throws SQLException {
         Connection SQLConnection = database.getConnection();
         PreparedStatement prepStatement = SQLConnection.prepareStatement("INSERT INTO Scores"
-                + " (name)"
-                + " (score)"
+                + " (name, score)"
                 + " VALUES (?, ?)"
         );
         prepStatement.setString(1, scoreEntry.getName());
         prepStatement.setInt(2, scoreEntry.getScore());
-        ResultSet results = prepStatement.executeQuery();
-        results.next ();
+        prepStatement.executeUpdate();
         prepStatement.close();
-        results.close();
         SQLConnection.close();
     }
     

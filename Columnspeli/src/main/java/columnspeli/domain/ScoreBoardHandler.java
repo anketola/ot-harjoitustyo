@@ -20,8 +20,26 @@ public class ScoreBoardHandler {
         return topTenPlayers;
     }
     
-    public boolean isEglibleForScoreList(int score) {
-        return true;
+    public boolean isEglibleForScoreList(int score) throws Exception {
+        ArrayList<ScoreEntry> currentScores = giveTopTenPlayers();
+        if (score > currentScores.get(currentScores.size()).getScore()) {
+            return true;
+        }
+        return false;
+    }
+    
+    public int findNewPlaceOnScoreList(int score) throws Exception {
+        ArrayList<ScoreEntry> topTenPlayers = scoreDao.findAll();
+        int i = 0;
+        while (score > topTenPlayers.get(i).getScore()) {
+            System.out.println("Place on list:" + i);
+        }
+        
+        return i;
+    }
+    
+    public void saveScoreEntry(String name, int score) throws Exception {
+        scoreDao.save(new ScoreEntry(name, score));
     }
       
 }
