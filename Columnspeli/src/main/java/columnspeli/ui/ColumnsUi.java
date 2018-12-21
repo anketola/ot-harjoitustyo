@@ -270,14 +270,14 @@ public class ColumnsUi extends Application {
                 // draw other blocks
                 
                 y = 0;
-                while (y < gameArea.getAreaEdgeY()) {
+                while (y < gameArea.getGameBlockArea().getAreaEdgeY()) {
                     x = 0;
-                    while (x < gameArea.getAreaEdgeX()) {
-                        if (gameArea.hasBlock(x, y)) {
+                    while (x < gameArea.getGameBlockArea().getAreaEdgeX()) {
+                        if (gameArea.getGameBlockArea().hasBlock(x, y)) {
                             drawer.setFill(Color.WHITE);
                             drawer.fillRect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
-                            drawer.setFill(gameArea.getBlock(x, y).getColor());
-                            color = gameArea.getBlock(x, y).getColor();
+                            drawer.setFill(gameArea.getGameBlockArea().getBlock(x, y).getColor());
+                            color = gameArea.getGameBlockArea().getBlock(x, y).getColor();
                             drawer.fillRect(1 + x * BLOCK_SIZE, 1 + y * BLOCK_SIZE, BLOCK_SIZE - 2, BLOCK_SIZE - 2);
                         }
                         x++;
