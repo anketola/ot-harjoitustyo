@@ -5,29 +5,29 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import javafx.scene.paint.Color;
 
-public class GameAreaTest {
+public class GameControllerTest {
     
     @Test
     public void cratedGameAreaIsEmpty() {
-        GameArea testArea = new GameArea(10, 10);
+        GameController testArea = new GameController(10, 10);
         assertEquals(false, testArea.hasBlock(5, 5));
     }
     
     @Test
     public void getAreaEdgeXReturnsCorrectValue() {
-        GameArea testArea = new GameArea(20, 30);
+        GameController testArea = new GameController(20, 30);
         assertEquals(20, testArea.getAreaEdgeX());
     }
     
     @Test
     public void getAreaEdgeYReturnsCorrectValue() {
-        GameArea testArea = new GameArea(20, 30);
+        GameController testArea = new GameController(20, 30);
         assertEquals(30, testArea.getAreaEdgeY());
     }
     
     @Test
     public void nextBlockSimiliarWorksRight() {
-        GameArea testArea = new GameArea(10, 10);
+        GameController testArea = new GameController(10, 10);
         Block testBlock = new Block(Color.RED);
         Block testBlock2 = new Block(Color.RED);
         testArea.setBlock(0, 9, testBlock);
@@ -37,7 +37,7 @@ public class GameAreaTest {
     
     @Test
     public void nextBlockSimiliarDifferentBlockWorksRight() {
-        GameArea testArea = new GameArea(10, 10);
+        GameController testArea = new GameController(10, 10);
         Block testBlock = new Block(Color.RED);
         Block testBlock2 = new Block(Color.BLUE);
         testArea.setBlock(0, 9, testBlock);
@@ -47,7 +47,7 @@ public class GameAreaTest {
     
     @Test
     public void nextBlockSimiliarWorksUp() {
-        GameArea testArea = new GameArea(10, 10);
+        GameController testArea = new GameController(10, 10);
         Block testBlock = new Block(Color.RED);
         Block testBlock2 = new Block(Color.RED);
         testArea.setBlock(1, 8, testBlock);
@@ -57,7 +57,7 @@ public class GameAreaTest {
     
     @Test
     public void nextBlockSimiliarDifferentBlockWorksUp() {
-        GameArea testArea = new GameArea(10, 10);
+        GameController testArea = new GameController(10, 10);
         Block testBlock = new Block(Color.RED);
         Block testBlock2 = new Block(Color.BLUE);
         testArea.setBlock(1, 8, testBlock);
@@ -67,7 +67,7 @@ public class GameAreaTest {
     
     @Test
     public void nextBlockSimiliarWorksDownRight() {
-        GameArea testArea = new GameArea(10, 10);
+        GameController testArea = new GameController(10, 10);
         Block testBlock = new Block(Color.RED);
         Block testBlock2 = new Block(Color.RED);
         testArea.setBlock(5, 5, testBlock);
@@ -77,7 +77,7 @@ public class GameAreaTest {
     
     @Test
     public void nextBlockSimiliarDifferentBlockWorksDownRight() {
-        GameArea testArea = new GameArea(10, 10);
+        GameController testArea = new GameController(10, 10);
         Block testBlock = new Block(Color.BLUE);
         Block testBlock2 = new Block(Color.RED);
         testArea.setBlock(5, 5, testBlock);
@@ -87,7 +87,7 @@ public class GameAreaTest {
     
     @Test
     public void nextBlockSimiliarWorksDownLeft() {
-        GameArea testArea = new GameArea(10, 10);
+        GameController testArea = new GameController(10, 10);
         Block testBlock = new Block(Color.RED);
         Block testBlock2 = new Block(Color.RED);
         testArea.setBlock(5, 5, testBlock);
@@ -97,7 +97,7 @@ public class GameAreaTest {
     
     @Test
     public void nextBlockSimiliarDifferentBlockWorksDownLeft() {
-        GameArea testArea = new GameArea(10, 10);
+        GameController testArea = new GameController(10, 10);
         Block testBlock = new Block(Color.BLUE);
         Block testBlock2 = new Block(Color.RED);
         testArea.setBlock(5, 5, testBlock);
@@ -107,13 +107,13 @@ public class GameAreaTest {
     
     @Test
     public void eglibleRespawnCorrectWhenEmpty() {
-        GameArea testArea = new GameArea(10, 10);
+        GameController testArea = new GameController(10, 10);
         assertEquals(10, testArea.eglibleRespawn().size());
     }
 
     @Test
     public void eglibleRespawnCorrectWhenTwoBlocking() {
-        GameArea testArea = new GameArea(5, 10);
+        GameController testArea = new GameController(5, 10);
         Block testBlock = new Block(Color.GREEN);
         Block testBlock2 = new Block(Color.RED);
         testArea.setBlock(0, 0, testBlock);
@@ -123,7 +123,7 @@ public class GameAreaTest {
     
     @Test
     public void leftCollisionDetected() {
-        GameArea testArea = new GameArea(10, 10);
+        GameController testArea = new GameController(10, 10);
         Block testBlock = new Block(Color.RED);
         testArea.setBlock(4, 0, testBlock); 
         // 5 is the default first PlayerBlock spawn for now
@@ -132,7 +132,7 @@ public class GameAreaTest {
     
     @Test
     public void rightCollisionDetected() {
-        GameArea testArea = new GameArea(10, 10);
+        GameController testArea = new GameController(10, 10);
         Block testBlock = new Block(Color.RED);
         testArea.setBlock(6, 0, testBlock); 
         // 5 is the default first PlayerBlock spawn for now
@@ -141,7 +141,7 @@ public class GameAreaTest {
     
     @Test
     public void downCollisionDetected() {
-        GameArea testArea = new GameArea(10, 10);
+        GameController testArea = new GameController(10, 10);
         Block testBlock = new Block(Color.RED);
         testArea.setBlock(5, 3, testBlock); 
         // 5 is the default first PlayerBlock spawn for now
@@ -150,7 +150,7 @@ public class GameAreaTest {
     
     @Test
     public void horizontalScanStreakWorksThree() {
-        GameArea testArea = new GameArea(10, 10);
+        GameController testArea = new GameController(10, 10);
         Block testBlock1 = new Block(Color.RED);
         Block testBlock2 = new Block(Color.RED);
         Block testBlock3 = new Block(Color.RED);
@@ -163,7 +163,7 @@ public class GameAreaTest {
     
     @Test
     public void horizontalScanStreakWorksFour() {
-        GameArea testArea = new GameArea(10, 10);
+        GameController testArea = new GameController(10, 10);
         Block testBlock1 = new Block(Color.RED);
         Block testBlock2 = new Block(Color.RED);
         Block testBlock3 = new Block(Color.RED);
@@ -178,7 +178,7 @@ public class GameAreaTest {
     
     @Test
     public void verticalScanStreakWorksThree() {
-        GameArea testArea = new GameArea(10, 10);
+        GameController testArea = new GameController(10, 10);
         Block testBlock1 = new Block(Color.RED);
         Block testBlock2 = new Block(Color.RED);
         Block testBlock3 = new Block(Color.RED);
@@ -191,7 +191,7 @@ public class GameAreaTest {
     
     @Test
     public void verticallScanStreakWorksFour() {
-        GameArea testArea = new GameArea(10, 10);
+        GameController testArea = new GameController(10, 10);
         Block testBlock1 = new Block(Color.RED);
         Block testBlock2 = new Block(Color.RED);
         Block testBlock3 = new Block(Color.RED);
@@ -206,7 +206,7 @@ public class GameAreaTest {
     
     @Test
     public void diagonalScanDownRightStreakWorksThree() {
-        GameArea testArea = new GameArea(10, 10);
+        GameController testArea = new GameController(10, 10);
         Block testBlock1 = new Block(Color.RED);
         Block testBlock2 = new Block(Color.RED);
         Block testBlock3 = new Block(Color.RED);
@@ -219,7 +219,7 @@ public class GameAreaTest {
     
     @Test
     public void diagonalScanDownRightStreakWorksFour() {
-        GameArea testArea = new GameArea(10, 10);
+        GameController testArea = new GameController(10, 10);
         Block testBlock1 = new Block(Color.RED);
         Block testBlock2 = new Block(Color.RED);
         Block testBlock3 = new Block(Color.RED);
@@ -234,7 +234,7 @@ public class GameAreaTest {
     
     @Test
     public void diagonalScanDownLeftStreakWorksThree() {
-        GameArea testArea = new GameArea(10, 10);
+        GameController testArea = new GameController(10, 10);
         Block testBlock1 = new Block(Color.RED);
         Block testBlock2 = new Block(Color.RED);
         Block testBlock3 = new Block(Color.RED);
@@ -247,7 +247,7 @@ public class GameAreaTest {
     
     @Test
     public void diagonalScanDownLeftStreakWorksFour() {
-        GameArea testArea = new GameArea(10, 10);
+        GameController testArea = new GameController(10, 10);
         Block testBlock1 = new Block(Color.RED);
         Block testBlock2 = new Block(Color.RED);
         Block testBlock3 = new Block(Color.RED);
@@ -262,7 +262,7 @@ public class GameAreaTest {
     
     @Test
     public void blocksAreReleased() {
-       GameArea testArea = new GameArea(10, 5);
+       GameController testArea = new GameController(10, 5);
        testArea.movePlayer("down");
        testArea.movePlayer("down");
        testArea.movePlayer("down");
@@ -271,7 +271,7 @@ public class GameAreaTest {
     
     @Test
     public void leftCollisionNoMove() {
-        GameArea testArea = new GameArea(10, 5);
+        GameController testArea = new GameController(10, 5);
         Block testBlock = new Block(Color.RED);
         testArea.setBlock(4, 0, testBlock);
         testArea.movePlayer("left");
@@ -280,7 +280,7 @@ public class GameAreaTest {
     
     @Test
     public void rightCollisionNoMove() {
-        GameArea testArea = new GameArea(10, 5);
+        GameController testArea = new GameController(10, 5);
         Block testBlock = new Block(Color.RED);
         testArea.setBlock(6, 0, testBlock);
         testArea.movePlayer("right");

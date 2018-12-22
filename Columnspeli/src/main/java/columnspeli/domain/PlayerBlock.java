@@ -69,10 +69,10 @@ public class PlayerBlock {
      * @param direction ilmaisee haluaako pelaaja siirtyä vasemmalle vai oikealle
      */
     
-    public void moveX(String direction) {
-        if (direction.equals("right")) {        
+    public void moveX(Directions direction) {
+        if (direction == Directions.RIGHT) {        
             gridX++;
-        } else if (direction.equals("left")) {
+        } else if (direction == Directions.LEFT) {
             this.gridX--; 
         }
     }

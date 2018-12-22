@@ -68,14 +68,14 @@ public class PlayerBlockTest {
     @Test
     public void movingLeftDecreasesGridX() {
         PlayerBlock playerBlock = new PlayerBlock(3, 0);
-        playerBlock.moveX("left");
+        playerBlock.moveX(Directions.LEFT);
         assertEquals(2, playerBlock.getGridX());
     }
     
     @Test
     public void movingRightIncreasesGridX() {
         PlayerBlock playerBlock = new PlayerBlock(3, 0);
-        playerBlock.moveX("right");
+        playerBlock.moveX(Directions.RIGHT);
         assertEquals(4, playerBlock.getGridX());
     }
     

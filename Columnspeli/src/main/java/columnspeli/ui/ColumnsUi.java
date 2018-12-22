@@ -1,8 +1,7 @@
 package columnspeli.ui;
 
-
-import columnspeli.domain.Block;
-import columnspeli.domain.GameArea;
+import columnspeli.domain.Directions;
+import columnspeli.domain.GameController;
 import columnspeli.domain.ScoreBoardHandler;
 import columnspeli.domain.ScoreEntry;
 import columnspeli.dao.ScoreEntryDao;
@@ -46,7 +45,7 @@ public class ColumnsUi extends Application {
         ScoreEntryDao scoreEntryDao = new ScoreEntryDao(database);
         ScoreBoardHandler scoreBoardHandler = new ScoreBoardHandler(scoreEntryDao);
         
-        GameArea gameArea = new GameArea(12, 24);
+        GameController gameArea = new GameController(12, 24);
         
         gameArea.getStatistics().setSpeed(DEFAULT_SPEED);
         
@@ -213,15 +212,15 @@ public class ColumnsUi extends Application {
         
         gameScene.setOnKeyPressed(event -> {
             if ((event.getCode() == KeyCode.LEFT) && (!gameArea.paused())) {
-                gameArea.movePlayer("left");
+                gameArea.movePlayer(Directions.LEFT);
             }
 
             if ((event.getCode() == KeyCode.RIGHT) && (!gameArea.paused())){
-                gameArea.movePlayer("right");
+                gameArea.movePlayer(Directions.RIGHT);
             }
             
             if ((event.getCode() == KeyCode.DOWN) && (!gameArea.paused())) {
-                gameArea.movePlayer("down");
+                gameArea.movePlayer(Directions.DOWN);
             }
             if ((event.getCode() == KeyCode.UP) && (!gameArea.paused())) {
                 gameArea.getPlayerBlock().shuffleBlocks();
@@ -288,7 +287,7 @@ public class ColumnsUi extends Application {
                 if (dropSpeed == (11 - gameArea.getStatistics().getSpeed())) {
                     dropSpeed = 0;
                     shrinkCounter++;
-                    gameArea.movePlayer("down");
+                    gameArea.movePlayer(Directions.DOWN);
                     if (shrinkCounter == gameArea.getStatistics().getShrinkSpeed()) {
                         gameArea.shrinkArea();
                         shrinkCounter = 0;
