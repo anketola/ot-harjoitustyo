@@ -24,17 +24,20 @@ Käyttöliittymä toimii mahdollisiman erillään sovelluslogiikasta. Sovellukse
 
 ## Sovelluslogiikka
 
-Sovelluslogiikka on ehkä hieman monimutkaisempi pelialueen palikoiden hallitsemiseksi. UI:n luoma GameController-olio yhdistää sovelluksen muut luokat toimivaksi kokonaisuudeksi. Pelin aktiivisesti toimivaa logiikkaa koskevat metodit (skannausalgoritmit yms.) on jaettu kolmeen logic-pakkauksen luokkaan.
+Sovelluslogiikka on ehkä hieman monimutkaisempi pelialueen palikoiden hallitsemiseksi. UI:n luoma GameController-olio yhdistää sovelluksen muut luokat toimivaksi kokonaisuudeksi. Pelin aktiivisesti toimivaa logiikkaa koskevat metodit (skannaus- ja tiputusalgoritmit yms.) on jaettu kolmeen logic-pakkauksen luokkaan.
 
 * ScanLogic-luokan vastuulla on huolehtia pelialueen tarkkailusta jokaisen pelipalikan pysäytymisen jälkeen.
 * PlayerCollisionLogic-luokan vastuulla on tarkastella pelaajan ohjaaman palikan kollisioita suhteessa ympäristöön.
 * AreaModifyLogic-luokan vastuulla on muokata pelialueetta (siirtää palikoita, vapauttaa pelaajan ohjaamat palikat ympäristöön jne).
 
-Toiminnan kannalta keskeinen on ScanLogic-luokan kokoelma metodeita, joilla etsitään pelin sääntöjen mukaisia neliöitä. Metodit ovat selväkielisinä seuraavanlaisia:
+Toiminnan kannalta keskeinen on ScanLogic-luokan kokoelma metodeita, joilla etsitään pelin sääntöjen mukaisia suoria. Yksinkertaisesti kuvaten GameController-luokka kutsuu tätä metodikokoelmaa, kun se saa PlayerCollisionLogic-luokan avulla tietää palikan olevan pysäytettynä. Tämä jälkeen GameController kutsuu AreaModifyLogic-luokan releaseBlocks metodia, joka asettaa ne pelialueelle. Metodit ovat selväkielisinä seuraavanlaisia:
 
 - Sivusuuntaisia suoria etsivä algoritmi
 - Pystysuuntaisia suoria etsivä algoritmi
 - Kaksi viistosuuntaisia suoria etsiviä algoritmeja
+- Poistettavat palikat keräävä metodi
+
+ScanLogic-luokka palauttaa poistettavat palikat GameControllerin tietoon, joka mm. kutsuu edelleen AreaModifyLogic-luokan scanAndDrop-metodia, joka käsittelee neliömassan keskelle jääneet tyhjät kolot ja hyödyntää dropAbove metodia palikoiden tiputtamiseen alas. GameController välittää pisteet GameStatistic-luokalle. Muita vaiheita ovat mm. pelaajan ohjaaman PlayerBlockin vapaiden syntykohtien skannaaminen ja palikan synnyttäminen tähän kohdalle, tai vaihtoehtoisesti pelin loppuminen syntypaikkojen puutteen vuoksi.
 
 ## Tietojen pysyväistallennus
 
@@ -44,17 +47,22 @@ Tietojen pysyväistallennukseen käytetään SQLite tietokantaa. Tämä on toteu
 
 ### Käyttäjä vaihtaa ohjaamiensa neliöiden järjestystä
 
-Pelissä käyttäjä voi halutessaan ylös -nappia painamalla vaihtaa neliöiden järjestyksen haluamakseen. Tätä varten käyttöliittymä tarkkailee näppäinsyötteitä. Sovellus tarkistaa ensin GameArea-oliolta, onko peli asetettu taukotilaan. Jos peli ei ole taukotilassa, kutsutaan PlayerBlock-olion shuffleBlocks-metodia. Metodi siirtää ylimmän palikan alimmaksi ja muut alemmat yhden ylöspäin.
+Pelissä käyttäjä voi halutessaan ylös -nappia painamalla vaihtaa neliöiden järjestyksen haluamakseen. Tätä varten käyttöliittymä tarkkailee näppäinsyötteitä. Sovellus tarkistaa ensin GameController-oliolta, onko peli asetettu taukotilaan. Jos peli ei ole taukotilassa, kutsutaan GameControllerin getPlayerBlock-metodia ja PlayerBlock-olion shuffleBlocks-metodia. Metodi siirtää ylimmän palikan alimmaksi ja muut alemmat yhden ylöspäin.
 
-![Palikoiden_sekoitus](/dokumentaatio/kuvat/player_shuffle.jpg)
+![Palikoiden_sekoitus](https://github.com/anketola/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/sekvenssi_shuffle.jpg)
 
 ### Käyttäjä liikkuu sivusuunnassa
 
-Toisena toiminnallisuutena on kuvattu käyttäjän ohjaaman palikan siirtymistä sivusuunnassa. Kaaviossa tapahtuu siirtyminen oikealle. Pelaaja painaa näppäimistöllä oikeaa nuolta. Sovellus tarkistaa taas, onko GameArea asetettu taukotilaan. Esimerkissä taukotila ei ole päällä. Tämän jälkeen käyttöjärjestelmä kutsuu GameArea-olion metodia movePlayer parametrillä "right". Tämän jälkeen isCollisionRight-metodi tarkistaa, onko oikealle mahdollista siirtyä. Oikealle on mahdollista siirtyä ja GameArea kutsuu PlayerBlock-olion moveX-metodia parametrillä "right". Seurauksena pelaajan ohjaama palikka siirtyy askeleen oikealle.
+Toisena toiminnallisuutena on kuvattu käyttäjän ohjaaman palikan siirtymistä sivusuunnassa. Kaaviossa tapahtuu siirtyminen oikealle. Pelaaja painaa näppäimistöllä oikeaa nuolta. Sovellus tarkistaa taas, onko GameController asetettu taukotilaan. Esimerkissä taukotila ei ole päällä. Tämän jälkeen käyttöjärjestelmä kutsuu GameController-olion metodia movePlayer parametrillä Direction.RIGHT. Tämän jälkeen GameController kutsuu konstruktorissa luomaansa PlayerCollisionLogic-oliota ja sen sisältämäää isCollisionRight-metodia. Metodi tarkistaa, onko oikealle mahdollista siirtyä. Oikealle on mahdollista siirtyä ja PlayerCollisionLogic palauttaa arvon false (koska kysely oli negatiivisessa muodossa). GameController jatkaa movePlayer metodin suorittamista ja kutsuu PlayerBlock-olion moveX-metodia parametrillä Directioin.RIGHT. Seurauksena pelaajan ohjaama palikka siirtyy askeleen oikealle.
 
-![Pelaajan_sivusuunta](/dokumentaatio/kuvat/player_move.jpg)
+![Pelaajan_sivusuunta](https://github.com/anketola/ot-harjoitustyo/blob/master/dokumentaatio/kuvat/sekvenssi_siirto.jpg)
+
 
 ## Heikkouksia ohjelman rakenteessa
 
-Sairastelun vuoksi tällä viikolla jäi suunniteltu rakenteen muokkaus kokonaan tekemättä. Paisuneet luokat tulee poistaa (myös UI:stä), ja GameArea:n sisältämä logiikka tulee siirtää pois siitä omaan uuteen GameLogic luokkaansa (ja pakkaukseen). Kahdessa algoritmissa on yhä pieni katvealue, se on korvattavissa melko helposti erillään-
+Sovelluksessa on kaksi selkeää ongelma-aluetta:
+* Käyttöliittymän selkeyttäminen
+* Tietokannan toiminnallisuuteen liittyvät ongelmat
+
+
 
