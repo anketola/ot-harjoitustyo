@@ -1,38 +1,41 @@
 # Arkkitehtuurikuvaus
 
-## Alustava luokkakaavio
+## Yleisrakenne
 
-![Luokkakaavio](/dokumentaatio/kuvat/v4_a.png)
+Sovellus on jaettu neljään pakkaukseen.
+
+* UI
+* domain
+* logic
+* dao
+
+Sovelluksen luokkarakenne kävi läpi suhteellisen ison muutoksen, kun aivan liian suureksi kasvanut (entinen) GameArea-luokka purettiin toiminnallisuuksien mukaan erillisiin luokkiin.
 
 ## Käyttöliittymä
 
-Käyttöliittymä on rakennettu JavaFX:llä, ja koostuu seuraavista näkymistä.
+Käyttöliittymä ja grafiikka on rakennettu JavaFX:llä, ja koostuu seuraavista näkymistä.
 
-- Valikkonäkymä
-- Varsinainen pelialue
-- Piste-ennätykset
-- "Peli loppui" -ruutu
+- Päävalikko
+- Varsinainen pelinäkymä
+- Ennätyspisteet-näkymä
+- "Peli loppui" -ruutu, josta on kaksi variaatiota
 
-Käyttöliittymä toimii erillään sovelluslogiikasta, mutta käyttöliittymän laajuuden vuoksi sitä tullaan jakamaan helpommin hallittaviin osiin kehittäjän näkökulmasta.
+Käyttöliittymä toimii mahdollisiman erillään sovelluslogiikasta. Sovellukseen jää tarve mahdollisesti muokata käyttöliitymää koskevaa koodia sen jakamiseksi osiksi, vaikka se ei ole checkstyle:n alla.
 
 ## Sovelluslogiikka
 
-Sovelluslogiikka on ehkä hieman monimutkaisempi, koska sen täytyy hallita useita asioita. Tämän mahdollistamiseksi sovellus käyttää kokoelmaa metodeita, joilla etsitään pelin sääntöjen mukaisia neliöitä. Metodit ovat selväkielisinä seuraavanlaisia:
+Sovelluslogiikka on ehkä hieman monimutkaisempi pelialueen palikoiden hallitsemiseksi. UI:n luoma GameController-olio yhdistää sovelluksen muut luokat toimivaksi kokonaisuudeksi. Pelin aktiivisesti toimivaa logiikkaa koskevat metodit (skannausalgoritmit yms.) on jaettu kolmeen logic-pakkauksen luokkaan.
+
+* ScanLogic-luokan vastuulla on huolehtia pelialueen tarkkailusta jokaisen pelipalikan pysäytymisen jälkeen.
+* PlayerCollisionLogic-luokan vastuulla on tarkastella pelaajan ohjaaman palikan kollisioita suhteessa ympäristöön.
+* AreaModifyLogic-luokan vastuulla on muokata pelialueetta (siirtää palikoita, vapauttaa pelaajan ohjaamat palikat ympäristöön jne).
+
+Toiminnan kannalta keskeinen on ScanLogic-luokan kokoelma metodeita, joilla etsitään pelin sääntöjen mukaisia neliöitä. Metodit ovat selväkielisinä seuraavanlaisia:
 
 - Sivusuuntaisia suoria etsivä algoritmi
 - Pystysuuntaisia suoria etsivä algoritmi
 - Kaksi viistosuuntaisia suoria etsiviä algoritmeja
 
-Pelaajan liikkumiseen liittyvät etenkin metodit, joilla tarkkaillaan kollisioita.
-
-Nämä käyvät GameArea:n läpi joka kerta, kun pelaajan ohjaamat palikat vapautetaan. Etsimisalgoritmeja tukevat siivousalgoritmit. Näitä ovat seuraavat:
-
-- Suorat tuohoavat algoritmit
-- Pisteitä laskevat algormit
-- Tyhjien nelilöiden etismisalgoritmi
-- Tyhjien neliöiden yläpuolella olevia neliöitä alas tiputtava algoritmi
-
- 
 ## Tietojen pysyväistallennus
 
 Tietojen pysyväistallennukseen käytetään SQLite tietokantaa. Tämä on toteutettu DAO-mallilla. Tietokanta sisältää tässä vaiheessa tiedot käyttäjän nimestä/nimimerkistä ja piste-ennätyksenä. Pysyväistallennukseen valittavia tietoja auttamaan valitsemaan on omia luokkia.
