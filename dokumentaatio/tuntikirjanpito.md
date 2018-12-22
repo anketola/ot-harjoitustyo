@@ -13,4 +13,6 @@
 |7.12.|1h | Etsitty, löydetty ja korjattu ikävä bugi pudotusmetodissa |
 |8.12.|1h | Sovellukseen lisätty pelialueen kutistuminen - peli oli liian helppo - nyt pääsee paremmin ennätyspisteitten implementointiin|
 |11.12|9h | Suurin projekti - tietokannat otetiin tuskailun jälkeen käyttöön SQLitellä. Pistenäytöt ovat nyt myös käytössä, mutta kaikki toiminnallisuudet eivät ehdi tuohon vartin määräaikaan. Uutta high-scorea ei saa vielä tietokantaan, vaikka se tunnistuu, lisätään se. Kaikki pääominaisuudet ovat valmiit käsittääkseni? Nyt projekti pitäisi vain rankasti refaktoroida ja hioa. Tietokanta on mukana projektissa ja sen schemaa voi halutessaan käydä katsomassa. Ideana olisi, että siihen voi laittaa tietoa suorituksen vaikeustasoista ja filtteröidä sitten sen perusteella pistenäytössä. Muuten eivät oikein vertailukelpoisia. JavaDoc otettu käyttöön 5-6 luokalle. Testejä muutama lisää, aiemmat ovat monet realistisia, lisätään nämä vielä paremmat refaktoroinnin jälkeen. Projekti siis jatkuu...
-|yht | 46h | |
+|19.12| 9h | Yritetty löytää ratkaisua tietokantaa koskeville ongelmille. Purettu ratkaisut lisää ongelmia aiheuttavina, mutta pääetty jättää tietokantarakenne silti käyttöön.|
+|21.12| 7h | Refaktoroitu GameArea käytännössä pois, paljon uusia luokkia, joitain uusia metodeita, säätämistä yms. |
+|yht | 62h | |
