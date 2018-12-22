@@ -143,6 +143,9 @@ public class ScanLogic {
         }
     }
    
+
+    
+    
     /**
      * Metodi tarkastaa onko parametrien mukainen Block saman värinen kuin vertailusuunta;
      * @param compX Vertailtavaksi otettavan Block-olion x-koordinaatti.

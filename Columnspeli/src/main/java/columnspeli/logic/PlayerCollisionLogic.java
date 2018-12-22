@@ -2,6 +2,7 @@ package columnspeli.logic;
 
 import columnspeli.domain.PlayerBlock;
 import columnspeli.domain.GameBlockArea;
+import java.util.ArrayList;
 
 public class PlayerCollisionLogic {
     
@@ -59,6 +60,23 @@ public class PlayerCollisionLogic {
             return true;
         }
         return false;
+    }
+    
+        /**
+     * Metodi skannaa pelialueen ylialuetta tunnistaakseen paikkoja, johon pelaajan palikka voi vielä syntyä.
+     * @return 
+     */
+    
+    public ArrayList<Integer> eglibleRespawn() {
+        ArrayList<Integer> possibleRespawnX = new ArrayList<>();
+        int i = 0;
+        while (i < gameBlockArea.getAreaEdgeX()) {
+            if ((!gameBlockArea.hasBlock(i, 0)) && (!gameBlockArea.hasBlock(i, 1)) && (!gameBlockArea.hasBlock(i, 2))) {
+                possibleRespawnX.add(i);
+            }
+            i++;    
+        }
+        return possibleRespawnX;
     }
     
 }
