@@ -26,7 +26,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TextField;
 import java.util.ArrayList;
-import java.io.File;
 
 /**
  * Sovelluksen käyttölittymän ja grafiikan sisältämä luokka.
@@ -45,8 +44,7 @@ public class ColumnsUi extends Application {
         primaryStage.setTitle("Columns-peli");
         primaryStage.setResizable(false);
         
-        File databaseFile = new File("db", "scores.db");
-        Database database = new Database("jdbc:sqlite:" + databaseFile.getAbsolutePath());
+        Database database = new Database("jdbc:sqlite:scores.db");
         ScoreEntryDao scoreEntryDao = new ScoreEntryDao(database);
         ScoreBoardHandler scoreBoardHandler = new ScoreBoardHandler(scoreEntryDao);
         
@@ -79,7 +77,7 @@ public class ColumnsUi extends Application {
         BorderPane gameOverBorderPane = new BorderPane();
         BorderPane menuBorderPane = new BorderPane();
         BorderPane scoreBorderPane = new BorderPane();
-        
+        BorderPane gameOverNoScoreBorderPane = new BorderPane();
         
         VBox gameOverVBox = new VBox();
         VBox menuVBox = new VBox();
@@ -109,6 +107,7 @@ public class ColumnsUi extends Application {
         Label timeText = new Label("0");
         Label nextBlockText = new Label("");
         Label gameOverText = new Label("Peli päättyi!"); 
+        Label gameOverHighScoreText = new Label("Onneksi olkoon, pääsit ennätyslistalle!"); 
         Label gameOverTextScore = new Label();
         Label scoreMainText = new Label("Ennätyspisteet");
        
@@ -148,7 +147,7 @@ public class ColumnsUi extends Application {
         menuVBox.setPadding(new Insets(50, 50, 50, 50));
         menuVBox.getChildren().addAll(buttonLaunch, buttonScoreScreen, buttonQuit, speedTitle, speedSlider);
         
-        gameOverVBox.getChildren().addAll(gameOverText, gameOverTextScore, newScoreText, highScoreName, buttonSendHighScore);
+        gameOverVBox.getChildren().addAll(gameOverHighScoreText, gameOverTextScore, newScoreText, highScoreName, buttonSendHighScore);
         
         menuBorderPane.setPrefWidth(600);
         menuBorderPane.setPrefHeight(400);
@@ -165,12 +164,17 @@ public class ColumnsUi extends Application {
         gameOverBorderPane.setCenter(gameOverVBox);
         gameOverBorderPane.setBottom(buttonReturnToMenu);
         
+        gameOverNoScoreBorderPane.setPrefWidth(600);
+        gameOverNoScoreBorderPane.setPrefHeight(400);   
+        gameOverNoScoreBorderPane.setCenter(gameOverText);
+        gameOverNoScoreBorderPane.setBottom(buttonReturnToMenu);
         
        
         Scene gameScene = new Scene(gameBorderPane);
         Scene menuScene = new Scene(menuBorderPane);
         Scene gameScoreScene = new Scene(scoreBorderPane);
         Scene gameOverScene = new Scene(gameOverBorderPane); 
+        Scene gameOverNoScore = new Scene(gameOverNoScoreBorderPane);
         
         buttonLaunch.setOnAction((event) -> {
             primaryStage.setScene(gameScene);
@@ -193,7 +197,7 @@ public class ColumnsUi extends Application {
         
         buttonSendHighScore.setOnAction((event) -> {
             try {
-            scoreBoardHandler.saveScoreEntry(highScoreName.getText(), 9000);
+            scoreBoardHandler.saveScoreEntry(highScoreName.getText(), gameArea.getStatistics().getScore());
             } catch (Exception e) {
                 System.out.println(e);
             }
@@ -300,9 +304,15 @@ public class ColumnsUi extends Application {
                 }
                 if (gameArea.gameOver()) {
                     int activeScore = gameArea.getStatistics().getScore();
-                    gameOverText.setText("Onneksi olkoon, pääsit ennätyslistalle!");
-                    gameOverTextScore.setText("Pisteesi olivat " + Integer.toString(gameArea.getStatistics().getScore()));
-                    primaryStage.setScene(gameOverScene);
+                    try {
+                        if (scoreBoardHandler.isEglibleForScoreList(activeScore)) {
+                            gameOverTextScore.setText("Pisteesi olivat " + Integer.toString(gameArea.getStatistics().getScore()));
+                            primaryStage.setScene(gameOverScene);
+                        } else {
+                            primaryStage.setScene(gameOverNoScore);
+                        }
+                    } catch (Exception e) {
+                    }
                     gameArea.closeGame();
                 }
                 }

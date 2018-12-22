@@ -4,6 +4,7 @@ package columnspeli.domain;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import javafx.scene.paint.Color;
+import java.util.ArrayList;
 
 public class PlayerBlockTest {
 
@@ -78,6 +79,49 @@ public class PlayerBlockTest {
         playerBlock.moveX(Directions.RIGHT);
         assertEquals(4, playerBlock.getGridX());
     }
+ 
+    @Test
+    public void newBlockSwitchesBlocksTopBlock() {
+        PlayerBlock playerBlock = new PlayerBlock(3, 0);
+        Block testBlock = playerBlock.getTopBlock();
+        playerBlock.newBlocks();
+        assertNotSame(testBlock, playerBlock.getTopBlock());
+    }
+    
+    @Test
+    public void newBlockSwitchesBlocksMiddleBlock() {
+        PlayerBlock playerBlock = new PlayerBlock(3, 0);
+        Block testBlock = playerBlock.getMiddleBlock();
+        playerBlock.newBlocks();
+        assertNotSame(testBlock, playerBlock.getMiddleBlock());
+    }
+    
+    @Test
+    public void newBlockSwitchesBlocksBottomBlock() {
+        PlayerBlock playerBlock = new PlayerBlock(3, 0);
+        Block testBlock = playerBlock.getBottomBlock();
+        playerBlock.newBlocks();
+        assertNotSame(testBlock, playerBlock.getBottomBlock());
+    }
+    
+    @Test
+    public void respawnReturnsToTop() {
+        PlayerBlock playerBlock = new PlayerBlock(3, 10);
+        ArrayList<Integer> testRespawn = new ArrayList<>();
+        testRespawn.add(1);
+        playerBlock.respawn(testRespawn);
+        assertEquals(0, playerBlock.getGridY());
+    }
+    
+    @Test
+    public void respawnAdjustsGridX() {
+        PlayerBlock playerBlock = new PlayerBlock(3, 10);
+        ArrayList<Integer> testRespawn = new ArrayList<>();
+        testRespawn.add(1);
+        playerBlock.respawn(testRespawn);
+        assertEquals(1, playerBlock.getGridX());
+    }
+    
     
 }
 

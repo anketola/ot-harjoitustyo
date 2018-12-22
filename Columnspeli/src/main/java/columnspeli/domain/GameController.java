@@ -1,7 +1,6 @@
 package columnspeli.domain;
 
 import java.util.ArrayList;
-import javafx.scene.paint.Color;
 import columnspeli.logic.ScanLogic;
 import columnspeli.logic.PlayerCollisionLogic;
 import columnspeli.logic.AreaModifyLogic;

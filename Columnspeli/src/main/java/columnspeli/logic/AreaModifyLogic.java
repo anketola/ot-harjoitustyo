@@ -98,14 +98,17 @@ public class AreaModifyLogic {
      */
     
     public void fillIndestructible(int shrinkValue) {
-        int x = 0;
         int y = gameBlockArea.getAreaEdgeY() - 1 - shrinkValue;
-        while (x < gameBlockArea.getAreaEdgeX()) {
-            gameBlockArea.getBlock(x, y).setColor(Color.GRAY);
-            x++;
+        int x = 0;
+        while (y < gameBlockArea.getAreaEdgeY()) {
+            while (x < gameBlockArea.getAreaEdgeX()) {
+                gameBlockArea.getBlock(x, y).setColor(Color.GRAY);
+                x++;
+            }
+            x = 0;
+            y++;    
         }
     }
-    
     
     
 }
