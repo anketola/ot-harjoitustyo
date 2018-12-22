@@ -18,11 +18,19 @@ public class ScanLogic {
     private int scanY;
     private int streakCount;
     
+    /**
+     * Konstruktori, joka ottaa parameterinä pelialueen.
+     * @param gameBlockArea Käytössä oleva pelialue.
+     */
     
     public ScanLogic(GameBlockArea gameBlockArea) {
         this.gameBlockArea = gameBlockArea;
         this.demolishCollect = new ArrayList<>(); 
     }
+    
+    /**
+     * Kokoelma, joka kutsuu muita skannausmetodeita.
+     */
     
     public void scanStreaks() {
         horizontalScan();
@@ -169,6 +177,11 @@ public class ScanLogic {
         demolishCollect.add(gameBlockArea.getBlock(x, y));
     }
 
+    /**
+     * Metodi kerää värisuorat viistosuuntaisille algoritmeille.
+     * @param direction Käytetty suunta.
+     */
+    
     public void collectStreak(Directions direction) {
         if (direction == Directions.DOWNRIGHT) {
             for (int i = 0; i < streakCount; i++) {
@@ -182,15 +195,32 @@ public class ScanLogic {
            
     }
     
+    /**
+     * Siirtää scankohtaa.
+     * @param x Koordinaatiston x kohta.
+     * @param y Koordinaatiston y kohta.
+     */
+    
     public void moveScanPointer(int x, int y) {
         this.scanX = this.scanX + x;
         this.scanY = this.scanY + y;
     }
     
+    /**
+     * Asettaa skannauskohdan.
+     * @param x Koordinaatiston x kohta.
+     * @param y Koordinaatiston y kohta.
+     */
+    
     public void setScanPointer(int x, int y) {
         this.scanX = x;
         this.scanY = y;
     }
+    
+    /**
+     * Metodi poistettujen palikoiden palauttamiselle.
+     * @return Palauttaa algoritmien keräämät palikat.
+     */
     
     public ArrayList<Block> getCollected() {
         return this.demolishCollect;

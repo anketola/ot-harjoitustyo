@@ -33,6 +33,13 @@ public class GameStatisticsTest {
     }
     
     @Test
+    public void setShrinkSpeedReturnsCorrectWithGetShrinkSpeed() {
+        GameStatistics testStatistics = new GameStatistics();
+        testStatistics.setShrinkSpeed(50);
+        assertEquals(50, testStatistics.getShrinkSpeed());
+    }
+    
+    @Test
     public void timePassesAfterStartTimer() {
         GameStatistics testStatistics = new GameStatistics();
         testStatistics.startTimer();

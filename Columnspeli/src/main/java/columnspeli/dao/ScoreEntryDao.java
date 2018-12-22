@@ -5,11 +5,11 @@ import java.sql.*;
 import java.util.*;
 
 /**
- * Luokan tehtävänä on huolehtia tiedon noutamisesta, lisäämisestä ja poistamisesta tietokannasta
- * 
+ *  
+ *  Luokan tehtävänä on huolehtia tiedon noutamisesta ja lisäämisestä tietokannasta.
  */
 
-public class ScoreEntryDao implements Dao<ScoreEntry, Integer> {
+public class ScoreEntryDao implements Dao<ScoreEntry> {
 
     private Database database;
 
@@ -57,17 +57,5 @@ public class ScoreEntryDao implements Dao<ScoreEntry, Integer> {
         prepStatement.close();
         connection.close();
     }
-    
-    /**
-     * (ei valmis) Metodi, joka poistaa tietokannasta tietoa
-     * @param key poistettavan tiedon tunniste
-     */
-    
-    
-    @Override
-    public void delete(Integer key) throws SQLException {
-        // TO DO - or is this even needed in time..
-    }
-    
-    
+     
 }

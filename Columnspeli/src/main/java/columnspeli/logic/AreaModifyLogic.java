@@ -5,10 +5,21 @@ import columnspeli.domain.PlayerBlock;
 import java.util.ArrayList;
 import javafx.scene.paint.Color;
 
+/**
+ * Pelialueen neliöille suoritettavista muokkauksista huolehtiva luokka.
+ * 
+ */
+
 public class AreaModifyLogic {
  
     private GameBlockArea gameBlockArea;
     private PlayerBlock playerBlock;
+    
+    /**
+     * Konstruktori, joka ottaa parametreinä pelialueen ja pelaajan palikan.
+     * @param gameBlockArea Kontrolerin käyttämä pelialue.
+     * @param playerBlock Käytössä oleva pelaajan palikka.
+     */
     
     public AreaModifyLogic(GameBlockArea gameBlockArea, PlayerBlock playerBlock) {
         this.gameBlockArea = gameBlockArea;
@@ -28,7 +39,7 @@ public class AreaModifyLogic {
     
     /**
      * Metodi etsii jokaisen ruudukon X kohdalta korkeimman palikan.
-     * @return 
+     * @return palauttaa ArrayListin jokaisen sarakkeen korkeimmasta kohdasta.
      */
     
     public ArrayList<Integer> findHighestBlock() {
@@ -63,7 +74,7 @@ public class AreaModifyLogic {
     }
     
     /**
-     * Metodi tiputtaa annettujen koordinaattien päällä olevat neliöt. Ei etsi.
+     * Metodi tiputtaa annettujen koordinaattien päällä olevat neliöt.
      * @param dropX aloituskohdan X arvo.
      * @param dropY aloituskohdan Y arvo.
      */    
@@ -83,6 +94,7 @@ public class AreaModifyLogic {
     
     /**
      * Metodi luo pelialueen alle harmaata, tuhoutumatonta aluetta pelin päättymisen nopeuttamiseksi.
+     * @param shrinkValue Harmaan alueen nousukohta.
      */
     
     public void fillIndestructible(int shrinkValue) {

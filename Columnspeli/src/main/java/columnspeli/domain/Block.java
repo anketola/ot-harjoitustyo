@@ -13,16 +13,25 @@ public class Block {
     
     private Color blockColor;
     
+    /**
+     * Parametritön konstruktori luo tyhjän neliön.
+     */
+    
     public Block() {
         this.blockColor = Color.BLACK;
     }
+    
+    /**
+     * Konstruktori tietyn tyyppisen neliön luomiseen.
+     * @param identity Neliölle annettava väri tai tyypi.
+     */
     
     public Block(Color identity) {
         blockColor = identity;
     }
     
     /**
-     * Metodin tarkoituksena on antaa Blockille sattumanvarainen väri.
+     * Metodi antaa Blockille sattumanvarainen väri.
      */
     
     public void randomizeBlock() {

@@ -2,6 +2,11 @@ package columnspeli.domain;
 
 import javafx.scene.paint.Color;
 
+/**
+ * Sovelluksen Block-oloista muodostuva pelikenttä.
+ * 
+ */
+
 public class GameBlockArea {
    
     private Block[][] gameBlocks;
@@ -38,6 +43,13 @@ public class GameBlockArea {
         gameBlocks[x][y] = block;
     }
     
+    /**
+     * Metodi tarkastaa, sijaitseeko koordinaatissa neliötä.
+     * @param x olion x-koordinaatti gridillä
+     * @param y olion y-koordinaatti gridillä
+     * @return Palauttaa true, jos ruudussa muu kuin tyhjä neliö.
+     */
+    
     public boolean hasBlock(int x, int y) {
         if (y < getAreaEdgeY()) {
             if (this.gameBlocks[x][y].getColor() == Color.BLACK) {
@@ -46,6 +58,13 @@ public class GameBlockArea {
         }
         return true;        
     }
+    
+    /**
+     * Metodi palauttaa koordinaattien mukaisen neliön.
+     * @param x olion x-koordinaatti gridillä
+     * @param y olion y-koordinaatti gridillä
+     * @return Palauttaa joko koordinaatin neliön. Jos pyydetty alue pelialueen ulkopuolella, palautetaan tyhjä neliö.
+     */
     
     public Block getBlock(int x, int y) {
         if ((x >= getAreaEdgeX()) || (x < 0) || (y < 0) || (y >= getAreaEdgeY())) {

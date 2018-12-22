@@ -2,6 +2,11 @@ package columnspeli.dao;
 
 import java.sql.*;
 
+/**
+ * Tietokantayhteyden muodostamiseen käytettävä luokka.
+ * 
+ */
+
 public class Database {
    
     private String databaseString;

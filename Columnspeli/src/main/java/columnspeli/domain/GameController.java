@@ -7,7 +7,7 @@ import columnspeli.logic.PlayerCollisionLogic;
 import columnspeli.logic.AreaModifyLogic;
 
 /**
- * Pelialueen sisällöstä huolehtiva luokka ( tässä vaiheessa myönnän, että tämä pitää pilkkoa, sisällä logiikkaa)
+ * Pelin toiminnot yhdessä pitävä ohjaajaluokka.
  * 
  */
 
@@ -20,9 +20,15 @@ public class GameController {
     private AreaModifyLogic areaModifyLogic;
     private GameStatistics gameStatistics;
     private ArrayList<Block> demolishCollect = new ArrayList<>();
-    boolean gameActive;
-    boolean gamePaused;
+    private boolean gameActive;
+    private boolean gamePaused;
     private int shrinkValue;
+    
+    /**
+     * Konstruktori, joka määrittää samalla pelialueen koon.
+     * @param x Pelialueen leveys.
+     * @param y Pelialueen korkeus.
+     */
     
     public GameController(int x, int y) {
         this.areaBlocks = new GameBlockArea(x, y);
@@ -72,20 +78,22 @@ public class GameController {
     }
     
     /**
-     * Metodi sisältää pelialueen systemaattista tarkastelua varten metodikokoelman.
+     * Metodi kutsuu etsintäalgoritmien metodeita logic-pakkauksesta ja käsittelee usean värin suorat.
      */
     
     public void seekAndDestroy() {
-        scanLogic.scanStreaks();
-        this.demolishCollect = scanLogic.getCollected();
-        clearCollected();
-        areaModifyLogic.scanAndDrop();
+        for (int i = 0; i < 5; i++) {
+            scanLogic.scanStreaks();
+            this.demolishCollect = scanLogic.getCollected();
+            clearCollected();
+            areaModifyLogic.scanAndDrop();
+        }
     }
     
     
     /**
-     * Metodi lisää pistetä kerättyjen neliöiden määrän perusteella, muuttaa palikat mustiksi ja tyhjentää demolishCollect-korin.
-     * @return palauttaaa poistettujen määrän. 
+     * Metodi lisää pistetä kerättyjen neliöiden määrän perusteella, muuttaa palikat tyhjiksi ja tyhjentää demolishCollect-korin.
+     * @return palauttaa poistettujen määrän. 
      */
     
     public int clearCollected() {
@@ -100,7 +108,7 @@ public class GameController {
     
 
     /**
-     * Metodi luo pelialueen alle harmaata, tuhoutumatonta aluetta pelin päättymisen nopeuttamiseksi.
+     * Metodi pienentää pelialuetta.
      */
     
     public void shrinkArea() {
@@ -109,7 +117,7 @@ public class GameController {
     }
         
     /**
-     * Metodi tarkkailee pelin päättymistä
+     * Metodi tarkkailee pelin päättymistä vapaiden syntypaikkojen perusteella.
      * @return palauttaa true, jos peli päättynyt.
      */
     
@@ -130,10 +138,19 @@ public class GameController {
         return gameStatistics;
     }
     
+    /**
+     * Käynnistää pelin instanssin. Aktivoi ajastimen.
+     */
+    
     public void activateGame() {
         this.gameActive = true;
         gameStatistics.startTimer();
     }
+    
+    /**
+     * Sulkee pelin instanssin käsittelemisen.
+     */
+    
     
     public void closeGame() {
         this.gameActive = false;
@@ -142,6 +159,10 @@ public class GameController {
     public boolean gameActive() {
         return this.gameActive;
     }
+    
+    /**
+     * Asettaa pelin pause-tilaan tai pois siitä.
+     */
     
     public void pausePressed() {
         this.gamePaused = !gamePaused;

@@ -26,6 +26,11 @@ public class GameStatistics {
         return this.shrinkSpeed;
     }
   
+    /**
+     * Muuttaa pelin pistemäärää.
+     * @param increase pistemäärän muutos.
+     */
+    
     public void addScore(int increase) {
         this.score = score + increase;
     }
@@ -46,9 +51,18 @@ public class GameStatistics {
         return this.speed;
     }
     
+    /**
+     * Aloittaa pelin ajastimen.
+     */
+    
     public void startTimer() {
         this.startTime = System.currentTimeMillis();
     }
+    
+    /**
+     * Peliin käytetyn ajan mittaminen.
+     * @return Palauttaa sekuntteina peliin käytetyn ajan.
+     */
     
     public long getElapsedTime() {
         long timeElapsed = System.currentTimeMillis() - this.startTime;

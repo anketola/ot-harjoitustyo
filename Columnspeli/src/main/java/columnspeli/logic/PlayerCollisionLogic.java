@@ -4,10 +4,21 @@ import columnspeli.domain.PlayerBlock;
 import columnspeli.domain.GameBlockArea;
 import java.util.ArrayList;
 
+/**
+ * Pelaajan palikan kollisioita tarkasteleva luokka.
+ * 
+ */
+
 public class PlayerCollisionLogic {
     
     private PlayerBlock playerBlock;
     private GameBlockArea gameBlockArea;
+    
+    /**
+     * Konstruktori, joka ottaa parameterinä pelajapalikan ja pelialueen.
+     * @param playerBlock Käytössä oleva pelaajan palikka.
+     * @param gameBlockArea Käytössä oleva pelialue.
+     */
     
     public PlayerCollisionLogic(PlayerBlock playerBlock, GameBlockArea gameBlockArea) {
         this.playerBlock = playerBlock;
@@ -50,7 +61,7 @@ public class PlayerCollisionLogic {
     
     /**
      * Metodi tarkistaa onko pelaajan ohjaaman, kolmesta neliöstä koostuvan palikan mahdollista liikkua alas.
-     * @return 
+     * @return palauttaa true, jos alla olevaan kohtaan ei voi siirtyä.
      */
     
     public boolean isCollisionDown() {
@@ -62,9 +73,9 @@ public class PlayerCollisionLogic {
         return false;
     }
     
-        /**
+    /**
      * Metodi skannaa pelialueen ylialuetta tunnistaakseen paikkoja, johon pelaajan palikka voi vielä syntyä.
-     * @return 
+     * @return palauttaa ArrayListinä integer muodossa kaikki sallitut rivit.
      */
     
     public ArrayList<Integer> eglibleRespawn() {

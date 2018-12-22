@@ -28,6 +28,11 @@ import javafx.scene.control.TextField;
 import java.util.ArrayList;
 import java.io.File;
 
+/**
+ * Sovelluksen käyttölittymän ja grafiikan sisältämä luokka.
+ * 
+ */
+
 public class ColumnsUi extends Application {
     
     public static int GAME_FIELD_WIDTH = 240;

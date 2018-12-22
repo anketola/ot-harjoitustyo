@@ -16,6 +16,12 @@ public class PlayerBlock {
     private Block middleBlock;
     private Block bottomBlock;
     
+    /**
+     * Konstruktori luo pelaajan ohjaaman, kolme neliötä sisältävän, palikan koordinaatistoon.
+     * @param x Palikan x koordinaatti.
+     * @param y Ylimmän palikan x koordinaatti.
+     */
+    
     public PlayerBlock(int x, int y) {
         this.gridY = y;
         this.gridX = x;
@@ -41,10 +47,10 @@ public class PlayerBlock {
     }
     
     /**
-     * Metodi asettaa pelaajan ohjaaman palikan taikaisin ylös ja arpoo uudet
+     * Metodi asettaa pelaajan ohjaaman palikan takaisin ylös ja arpoo uudet
      * neliöt.
      * 
-     * @param possibleRespawns sisältää pelialuen X akselilla mahdolliset sytymäpaikat
+     * @param possibleRespawns sisältää pelialuen X akselilla mahdolliset sytymäpaikat.
      *
      */
     
@@ -57,7 +63,7 @@ public class PlayerBlock {
     }
     
     /**
-     * Metodi siirtää pelaajan ohjaamaa palikkaan yhden ruudun alas
+     * Metodi siirtää pelaajan ohjaamaa palikkaan yhden ruudun alaspäin.
      */
     
     public void moveDown() {
@@ -65,7 +71,7 @@ public class PlayerBlock {
     }
     
     /**
-     * Metodi siirtää pelajan ohjaamaa palikkaa sivusuunnassa
+     * Metodi siirtää pelajan ohjaamaa palikkaa sivusuunnassa.
      * @param direction ilmaisee haluaako pelaaja siirtyä vasemmalle vai oikealle
      */
     
@@ -76,6 +82,10 @@ public class PlayerBlock {
             this.gridX--; 
         }
     }
+    
+    /**
+     * Pelaajan palikan tippumisen nopeutus.
+     */
     
     public void speedPush() {
         this.gridY++;
@@ -97,13 +107,28 @@ public class PlayerBlock {
         this.gridX = newGridX;
     }
     
+    /**
+     * Pelaajan palikka sisältää kolme neliötä, palauttaa ylimmän.
+     * @return Palauttaa ylimmän neliön.
+     */
+    
     public Block getTopBlock() {
         return topBlock;
     }
     
+    /**
+     * Pelaajan palikka sisältää kolme neliötä, palauttaa keskimmäisen.
+     * @return Palauttaa keskimmäisen neliön.
+     */
+    
     public Block getMiddleBlock() {
         return middleBlock;
     }
+    
+    /**
+     * Pelaajan palikka sisältää kolme neliötä, palauttaa keskimmäisen.
+     * @return Palauttaa alimman neliön.
+     */
     
     public Block getBottomBlock() {
         return bottomBlock;

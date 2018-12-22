@@ -11,6 +11,11 @@ public class ScoreBoardHandler {
     
     private ScoreEntryDao scoreDao;
     
+    /**
+     * Konstruktori pistekäsittelijälle.
+     * @param scoreDao ottaa parametriksi DAO abstraktion toteuttavan ScoreEntryDao:n tietokantayhteyttä varten.
+     */
+    
     public ScoreBoardHandler(ScoreEntryDao scoreDao) {
         this.scoreDao = scoreDao;
     }
@@ -39,28 +44,15 @@ public class ScoreBoardHandler {
     
     public boolean isEglibleForScoreList(int score) throws Exception {
         ArrayList<ScoreEntry> currentScores = giveTopTenPlayers();
-        if (score > currentScores.get(currentScores.size()).getScore()) {
-            return true;
+        for (int i = 0; i < currentScores.size(); i++) {
+            if (score > currentScores.get(i).getScore()) {
+                return true;
+            }
         }
         return false;
     }
     
-    /**
-     * Käyttöliittymän pisteennäyttöä avustava luokka, joka tunnistaa oikean kohdan uudelle piste-ennätykselle
-     * @param score käyttäjän pisteet
-     * @return sijoitus listalla
-     */
-    
-    public int findNewPlaceOnScoreList(int score) throws Exception {
-        ArrayList<ScoreEntry> topTenPlayers = scoreDao.findAll();
-        int i = 0;
-        while (score > topTenPlayers.get(i).getScore()) {
-            System.out.println("Place on list:" + i);
-        }
-        
-        return i;
-    }
-    
+
     /**
      * Metodi tallentaa ennätyksen tietokantaan
      * @param newName käyttäjän nimi tai nimimerkki
