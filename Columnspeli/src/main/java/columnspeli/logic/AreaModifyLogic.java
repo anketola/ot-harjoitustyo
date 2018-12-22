@@ -41,7 +41,6 @@ public class AreaModifyLogic {
             highestBlocks.add(scanY);
             scanY = 0;
         }
-        System.out.println(highestBlocks);
         return highestBlocks;
     }
     

@@ -1,6 +1,7 @@
 package columnspeli.logic;
 
 import columnspeli.domain.Block;
+import columnspeli.domain.Directions;
 import columnspeli.domain.GameBlockArea;
 import java.util.ArrayList;
 import javafx.scene.paint.Color;
@@ -13,6 +14,10 @@ public class ScanLogic {
     
     private GameBlockArea gameBlockArea;
     private ArrayList<Block> demolishCollect;
+    private int scanX;
+    private int scanY;
+    private int streakCount;
+    
     
     public ScanLogic(GameBlockArea gameBlockArea) {
         this.gameBlockArea = gameBlockArea;
@@ -22,8 +27,8 @@ public class ScanLogic {
     public void scanStreaks() {
         horizontalScan();
         verticalScan();
-        diagonalScanDownRight();
-        diagonalScanDownLeft();
+        diagonalScanDownRight(0, 0);
+        diagonalScanDownLeft(gameBlockArea.getAreaEdgeX() - 1, 0);
     }
     
     /**
@@ -31,16 +36,16 @@ public class ScanLogic {
      */
     
     public void horizontalScan() {
-        int streakCount = 1;
+        streakCount = 1;
         for (int scanY = gameBlockArea.getAreaEdgeY() - 1; scanY > 0; scanY--) {
             for (int scanX = 0; scanX < gameBlockArea.getAreaEdgeX(); scanX++) {
                 if (gameBlockArea.hasBlock(scanX, scanY)) {
-                    if (nextBlockSimiliar(scanX, scanY, "right")) {
+                    if (nextBlockSimiliar(scanX, scanY, Directions.RIGHT)) {
                         streakCount++;
                     } else {
                         if (streakCount >= 3) {
                             for (int i = 0; i < streakCount; i++) {
-                                collect(scanX - i, scanY);
+                                collectSingle(scanX - i, scanY);
                             }
                         }
                         streakCount = 1;
@@ -55,16 +60,16 @@ public class ScanLogic {
      */
     
     public void verticalScan() {
-        int streakCount = 1;
+        streakCount = 1;
         for (int scanX = 0; scanX < gameBlockArea.getAreaEdgeX(); scanX++) {
             for (int scanY = gameBlockArea.getAreaEdgeY() - 1; scanY > 0; scanY--) {
                 if (gameBlockArea.hasBlock(scanX, scanY)) {
-                    if (nextBlockSimiliar(scanX, scanY, "up")) {
+                    if (nextBlockSimiliar(scanX, scanY, Directions.UP)) {
                         streakCount++;
                     } else {
                         if (streakCount >= 3) {
                             for (int i = 0; i < streakCount; i++) {
-                                collect(scanX, scanY + i);
+                                collectSingle(scanX, scanY + i);
                             }
                         }
                         streakCount = 1;
@@ -79,31 +84,22 @@ public class ScanLogic {
      * Metodi oikeaan alaviistoon menevien suorien tunistamiseksi.
      */
     
-    public void diagonalScanDownRight() {
-        int streakCount = 1;
-        int scanStartY = 0;
-        int scanStartX = 0;
-        int scanY;
-        int scanX;
+    public void diagonalScanDownRight(int scanStartX, int scanStartY) {
+        streakCount = 1;
         while (scanStartY < gameBlockArea.getAreaEdgeY()) {
-            scanY = scanStartY;
-            scanX = scanStartX;
+            setScanPointer(scanStartX, scanStartY);
             while ((scanX < gameBlockArea.getAreaEdgeX()) && (scanY < gameBlockArea.getAreaEdgeY())) {
                 if (gameBlockArea.hasBlock(scanX, scanY)) {
-                    if (nextBlockSimiliar(scanX, scanY, "downright")) {
+                    if (nextBlockSimiliar(scanX, scanY, Directions.DOWNRIGHT)) {
                         streakCount++;
                     } else {
                         if (streakCount >= 3) {
-                            for (int i = 0; i < streakCount; i++) {
-                                System.out.println("Deleting" + (scanX - i) + " , " + (scanY - i));
-                                collect(scanX - i, scanY - i);
-                            }   
+                            collectStreak(Directions.DOWNRIGHT);  
                         }
                         streakCount = 1;
                     }
                 }    
-                scanX++;
-                scanY++;
+                moveScanPointer(1, 1);
             }
             scanStartY++;
         }
@@ -113,39 +109,27 @@ public class ScanLogic {
      * Metodi vasempaan alaviistoon menevien suorien tunistamiseksi.
      */
     
-    public void diagonalScanDownLeft() {
-        int streakCount = 1;
-        int scanStartY = 0;
-        int scanStartX = gameBlockArea.getAreaEdgeX() - 1;
-        int scanY;
-        int scanX;
+    public void diagonalScanDownLeft(int scanStartX, int scanStartY) {
+        streakCount = 1;
         while (scanStartY < gameBlockArea.getAreaEdgeY()) {
-            scanY = scanStartY;
-            scanX = scanStartX;
+            setScanPointer(scanStartX, scanStartY);
             while ((scanX >= 0) && (scanY < gameBlockArea.getAreaEdgeY())) {
                 if (gameBlockArea.hasBlock(scanX, scanY)) {
-                    if (nextBlockSimiliar(scanX, scanY, "downleft")) {
+                    if (nextBlockSimiliar(scanX, scanY, Directions.DOWNLEFT)) {
                         streakCount++;
                     } else {
                         if (streakCount >= 3) {
-                            for (int i = 0; i < streakCount; i++) {
-                                System.out.println("Deleting" + (scanX + i) + " , " + (scanY - i));
-                                collect(scanX + i, scanY - i);
-                            }   
+                            collectStreak(Directions.DOWNLEFT);
                         }
                         streakCount = 1;
                     }
                 }    
-                scanX--;
-                scanY++;
+                moveScanPointer(-1, 1);
             }
             scanStartY++;
         }
     }
    
-
-    
-    
     /**
      * Metodi tarkastaa onko parametrien mukainen Block saman värinen kuin vertailusuunta;
      * @param compX Vertailtavaksi otettavan Block-olion x-koordinaatti.
@@ -154,20 +138,20 @@ public class ScanLogic {
      * @return palauttaa true, jos parametrien perusteella seuraava palikka on samanvärinen.
      */
     
-    public boolean nextBlockSimiliar(int compX, int compY, String direction) {
-        if (direction.equals("right")) {
+    public boolean nextBlockSimiliar(int compX, int compY, Directions direction) {
+        if (direction.equals(Directions.RIGHT)) {
             if ((gameBlockArea.getBlock(compX, compY).getColor() == gameBlockArea.getBlock(compX + 1, compY).getColor()) && (gameBlockArea.getBlock(compX + 1, compY).getColor() != Color.GRAY)) {
                 return true;
             }
-        } else if (direction.equals("up")) {
+        } else if (direction.equals(Directions.UP)) {
             if ((gameBlockArea.getBlock(compX, compY).getColor() == gameBlockArea.getBlock(compX, compY - 1).getColor()) && (gameBlockArea.getBlock(compX, compY - 1).getColor() != Color.GRAY)) {
                 return true;
             }
-        } else if (direction.equals("downright")) {
+        } else if (direction.equals(Directions.DOWNRIGHT)) {
             if ((gameBlockArea.getBlock(compX, compY).getColor() == gameBlockArea.getBlock(compX + 1, compY + 1).getColor()) && (gameBlockArea.getBlock(compX + 1, compY + 1).getColor() != Color.GRAY)) {
                 return true;
             }
-        } else if (direction.equals("downleft")) {
+        } else if (direction.equals(Directions.DOWNLEFT)) {
             if ((gameBlockArea.getBlock(compX, compY).getColor() == gameBlockArea.getBlock(compX - 1, compY + 1).getColor()) && (gameBlockArea.getBlock(compX - 1, compY + 1).getColor() != Color.GRAY)) {
                 return true;
             }
@@ -176,13 +160,36 @@ public class ScanLogic {
     }
         
     /**
-    * Kerää algoritmien havitsemat palikat talteen.
+    * Kerää algoritmin havitseman palikan talteen.
     * @param x neliön x sijainti
     * @param y neliön y sijainti.
     */
     
-    public void collect(int x, int y) {
+    public void collectSingle(int x, int y) {
         demolishCollect.add(gameBlockArea.getBlock(x, y));
+    }
+
+    public void collectStreak(Directions direction) {
+        if (direction == Directions.DOWNRIGHT) {
+            for (int i = 0; i < streakCount; i++) {
+                collectSingle(scanX - i, scanY - i);
+            }
+        } else if (direction == Directions.DOWNLEFT) {
+            for (int i = 0; i < streakCount; i++) {
+                collectSingle(scanX + i, scanY - i);
+            }
+        }
+           
+    }
+    
+    public void moveScanPointer(int x, int y) {
+        this.scanX = this.scanX + x;
+        this.scanY = this.scanY + y;
+    }
+    
+    public void setScanPointer(int x, int y) {
+        this.scanX = x;
+        this.scanY = y;
     }
     
     public ArrayList<Block> getCollected() {

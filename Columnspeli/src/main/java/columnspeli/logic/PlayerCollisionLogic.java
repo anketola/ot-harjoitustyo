@@ -9,7 +9,7 @@ public class PlayerCollisionLogic {
     private PlayerBlock playerBlock;
     private GameBlockArea gameBlockArea;
     
-    public PlayerCollisionLogic (PlayerBlock playerBlock, GameBlockArea gameBlockArea) {
+    public PlayerCollisionLogic(PlayerBlock playerBlock, GameBlockArea gameBlockArea) {
         this.playerBlock = playerBlock;
         this.gameBlockArea = gameBlockArea;
     }

@@ -63,7 +63,7 @@ public class GameController {
             playerBlock.moveDown();
         } else if ((direction == Directions.DOWN) && (playerCollisionLogic.isCollisionDown())) {
             areaModifyLogic.releaseBlocks();
-            seekBlockStreaks();    
+            seekAndDestroy();    
             if (!gameOver()) {
                 playerBlock.respawn(playerCollisionLogic.eglibleRespawn());
             }
@@ -75,12 +75,12 @@ public class GameController {
      * Metodi sisältää pelialueen systemaattista tarkastelua varten metodikokoelman.
      */
     
-    public void seekBlockStreaks() {
+    public void seekAndDestroy() {
         scanLogic.scanStreaks();
         this.demolishCollect = scanLogic.getCollected();
         clearCollected();
         areaModifyLogic.scanAndDrop();
-      }
+    }
     
     
     /**

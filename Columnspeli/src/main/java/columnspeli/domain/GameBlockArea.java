@@ -6,7 +6,7 @@ public class GameBlockArea {
    
     private Block[][] gameBlocks;
     
-    public GameBlockArea (int x, int y) {
+    public GameBlockArea(int x, int y) {
         this.gameBlocks = new Block [x][y];
         generateEmptyArea();
     }
